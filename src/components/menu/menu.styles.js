@@ -2,6 +2,7 @@ import styled  from 'styled-components'
 
 export const MainMenuContainer = styled.div`
     width: 20%;
+    margin-top: 80px;
 `
 
 export const MenuContainer = styled.div`
@@ -35,8 +36,3 @@ export const OptionText = styled.span`
     margin-left: 15px;
 `
 
-export const MenuLogo = styled.img`
-    width: 50px;
-    height: 50px;
-    margin: 60px 0px;
-`

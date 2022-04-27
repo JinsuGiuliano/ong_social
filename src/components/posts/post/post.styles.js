@@ -55,11 +55,3 @@ export const CreatePostContainer = styled.div`
 export const UserInfoChild  = styled.div`
     margin-right: 4px; 
 `
-export const TopMenuBar = styled.div`
-    display: flex;
-    justify-content: space-between;
-    position: fixed;
-    width: 100px;
-    z-index:9999;
-    
-`

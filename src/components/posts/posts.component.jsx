@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { PostContainer, TopMenuBar } from './posts.styles';
+import { PostContainer } from './posts.styles';
 
 import { selectAllPosts } from '../../redux/posts/posts.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
@@ -13,10 +13,6 @@ const Posts =  () => {
 
     return(
         <PostContainer>
-        <TopMenuBar>
-            <div><span style={{fontSize:'18px'}}> INICIO </span></div>
-            <div><span style={{fontSize:'18px'}}> + </span></div>
-        </TopMenuBar>
         <CreatePost/>
         {
             posts && 

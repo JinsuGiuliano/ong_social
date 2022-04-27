@@ -20,10 +20,16 @@ export const GroupContainer = styled.div`
 const postInputStyle = css`
   width: 400px;
 `
+const searchInputStyle = css`
+  
+`
 
 const getInputStyles = props => {
   if (props.isPost) {
     return postInputStyle;
+  }
+  if(props.searchBar){
+    return searchInputStyle;
   }
   return;
 };

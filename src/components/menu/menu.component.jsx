@@ -10,14 +10,11 @@ import {
 
 
 
-const Menu = () => {
+const LeftMenu = () => {
 
     return(
         <MainMenuContainer>
         <MenuContainer>
-            <OptionContainer>
-                <MenuLogo src={'./ysp-logo.png'} alt=''/>
-            </OptionContainer>
             <OptionContainer>
                 <OptionIcon imageUrl={'./icons/home.png'}/>
                 <OptionText>Inicio</OptionText>
@@ -39,4 +36,4 @@ const Menu = () => {
     )
 }
 
-export default Menu;
+export default LeftMenu;

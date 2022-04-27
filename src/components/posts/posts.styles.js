@@ -6,6 +6,7 @@ export const PostContainer = styled.div`
     padding: 10px;
     display: flex;
     flex-direction: column;
+    margin-top: 40px;
 `
 export const TopMenuBar = styled.div`
     display: flex;
@@ -17,6 +18,5 @@ export const TopMenuBar = styled.div`
     height:50px;
     width: 600px;
     padding: 5px 0px;
-    z-index:9999;
     
 `
