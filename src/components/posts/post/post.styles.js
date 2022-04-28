@@ -2,11 +2,16 @@ import styled from 'styled-components';
 
 
 export const PostContainer = styled.div`
-    width: 100%;
+    width: 95%;
     padding: 20px 10px;
     display: flex;
     flex-direction:row;
-    margin: 20px 0px;
+    margin: 5px 0px;
+    cursor:pointer;
+
+    &:hover{
+        background-color: #f0f0f0;
+    }
 `
 
 export const PostUserIcon = styled.img`
@@ -21,8 +26,9 @@ export const PostContentContainer = styled.div`
     align-items: normal;
 `
 
+
 export const PostUserInfoContainer = styled.div`
-    width: 600px;
+    width: 550px;
     display: flex;
     flex-direction:row;
     align-items: flex-start;

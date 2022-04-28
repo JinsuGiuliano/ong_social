@@ -48,12 +48,30 @@ const isPostStyles = css`
   }
 `;
 
+const isFollowStyles = css`
+  background-color: #000;
+  color: white;
+  padding: 0 2px 0 2px;
+  font-size: 10px;
+  min-width: 70px;
+  height: 30px;
+  border: none;
+  border-radius: 25px;
+  float: right;
+  &:hover {
+    background-color: gray;
+  }
+`;
+
 const getButtonStyles = props => {
   if (props.isGoogleSignIn) {
     return googleSignInStyles;
   }
   if(props.isPost){
     return isPostStyles;
+  }
+  if(props.isFollow){
+    return isFollowStyles
   }
   return props.inverted ? invertedButtonStyles : buttonStyles;
 };
@@ -71,6 +89,7 @@ export const CustomButtonContainer = styled.button`
   cursor: pointer;
   display: flex;
   justify-content: center;
+  align-items: center;
 
   ${getButtonStyles}
 `;

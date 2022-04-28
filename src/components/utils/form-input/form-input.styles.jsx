@@ -21,7 +21,8 @@ const postInputStyle = css`
   width: 400px;
 `
 const searchInputStyle = css`
-  
+  margin:0px;
+  width: 10%;
 `
 
 const getInputStyles = props => {

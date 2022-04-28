@@ -6,11 +6,12 @@ import {
   OptionIcon,
   OptionText,
   MenuLogo
-} from './menu.styles'
-
-
+} from './LeftMenu.styles'
+import CustomButton from '../utils/custom-button/custom-button.component';
 
 const LeftMenu = () => {
+
+
 
     return(
         <MainMenuContainer>
@@ -30,6 +31,9 @@ const LeftMenu = () => {
             <OptionContainer>
                 <OptionIcon imageUrl={'./icons/heart.png'}/>
                 <OptionText>Guardados</OptionText>
+            </OptionContainer>
+            <OptionContainer>
+                <CustomButton isPost onClick={()=>{return}} style={{width:'200px'}}> Post It! </CustomButton>
             </OptionContainer>
         </MenuContainer>
         </MainMenuContainer>

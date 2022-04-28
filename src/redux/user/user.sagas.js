@@ -7,11 +7,13 @@ import {
   signOutSuccess,
   signOutFailure,
   signUpSuccess,
-  signUpFailure
+  signUpFailure,
+  fetchUsersSuccess,
+  fetchUsersFailure
 } from './user.actions';
-
+import { firestore } from '../../firebase/firebase.utils';
 import {signOut as signOutLib, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { getDoc } from "firebase/firestore";
+import { getDoc, getDocs, collection } from "firebase/firestore";
 import {
   provider,
   createUserProfileDocument,
@@ -29,6 +31,19 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
     yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
   } catch (error) {
     yield put(signInFailure(error));
+  }
+}
+
+export function* fetchUsersAsync() {
+  try {
+    const userRef = yield collection(firestore,'users')
+    const userSnapshot = yield getDocs(userRef);
+    const Users = []
+    userSnapshot.docs.map( u => Users.push(u.data()))
+    yield console.log('USERS: ',Users)
+    yield put(fetchUsersSuccess(Users));
+  } catch (error) {
+    yield put(fetchUsersFailure(error));
   }
 }
 
@@ -112,6 +127,10 @@ export function* onSignUpSuccess() {
   yield takeLatest(UserActionTypes.SIGN_UP_SUCCESS, signInAfterSignUp);
 }
 
+export function* onFetchUsersAsync() {
+  yield takeLatest(UserActionTypes.FETCH_USERS_START, fetchUsersAsync);
+}
+
 export function* userSagas() {
   yield all([
     call(onGoogleSignInStart),
@@ -119,6 +138,7 @@ export function* userSagas() {
     call(onCheckUserSession),
     call(onSignOutStart),
     call(onSignUpStart),
-    call(onSignUpSuccess)
+    call(onSignUpSuccess),
+    call(onFetchUsersAsync)
   ]);
 }

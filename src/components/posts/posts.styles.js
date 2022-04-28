@@ -2,11 +2,12 @@ import styled from 'styled-components'
 
 
 export const PostContainer = styled.div`
-    width: 600px;
+    width: 50%;
     padding: 10px;
     display: flex;
     flex-direction: column;
     margin-top: 40px;
+    border: 1px solid grey;
 `
 export const TopMenuBar = styled.div`
     display: flex;
@@ -16,7 +17,6 @@ export const TopMenuBar = styled.div`
     top:0;
     background-color: #fff;
     height:50px;
-    width: 600px;
     padding: 5px 0px;
     
 `

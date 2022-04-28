@@ -3,7 +3,6 @@ import { PostContainer, PostUserIcon, PostContentContainer,
         PostUserInfoContainer, PostText , UserInfoChild, InfoTextContainer } from './post.styles'
 
 const Post = ({ data }) => {
-    console.log('data: ', data)
     const { caption, creation, downloadURL, likesCount, photo, name, email } = data
     const nDate = new Date(creation.seconds*1000).toDateString()
     return(
@@ -18,13 +17,13 @@ const Post = ({ data }) => {
                         <p style={{fontSize:'13px',color:'black' }}><strong> { name.toUpperCase() } </strong></p>
                     </UserInfoChild> 
                     <UserInfoChild>
-                        <p style={{fontSize:'10px',color:'gray' }}> { email } </p>
+                        <p style={{fontSize:'12px',color:'gray' }}> { email } </p>
                     </UserInfoChild> 
                     <UserInfoChild>
-                        <p style={{fontSize:'10px',color:'gray' }}> { nDate } </p>
+                        <p style={{fontSize:'12px',color:'gray' }}> { nDate } </p>
                     </UserInfoChild> 
                 </InfoTextContainer>     
-                            </PostUserInfoContainer>
+            </PostUserInfoContainer>
             <PostText>{ caption }</PostText>
         </PostContentContainer>
     </PostContainer>

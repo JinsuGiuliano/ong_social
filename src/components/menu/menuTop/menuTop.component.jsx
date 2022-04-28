@@ -1,8 +1,7 @@
 import React from 'react'
 
-import { CenterBarContainer, MenuLogoContainer, MenuTopContainer, SearchBarContainer, MenuLogo } from './menuTop.styles';
+import { CenterBarContainer, MenuLogoContainer, MenuTopContainer, SearchBarContainer, MenuLogo, TendenciesLogo } from './menuTop.styles';
 import SearchBar from '../../searchBar/searchBar.components';
-import LeftMenu from '../menu.component';
 const MenuTop = () => {
 
     return(
@@ -13,8 +12,10 @@ const MenuTop = () => {
               </div>
             </MenuLogoContainer>
             <CenterBarContainer>
-                <div><span style={{fontSize:'18px'}}> INICIO </span></div>
-                <div><span style={{fontSize:'18px'}}> + </span></div>
+                <div><span style={{fontSize:'18px'}}> Inicio </span></div>
+                <div> 
+                    <TendenciesLogo src={'./icons/stars.png'} alt='tendencias hoy'/>
+                </div>
             </CenterBarContainer>
             <SearchBarContainer>
                 <SearchBar searchBar />

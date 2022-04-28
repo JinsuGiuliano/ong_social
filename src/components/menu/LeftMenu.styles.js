@@ -1,12 +1,11 @@
 import styled  from 'styled-components'
 
 export const MainMenuContainer = styled.div`
-    width: 20%;
+    width: 25%;
     margin-top: 80px;
 `
 
 export const MenuContainer = styled.div`
-    width: 100%;
     display: flex;
     position: fixed;
     flex-direction: column;
@@ -20,7 +19,7 @@ export const OptionContainer = styled.div`
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    padding: 10px 20px;
+    padding: 8px 20px;
 `
 export const OptionIcon = styled.div`
     width: 25px;

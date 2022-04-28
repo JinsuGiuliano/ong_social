@@ -31,8 +31,6 @@ export function* postFetch() {
         userPostsSnap.docs.map(d => allPosts.push({...d.data(), id: d.id, ...postUserSnap.data()}))
         
       }
-      yield console.log(allPosts)
-      
       yield put(postFetchSuccess(allPosts));
     } catch (error) {
       yield put(postFetchFailure(error));

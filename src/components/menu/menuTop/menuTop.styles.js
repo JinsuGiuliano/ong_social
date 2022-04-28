@@ -15,14 +15,13 @@ export const MenuTopContainer = styled.div`
 `;
 
 export const MenuLogoContainer = styled.div`
-    width: 25%;
+    width: 23%;
     height: 50px;
     top:0;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     padding: 5px 5px;
-    
 `;
 
 
@@ -31,14 +30,14 @@ export const CenterBarContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     top:0;
+    height:50px;
     background-color: #fff;
-    height:auto;
     width: 50%;
-    padding: 5px 20px 0px 0px;
-    z-index:9999;
+    padding: 5px 5px;
 `;
 
 export const SearchBarContainer =  styled.div`
+    display: flex;
     width: 25%;
 `;
     
@@ -46,5 +45,16 @@ export const SearchBarContainer =  styled.div`
 export const MenuLogo = styled.img`
     width: 50px;
     height: 50px;
-    margin: 60px 0px;
+    cursor:pointer;
+`;
+
+export const TendenciesLogo = styled.img`
+    width: 30px;
+    height: 30px;
+    cursor:pointer;
+
+    &:hover{
+        width: 33px;
+        height: 33px; 
+    }
 `;
