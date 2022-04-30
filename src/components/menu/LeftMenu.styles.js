@@ -1,4 +1,11 @@
 import styled  from 'styled-components'
+import { ReactComponent as UserSVG  } from '../../assets/icons/user.svg'
+import { ReactComponent as HeartSVG  } from '../../assets/icons/heart.svg'
+import { ReactComponent as HomeSVG  } from '../../assets/icons/home.svg'
+import { ReactComponent as BellSVG  } from '../../assets/icons/bell.svg'
+import { ReactComponent as EnvelopeSVG  } from '../../assets/icons/envelope.svg'
+
+
 
 export const MainMenuContainer = styled.div`
     width: 25%;
@@ -72,3 +79,78 @@ export const SavedCounterContainer = styled.div`
     text-align: center;
 `
 
+export const UserIcon = styled(UserSVG)`
+    width: 24px;
+    height: 100%;
+    margin: 0 5px;
+    cursor: pointer;
+        & path {
+            fill: gray;
+        }
+        &:hover{
+            & path {
+               fill: ${({color}) => color };
+            }
+        }
+`
+
+export const HeartIcon = styled(HeartSVG)`
+    width: 24px;
+    height: 100%;
+    margin: 0 5px;
+    cursor: pointer;
+        & path {
+            fill: gray;
+        }
+        &:hover{
+            & path {
+               fill: ${({color}) => color };
+            }
+        }
+`
+
+export const HomeIcon = styled(HomeSVG)`
+    width: 24px;
+    height: 100%;
+    margin: 0 5px;
+    cursor: pointer;
+        & path {
+            fill: gray;
+        }
+        &:hover{
+            & path {
+               fill: ${({color}) => color };
+            }
+        }
+`
+
+
+export const BellIcon = styled(BellSVG)`
+    width: 24px;
+    height: 100%;
+    margin: 0 5px;
+    cursor: pointer;
+        & path {
+            fill: gray;
+        }
+        &:hover{
+            & path {
+               fill: ${({color}) => color };
+            }
+        }
+`
+
+export const EnvelopeIcon = styled(EnvelopeSVG)`
+    width: 24px;
+    height: 100%;
+    margin: 0 5px;
+    cursor: pointer;
+        & path {
+            fill: gray;
+        }
+        &:hover{
+            & path {
+               fill: ${({color}) => color };
+            }
+        }
+`

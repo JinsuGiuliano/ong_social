@@ -9,7 +9,8 @@ import {
   OptionText,
   ProfileOptionContainer,
   PostOptionContainer,
-  SavedCounterContainer
+  SavedCounterContainer,
+  UserIcon, HeartIcon, HomeIcon, BellIcon, EnvelopeIcon
 } from './LeftMenu.styles'
 import CustomButton from '../utils/custom-button/custom-button.component';
 import ProfileBar from './profile/profileBar.component';
@@ -23,20 +24,20 @@ const LeftMenu = () => {
         <MenuContainer>
             <div>
                 <OptionContainer>
-                    <OptionIcon imageUrl={'./icons/home.png'}/>
+                    <HomeIcon color={'black'}/>
                     <OptionText>Inicio</OptionText>
 
                 </OptionContainer>
                 <OptionContainer>
-                    <OptionIcon imageUrl={'./icons/bell.png'}/>
+                    <BellIcon color={'black'}/>
                     <OptionText>Notificaciones</OptionText>
                 </OptionContainer>
                 <OptionContainer>
-                    <OptionIcon imageUrl={'./icons/envelope.png'}/>
+                    <EnvelopeIcon color={'black'}/>
                     <OptionText>Mensajes</OptionText>
                 </OptionContainer>
                 <OptionContainer>
-                    <OptionIcon imageUrl={'./icons/heart.png'}/>
+                    <HeartIcon color={'black'}/>
                     <OptionText>Guardados </OptionText>
                     {
                         savedPostsLength?
@@ -45,6 +46,10 @@ const LeftMenu = () => {
                         </SavedCounterContainer>
                         : '' 
                     }
+                </OptionContainer>
+                <OptionContainer>
+                    <UserIcon color={'black'}/>
+                    <OptionText>Perfil</OptionText>
                 </OptionContainer>
             </div>
             <PostOptionContainer  style={{margin:'30px'}}>
