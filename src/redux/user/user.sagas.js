@@ -15,7 +15,11 @@ import {
   unfollowSuccess,
   unfollowFailure,
   fetchFollowSuccess,
-  fetchFollowFailure
+  fetchFollowFailure,
+  postSaveSuccess,
+  postSaveFailure,
+  postUnSaveSuccess,
+  postUnSaveFailure
 } from './user.actions';
 import {signOut as signOutLib, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { getDoc, getDocs, collection ,doc, setDoc, deleteDoc} from "firebase/firestore";
@@ -34,7 +38,7 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
       additionalData
     );
     const userSnapshot = yield getDoc(userRef);
-    yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
+    yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data(), photo:userAuth.photoURL?userAuth.photoURL: userSnapshot.data().photo }));
   } catch (error) {
     yield put(signInFailure(error));
   }
@@ -147,6 +151,29 @@ export function* fetchFollowAsync() {
   }
 }
 
+export function* savePostAsync({ payload: userId  }) {
+  try {
+    const uid = yield getAuth().currentUser.uid
+    yield console.log('saved: ', userId)
+    const savedRef = yield doc(firestore, "saved", uid, 'postsSaved', userId);
+    yield setDoc(savedRef, {});
+    yield put(postSaveSuccess(userId));
+  } catch (error) {
+    yield put(postSaveFailure(error));
+  }
+}
+
+export function* unSavePostAsync({ payload: userId  }) {
+  try {
+    const uid = yield getAuth().currentUser.uid
+    yield console.log('saved: ', userId)
+    const savedRef = yield doc(firestore, "saved", uid, 'postsSaved', userId);
+    yield deleteDoc(savedRef, {});
+    yield put(postUnSaveSuccess(userId));
+  } catch (error) {
+    yield put(postUnSaveFailure(error));
+  }
+}
 
 //Actual SAGAS!
 export function* onGoogleSignInStart() {
@@ -189,6 +216,14 @@ export function* onFetchFollowing() {
   yield takeLatest(UserActionTypes.FETCH_FOLLOW_START, fetchFollowAsync);
 }
 
+export function* onSavePostAsync() {
+  yield takeLatest(UserActionTypes.POST_SAVE_START, savePostAsync);
+}
+
+export function* onUnSavePostAsync() {
+  yield takeLatest(UserActionTypes.POST_UNSAVE_START, unSavePostAsync);
+}
+
 export function* userSagas() {
   yield all([
     call(onGoogleSignInStart),
@@ -200,6 +235,8 @@ export function* userSagas() {
     call(onFetchUsersAsync),
     call(onFollowAsync),
     call(onUnFollowAsync),
-    call(onFetchFollowing)
+    call(onFetchFollowing),
+    call(onSavePostAsync),
+    call(onUnSavePostAsync)
   ]);
 }

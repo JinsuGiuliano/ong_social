@@ -15,6 +15,7 @@ const SearchBar = () => {
                 value={''}
                 onChange={handleChange}
                 required
+                searchBar
                 />
         </SearchBarContainer>
     )

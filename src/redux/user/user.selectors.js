@@ -16,3 +16,13 @@ export const selectFollowingUsers = createSelector(
   [selectUser],
   user => user.following
 );
+
+export const selectSavedPosts = createSelector(
+  [selectUser],
+  user => user.saved
+);
+
+export const selectSavedPostsLength = createSelector(
+  [selectUser],
+  user => user.saved.length
+);

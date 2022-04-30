@@ -14,7 +14,7 @@ const Posts =  () => {
     const posts = useSelector(selectAllPosts)
     const following = useSelector(selectFollowingUsers)
     console.log('following: ', following)
-    posts.sort((a,b) => a.createdAt -  b.createdAt )
+    posts.sort((a,b) => b.createdAt -  a.createdAt )
     return(
         <PostContainer>
         <CreatePost/>

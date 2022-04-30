@@ -51,7 +51,12 @@ export const postsReducer = (state = INITIAL_STATE, action) => {
           ...state,
           isFetching: false,
         };
-      
+    case PostActionTypes.POST_LIKE_SUCCESS:
+      console.log('POST_LIKE_SUCCESS: ',payload)
+      return{
+        ...state,
+        posts: state.posts.map(e => e.id === payload? {...e, likesCount: e.likesCount + 1} : e)
+      }
     default:
       return {...state};
   }

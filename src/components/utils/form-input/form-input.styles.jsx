@@ -3,11 +3,7 @@ import styled, { css } from 'styled-components';
 import {backgroundColor, textColor} from '../../../redux/theme/styles.const';
 
 
-const shrinkLabelStyles = css`
-  top: -14px;
-  font-size: 12px;
-  color: ${textColor};
-`;
+
 
 export const GroupContainer = styled.div`
   position: relative;
@@ -20,9 +16,24 @@ export const GroupContainer = styled.div`
 const postInputStyle = css`
   width: 400px;
 `
+
+const searchBarShrinkLabelStyles = css`
+  top: -10px;
+  font-size: 10px;
+  color: gray;
+`;
+
 const searchInputStyle = css`
   margin:0px;
-  width: 10%;
+  font-size: 13px;
+
+  &.shrink {
+    ${searchBarShrinkLabelStyles}
+  }
+
+  &:focus ~ label {
+    ${searchBarShrinkLabelStyles}
+  }
 `
 
 const getInputStyles = props => {
@@ -30,11 +41,16 @@ const getInputStyles = props => {
     return postInputStyle;
   }
   if(props.searchBar){
-    return searchInputStyle;
+    return searchInputStyle ;
   }
   return;
 };
 
+const shrinkLabelStyles = css`
+  top: -14px;
+  font-size: 12px;
+  color: ${textColor};
+`;
 
 export const FormInputContainer = styled.input`
   background: none;
@@ -74,4 +90,7 @@ export const FormInputLabel = styled.label`
   &.shrink {
     ${shrinkLabelStyles}
   }
+
+  ${getInputStyles}
+
 `;

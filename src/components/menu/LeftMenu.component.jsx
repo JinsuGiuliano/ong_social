@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import {selectSavedPosts, selectSavedPostsLength} from '../../redux/user/user.selectors'
 import {
   MainMenuContainer,
   MenuContainer,
@@ -11,7 +13,8 @@ import {
 import CustomButton from '../utils/custom-button/custom-button.component';
 import ProfileBar from './profile/profileBar.component';
 const LeftMenu = () => {
-
+    const savedPosts = useSelector(selectSavedPosts)
+    const savedPostsLength = useSelector(selectSavedPostsLength) 
 
 
     return(
@@ -21,6 +24,7 @@ const LeftMenu = () => {
                 <OptionContainer>
                     <OptionIcon imageUrl={'./icons/home.png'}/>
                     <OptionText>Inicio</OptionText>
+
                 </OptionContainer>
                 <OptionContainer>
                     <OptionIcon imageUrl={'./icons/bell.png'}/>
@@ -32,7 +36,7 @@ const LeftMenu = () => {
                 </OptionContainer>
                 <OptionContainer>
                     <OptionIcon imageUrl={'./icons/heart.png'}/>
-                    <OptionText>Guardados</OptionText>
+                    <OptionText>Guardados <span style={{color:'red'}}> {savedPostsLength? savedPostsLength : '' } </span></OptionText>
                 </OptionContainer>
             </div>
             <PostOptionContainer  style={{margin:'30px'}}>

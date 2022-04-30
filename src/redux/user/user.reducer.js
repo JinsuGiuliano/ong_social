@@ -38,13 +38,23 @@ export const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         following: [...state.following, payload]
       }
-      case UserActionTypes.UNFOLLOW_SUCCESS:
-        // const idx = state.following.indexOf(payload)
-        // state.following.splice(idx,1)
-         return{
-           ...state,
-           following: state.following.filter(e => e !== payload)
-         }
+    case UserActionTypes.POST_SAVE_SUCCESS:
+      return{
+        ...state,
+        saved: [...state.saved, payload]
+      }
+    case UserActionTypes.POST_UNSAVE_SUCCESS:
+      return{
+        ...state,
+        saved: state.saved.filter(e => e !== payload)
+      }
+    case UserActionTypes.UNFOLLOW_SUCCESS:
+        return{
+          ...state,
+          following: state.following.filter(e => e !== payload)
+        }
+
+    case UserActionTypes.POST_SAVE_FAILURE:
     case UserActionTypes.SIGN_IN_FAILURE:
     case UserActionTypes.SIGN_OUT_FAILURE:
     case UserActionTypes.SIGN_UP_FAILURE:

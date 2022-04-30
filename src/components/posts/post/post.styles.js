@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-
+import { ReactComponent as HeartSVG  } from '../../../assets/icons/heart.svg'
+import { ReactComponent as ClapSVG  } from '../../../assets/icons/clap.svg'
+import { ReactComponent as ShareSVG  } from '../../../assets/icons/share.svg'
 
 export const PostContainer = styled.div`
     width: 95%;
@@ -35,6 +37,15 @@ export const PostUserInfoContainer = styled.div`
     align-items: center;
 ` 
 
+export const PostActionsContainer = styled.div`
+    width: 450px;
+    display: flex;
+    flex-direction:row;
+    align-items: flex-start;
+    justify-content: flex-end;
+    align-items: center;
+` 
+
 export const InfoTextContainer = styled.div`
     width: 100%;
     display: flex;
@@ -58,4 +69,49 @@ export const CreatePostContainer = styled.div`
 
 export const UserInfoChild  = styled.div`
     margin-right: 4px; 
+`
+
+export const HeartIcon = styled(HeartSVG)`
+width: 24px;
+height: 100%;
+margin: 0 5px;
+cursor: pointer;
+& path {
+  fill: ${({color}) => color };
+}
+&:hover{
+    & path {
+  fill: red;
+}
+}
+`
+
+
+export const ClapIcon = styled(ClapSVG)`
+width: 24px;
+height: 100%;
+margin: 0 5px;
+cursor: pointer;
+& path {
+  fill: gray;
+}
+&:hover{
+    & path {
+  fill: ${({color}) => color };
+}
+}
+`
+export const ShareIcon = styled(ShareSVG)`
+width: 24px;
+height: 100%;
+margin: 0 5px;
+cursor: pointer;
+& path {
+  fill: gray;
+}
+&:hover{
+    & path {
+  fill: ${({color}) => color };
+}
+}
 `

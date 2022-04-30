@@ -63,3 +63,35 @@ export const postDeleteFailure = error => ({
     type: PostActionTypes.POST_DELETE_FAILURE,
     payload: error
 });
+
+// like Post
+export const postLikeStart = (postId,uid) => ({
+    type: PostActionTypes.POST_LIKE_START,
+    payload: { postId, uid }
+  });
+  
+export const postLikeSuccess = postId => ({
+    type: PostActionTypes.POST_LIKE_SUCCESS,
+    payload: postId
+});
+
+export const postLikeFailure = error => ({
+    type: PostActionTypes.POST_LIKE_FAILURE,
+    payload: error
+});
+
+// dislike Post
+export const postDisLikeStart = post => ({
+    type: PostActionTypes.POST_DISLIKE_START,
+    payload: post
+  });
+  
+export const postDisLikeSuccess = post => ({
+    type: PostActionTypes.POST_DISLIKE_SUCCESS,
+    payload: post
+});
+
+export const postDisLikeFailure = error => ({
+    type: PostActionTypes.POST_DISLIKE_FAILURE,
+    payload: error
+});

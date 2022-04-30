@@ -113,3 +113,35 @@ export const fetchFollowFailure = error => ({
   type: UserActionTypes.FETCH_FOLLOW_FAILURE,
   payload: error
 });
+
+// Save Post
+export const postSaveStart = postId => ({
+  type: UserActionTypes.POST_SAVE_START,
+  payload: postId
+});
+
+export const postSaveSuccess = postId => ({
+  type: UserActionTypes.POST_SAVE_SUCCESS,
+  payload: postId
+});
+
+export const postSaveFailure = error => ({
+  type: UserActionTypes.POST_SAVE_FAILURE,
+  payload: error
+});
+
+// Unsave Post
+export const postUnSaveStart = postId => ({
+  type: UserActionTypes.POST_UNSAVE_START,
+  payload: postId
+});
+
+export const postUnSaveSuccess = postId => ({
+  type: UserActionTypes.POST_UNSAVE_SUCCESS,
+  payload: postId
+});
+
+export const postUnSaveFailure = error => ({
+  type: UserActionTypes.POST_UNSAVE_FAILURE,
+  payload: error
+});
