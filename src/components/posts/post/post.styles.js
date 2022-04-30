@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { ReactComponent as HeartSVG  } from '../../../assets/icons/heart.svg'
 import { ReactComponent as ClapSVG  } from '../../../assets/icons/clap.svg'
 import { ReactComponent as ShareSVG  } from '../../../assets/icons/share.svg'
+import { ReactComponent as ImageSVG  } from '../../../assets/icons/image.svg'
 
 export const PostContainer = styled.div`
     width: 95%;
@@ -114,4 +115,31 @@ cursor: pointer;
   fill: ${({color}) => color };
 }
 }
+`
+
+export const ImageIcon = styled(ImageSVG)`
+    width: 18px;
+    height: 100%;
+    margin: 0 5px;
+    cursor: pointer;
+
+        & path {
+            fill: #4285f4;
+        }
+        &:hover{
+            & path {
+                fill: #357ae8;
+            }   
+        }
+`
+
+export const PostImage = styled.div`
+    width: 100%;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 5px;
+    border-radius:25px;
+    margin:10px;
+    background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 `

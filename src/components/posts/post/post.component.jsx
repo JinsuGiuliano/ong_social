@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { postSaveStart, postUnSaveStart } from "../../../redux/user/user.actions";
 import { postLikeStart, postDisLikeStart } from "../../../redux/posts/posts.actions";
 import { selectSavedPosts } from "../../../redux/user/user.selectors";
-import { PostContainer, PostUserIcon, PostContentContainer,
+import { PostContainer, PostUserIcon, PostContentContainer, PostImage,
         PostUserInfoContainer, PostText , UserInfoChild, InfoTextContainer,PostActionsContainer ,HeartIcon, ClapIcon, ShareIcon } from './post.styles'
 
 const Post = ({ data }) => {
 
     const dispatch = useDispatch()
 
-    const { caption, createdAt, creation, downloadURL, likesCount, photo, name, email, id, uid } = data
+    const { caption, createdAt, creation, filePath, likesCount, photo, name, email, id, uid } = data
     const savedPosts = useSelector(selectSavedPosts)
     const postSaved = !savedPosts.includes(id)
 
@@ -47,23 +47,33 @@ const Post = ({ data }) => {
                 </UserInfoChild> 
             </InfoTextContainer>     
         </PostUserInfoContainer>
-        <PostText>{ caption }</PostText>
-        <PostActionsContainer>
-                <div>
-                {
-                    postSaved?
-                    <HeartIcon color={'gray' } onClick={()=> savePost()}/>
-                    :
-                    <HeartIcon color={'red' } onClick={()=> unSavePost()}/>
-                }
-                </div>
+        <div style={{display:'flex',flexDirection:'column', padding:'10px'}}>
+            <PostText>{ caption }</PostText>
             
-            <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
-                <div><ClapIcon color='#4285f4' onClick={()=>likePost()}/></div>
-                <div><span style={{fontSize:'10px',color:'gray', position:'absolute', top:'3'}}>{likesCount === 0? '': likesCount }</span></div>
-            </div>
-            <div><ShareIcon color='#75ae2b'/></div>
-        </PostActionsContainer>
+                {
+                    filePath?
+                    <PostImage imageUrl={filePath} >
+                        
+                    </PostImage>
+                    : null
+                }
+            <PostActionsContainer>
+                    <div>
+                    {
+                        postSaved?
+                        <HeartIcon color={'gray' } onClick={()=> savePost()}/>
+                        :
+                        <HeartIcon color={'red' } onClick={()=> unSavePost()}/>
+                    }
+                    </div>
+                
+                <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+                    <div><ClapIcon color='#4285f4' onClick={()=>likePost()}/></div>
+                    <div><span style={{fontSize:'10px',color:'gray', position:'absolute', top:'3'}}>{likesCount === 0? '': likesCount }</span></div>
+                </div>
+                <div><ShareIcon color='#75ae2b'/></div>
+            </PostActionsContainer>
+        </div>
     </PostContentContainer>
 
     } 

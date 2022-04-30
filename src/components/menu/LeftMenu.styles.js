@@ -62,3 +62,13 @@ export const OptionText = styled.span`
     margin-left: 15px;
 `
 
+export const SavedCounterContainer = styled.div`
+    margin: 0 5px;
+    padding: 2px;
+    background-color: #e95555;
+    border-radius:30px;
+    width: 20px;
+    height:20px;
+    text-align: center;
+`
+

@@ -39,9 +39,9 @@ export const postsReducer = (state = INITIAL_STATE, action) => {
         errorMessage: payload
       };
     case PostActionTypes.POST_CREATE_SUCCESS:
-         state.posts.push(payload)
          return {
           ...state,
+          posts: [...state.posts, payload],
           isFetching: false,
         };
       

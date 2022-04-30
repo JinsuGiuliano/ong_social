@@ -15,6 +15,7 @@ import {
     postDisLikeSuccess,
     postDisLikeFailure  
 } from './posts.actions'
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 import { getDoc, collection, getDocs, doc, setDoc, addDoc, updateDoc, increment } from "firebase/firestore";
 import {
@@ -48,15 +49,35 @@ export function* postFetch() {
 
 export function* postCreate({payload:{post, user}}) {
   try {
+   
     const newPostRef = yield collection(firestore, "posts", user.id, 'userPosts');
-    //const postSnap = yield setDoc(newPostRef, post).then();
-    const postSnap = yield addDoc(newPostRef, post);
-    yield console.log('postSnap: ',postSnap)
+    const postSnap = yield addDoc(newPostRef, {...post, file:1});
+    const storage = yield getStorage();
+    const fileRef = yield ref(storage, `files/${postSnap.id}`);
+    const gsReference = ref(storage, `gs://ysp-api.appspot.com/${fileRef._location.path_}`);
+    yield console.log('gsReference: ', gsReference)
+    
+    
+   
+    const metadata = yield {
+      contentType: post.file.type,
+    };
+
+    yield post.file && uploadBytes(fileRef, post.file, metadata).then((snapshot) => {
+      console.log('Uploaded a blob or file!', snapshot.ref);
+    });
+    const downloadURL = yield getDownloadURL(fileRef)
+    yield console.log('downloadURL: ', downloadURL)
+
+    yield setDoc(postSnap, {...post, file:1, filePath:downloadURL})
+    
     yield put(postCreateSuccess(
       {
         ...post,
         ...user,
-        postId:postSnap.id
+        filePath:downloadURL,
+        uid: user.id,
+        id:postSnap.id
       }
     ));
   } catch (error) {
