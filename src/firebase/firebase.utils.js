@@ -13,10 +13,10 @@ const config = {
   };
 
 const app = initializeApp(config);
-
 export const auth = getAuth(app);
 export const firestore = getFirestore();
 export const realTimeDb = getDatabase(app);
+// export const dateNow = firestore.Timestamp.fromDate(new Date());
 
 export const provider = new GoogleAuthProvider();
 provider.setCustomParameters({promt: 'select_account'});
@@ -33,7 +33,8 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         const createdAt = new Date();
         try{
             await setDoc(userRef,{
-                displayName, 
+                name:displayName, 
+                photo: 'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png',
                 email, 
                 createdAt, 
                 ...additionalData

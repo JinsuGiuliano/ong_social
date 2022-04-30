@@ -27,7 +27,7 @@ const invertedButtonStyles = css`
 const googleSignInStyles = css`
   background-color: #4285f4;
   color: white;
-
+  font-size: 13px;
   &:hover {
     background-color: #357ae8;
     border: none;
@@ -48,7 +48,7 @@ const isPostStyles = css`
   }
 `;
 
-const isFollowStyles = css`
+const isUnFollowStyles = css`
   background-color: #000;
   color: white;
   padding: 0 2px 0 2px;
@@ -63,6 +63,21 @@ const isFollowStyles = css`
   }
 `;
 
+const isFollowStyles = css`
+  background-color: #4285f4;
+  color: white;
+  padding: 0 2px 0 2px;
+  font-size: 10px;
+  min-width: 70px;
+  height: 30px;
+  border: none;
+  border-radius: 25px;
+  float: right;
+  &:hover {
+    background-color: #357ae8;
+  }
+`;
+
 const getButtonStyles = props => {
   if (props.isGoogleSignIn) {
     return googleSignInStyles;
@@ -73,6 +88,9 @@ const getButtonStyles = props => {
   if(props.isFollow){
     return isFollowStyles
   }
+  if(props.isUnFollow){
+    return isUnFollowStyles
+  }
   return props.inverted ? invertedButtonStyles : buttonStyles;
 };
 
@@ -81,7 +99,7 @@ export const CustomButtonContainer = styled.button`
   width: auto;
   height: 50px;
   letter-spacing: 0.5px;
-  line-height: 50px;
+  line-height: 30px;
   padding: 0 35px 0 35px;
   font-size: 15px;
   text-transform: uppercase;

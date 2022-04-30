@@ -9,15 +9,21 @@ import {
   signUpSuccess,
   signUpFailure,
   fetchUsersSuccess,
-  fetchUsersFailure
+  fetchUsersFailure,
+  followSuccess,
+  followFailure,
+  unfollowSuccess,
+  unfollowFailure,
+  fetchFollowSuccess,
+  fetchFollowFailure
 } from './user.actions';
-import { firestore } from '../../firebase/firebase.utils';
 import {signOut as signOutLib, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { getDoc, getDocs, collection } from "firebase/firestore";
+import { getDoc, getDocs, collection ,doc, setDoc, deleteDoc} from "firebase/firestore";
 import {
   provider,
   createUserProfileDocument,
-  getCurrentUser
+  getCurrentUser,
+  firestore
 } from '../../firebase/firebase.utils';
 
 export function* getSnapshotFromUserAuth(userAuth, additionalData) {
@@ -39,7 +45,7 @@ export function* fetchUsersAsync() {
     const userRef = yield collection(firestore,'users')
     const userSnapshot = yield getDocs(userRef);
     const Users = []
-    userSnapshot.docs.map( u => Users.push(u.data()))
+    userSnapshot.docs.map( u => Users.push({...u.data(), id:u.id}))
     yield console.log('USERS: ',Users)
     yield put(fetchUsersSuccess(Users));
   } catch (error) {
@@ -102,6 +108,46 @@ export function* signInAfterSignUp({ payload: { user, additionalData } }) {
 }
 
 
+export function* followAsync({ payload: userId  }) {
+  try {
+    const uid = yield getAuth().currentUser.uid
+    yield console.log('follow: ', userId)
+    const followingRef = yield doc(firestore, "following", uid, 'userFollowing', userId);
+    yield setDoc(followingRef, {});
+    yield put(followSuccess(userId));
+  } catch (error) {
+    yield put(followFailure(error));
+  }
+}
+
+
+export function* unfollowAsync({ payload: userId  }) {
+  try {
+    const uid = yield getAuth().currentUser.uid
+    yield console.log('follow: ', userId)
+    const followingRef = yield doc(firestore, "following", uid, 'userFollowing', userId);
+    yield deleteDoc(followingRef, {});
+    yield put(unfollowSuccess(userId));
+  } catch (error) {
+    yield put(unfollowFailure(error));
+  }
+}
+
+export function* fetchFollowAsync() {
+  try {
+    const uid = yield getAuth().currentUser.uid
+    yield console.log('follow: ', uid)
+    const Following = []
+    const followingUsersRef = yield collection(firestore, "following",  uid, 'userFollowing')
+    const followingUserSnap = yield getDocs(followingUsersRef)
+    followingUserSnap.docs.map(e => Following.push(e.id));
+    yield put(fetchFollowSuccess(Following));
+  } catch (error) {
+    yield put(fetchFollowFailure(error));
+  }
+}
+
+
 //Actual SAGAS!
 export function* onGoogleSignInStart() {
   yield takeLatest(UserActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle);
@@ -131,6 +177,18 @@ export function* onFetchUsersAsync() {
   yield takeLatest(UserActionTypes.FETCH_USERS_START, fetchUsersAsync);
 }
 
+export function* onFollowAsync() {
+  yield takeLatest(UserActionTypes.FOLLOW_START, followAsync);
+}
+
+export function* onUnFollowAsync() {
+  yield takeLatest(UserActionTypes.UNFOLLOW_START, unfollowAsync);
+}
+
+export function* onFetchFollowing() {
+  yield takeLatest(UserActionTypes.FETCH_FOLLOW_START, fetchFollowAsync);
+}
+
 export function* userSagas() {
   yield all([
     call(onGoogleSignInStart),
@@ -139,6 +197,9 @@ export function* userSagas() {
     call(onSignOutStart),
     call(onSignUpStart),
     call(onSignUpSuccess),
-    call(onFetchUsersAsync)
+    call(onFetchUsersAsync),
+    call(onFollowAsync),
+    call(onUnFollowAsync),
+    call(onFetchFollowing)
   ]);
 }

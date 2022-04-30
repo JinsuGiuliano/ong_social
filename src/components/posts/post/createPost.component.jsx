@@ -8,6 +8,7 @@ import FormInput from '../../utils/form-input/form-input.component'
 import CustomButton from '../../utils/custom-button/custom-button.component'
 import { CreatePostContainer } from './post.styles'
 import { PostUserIcon } from './post.styles'
+import app  from '../../../firebase/firebase.utils'
 
 const CreatePost = () => {
     const dispatch = useDispatch()
@@ -15,15 +16,14 @@ const CreatePost = () => {
     const [ postCaption, setPostCaption ] = useState('')
 
  
-   const handleSubmit = async event => {
-        event.preventDefault();
+   const handleSubmit = () => {
         const post = {
             caption: postCaption,
-            creation: Date.now(),
             downloadURL:'',
             likesCount:0        
         }
-        dispatch(postCreateStart(post));
+        dispatch(postCreateStart(post, currentUser));
+        setPostCaption('')
       };
     
      const handleChange = event => {
@@ -49,7 +49,7 @@ const CreatePost = () => {
                 />
         </div>
         <div>
-            <CustomButton isPost onClick={()=>handleSubmit}> Post It! </CustomButton>
+            <CustomButton isPost onClick={()=>handleSubmit()}> Post It! </CustomButton>
         </div>
            
         </CreatePostContainer>

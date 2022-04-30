@@ -65,3 +65,51 @@ export const fetchUsersFailure = error => ({
   type: UserActionTypes.FETCH_USERS_FAILURE,
   payload: error
 });
+
+
+export const followStart = userId => ({
+  type: UserActionTypes.FOLLOW_START,
+  payload: userId
+});
+
+export const followSuccess = userId => ({
+  type: UserActionTypes.FOLLOW_SUCCESS,
+  payload: userId
+});
+
+export const followFailure = error => ({
+  type: UserActionTypes.FOLLOW_FAILURE,
+  payload: error
+});
+
+
+export const unfollowStart = userId => ({
+  type: UserActionTypes.UNFOLLOW_START,
+  payload: userId
+});
+
+export const unfollowSuccess = userId => ({
+  type: UserActionTypes.UNFOLLOW_SUCCESS,
+  payload: userId
+});
+
+export const unfollowFailure = error => ({
+  type: UserActionTypes.UNFOLLOW_FAILURE,
+  payload: error
+});
+
+
+
+export const fetchFollowStart = () => ({
+  type: UserActionTypes.FETCH_FOLLOW_START
+});
+
+export const fetchFollowSuccess = following => ({
+  type: UserActionTypes.FETCH_FOLLOW_SUCCESS,
+  payload: following
+});
+
+export const fetchFollowFailure = error => ({
+  type: UserActionTypes.FETCH_FOLLOW_FAILURE,
+  payload: error
+});

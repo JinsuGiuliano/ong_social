@@ -12,7 +12,7 @@ import {
     postDeleteFailure  
 } from './posts.actions'
 
-import { getDoc, collection, getDocs, doc } from "firebase/firestore";
+import { getDoc, collection, getDocs, doc, setDoc, addDoc } from "firebase/firestore";
 import {
   firestore
 } from '../../firebase/firebase.utils'
@@ -28,7 +28,11 @@ export function* postFetch() {
         let userPostsSnap = yield getDocs(userPostsRef);
         let postUserRef = yield doc(firestore,'users', userSnapshot.docs[d].id);
         let postUserSnap = yield getDoc(postUserRef);
-        userPostsSnap.docs.map(d => allPosts.push({...d.data(), id: d.id, ...postUserSnap.data()}))
+        userPostsSnap.docs.map(p => allPosts.push({
+          ...p.data(), 
+          id: p.id, 
+          uid: userSnapshot.docs[d].id,
+          ...postUserSnap.data()}))
         
       }
       yield put(postFetchSuccess(allPosts));
@@ -37,10 +41,19 @@ export function* postFetch() {
     }
   }
 
-export function* postCreate() {
+export function* postCreate({payload:{post, user}}) {
   try {
-
-    yield put(postCreateSuccess());
+    const newPostRef = yield collection(firestore, "posts", user.id, 'userPosts');
+    //const postSnap = yield setDoc(newPostRef, post).then();
+    const postSnap = yield addDoc(newPostRef, post);
+    yield console.log('postSnap: ',postSnap)
+    yield put(postCreateSuccess(
+      {
+        ...post,
+        ...user,
+        postId:postSnap.id
+      }
+    ));
   } catch (error) {
     yield put(postCreateFailure(error));
   }

@@ -11,3 +11,8 @@ export const selectAllUsers = createSelector(
   [selectUser],
   user => user.allUsers
 );
+
+export const selectFollowingUsers = createSelector(
+  [selectUser],
+  user => user.following
+);

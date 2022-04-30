@@ -3,6 +3,9 @@ import UserActionTypes from './user.types';
 const INITIAL_STATE = {
   currentUser: null,
   allUsers:[],
+  following:[],
+  saved:[],
+  notifications:[],
   error: null
 };
 
@@ -20,14 +23,34 @@ export const userReducer = (state = INITIAL_STATE, action) => {
         currentUser: null
       };
     case UserActionTypes.FETCH_USERS_SUCCESS:
-      console.log('fetch users',payload)
        return{
          ...state,
          allUsers: payload
        }
+    case UserActionTypes.FETCH_FOLLOW_SUCCESS:
+      return{
+        ...state,
+        following: payload
+      }
+  
+    case UserActionTypes.FOLLOW_SUCCESS:
+      return{
+        ...state,
+        following: [...state.following, payload]
+      }
+      case UserActionTypes.UNFOLLOW_SUCCESS:
+        // const idx = state.following.indexOf(payload)
+        // state.following.splice(idx,1)
+         return{
+           ...state,
+           following: state.following.filter(e => e !== payload)
+         }
     case UserActionTypes.SIGN_IN_FAILURE:
     case UserActionTypes.SIGN_OUT_FAILURE:
     case UserActionTypes.SIGN_UP_FAILURE:
+    case UserActionTypes.FOLLOW_FAILURE:
+    case UserActionTypes.UNFOLLOW_FAILURE:
+    case UserActionTypes.FETCH_FOLLOW_FAILURE:
     case UserActionTypes.FETCH_USERS_FAILURE:
       return {
         ...state,

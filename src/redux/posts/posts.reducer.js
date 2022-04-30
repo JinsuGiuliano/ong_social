@@ -39,6 +39,12 @@ export const postsReducer = (state = INITIAL_STATE, action) => {
         errorMessage: payload
       };
     case PostActionTypes.POST_CREATE_SUCCESS:
+         state.posts.push(payload)
+         return {
+          ...state,
+          isFetching: false,
+        };
+      
     case PostActionTypes.POST_UPDATE_SUCCESS:
     case PostActionTypes.POST_DELETE_SUCCESS:
         return {
@@ -47,6 +53,6 @@ export const postsReducer = (state = INITIAL_STATE, action) => {
         };
       
     default:
-      return state;
+      return {...state};
   }
 };

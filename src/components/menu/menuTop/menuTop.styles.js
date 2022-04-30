@@ -11,7 +11,6 @@ export const MenuTopContainer = styled.div`
     z-index:9999999;
     background-color: #fff;
     padding: 10 10px;
-    box-shadow: 1px 1px 5px 1px grey;
 `;
 
 export const MenuLogoContainer = styled.div`

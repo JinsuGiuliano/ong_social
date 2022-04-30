@@ -17,9 +17,9 @@ export const postFetchFailure = error => ({
 });
 
 // Create Post
-export const postCreateStart = post => ({
+export const postCreateStart = (post, user) => ({
     type: PostActionTypes.POST_CREATE_START,
-    payload: post
+    payload: { post, user }
   });
   
 export const postCreateSuccess = post => ({

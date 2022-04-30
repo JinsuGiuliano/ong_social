@@ -7,10 +7,10 @@ export const PostContainer = styled.div`
     display: flex;
     flex-direction:row;
     margin: 5px 0px;
-    cursor:pointer;
+    cursor: pointer;
 
     &:hover{
-        background-color: #f0f0f0;
+        background-color: #f7f7f7;
     }
 `
 
@@ -26,7 +26,6 @@ export const PostContentContainer = styled.div`
     align-items: normal;
 `
 
-
 export const PostUserInfoContainer = styled.div`
     width: 550px;
     display: flex;
@@ -35,6 +34,7 @@ export const PostUserInfoContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
 ` 
+
 export const InfoTextContainer = styled.div`
     width: 100%;
     display: flex;
@@ -43,19 +43,17 @@ export const InfoTextContainer = styled.div`
     justify-content: flex-start;
 ` 
 
-
 export const PostText = styled.span`
     color: #000;
     margin-left: 50px;
     font-size: 14px;
 `
 
-
 export const CreatePostContainer = styled.div`
-    width:100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px;
 `
 
 export const UserInfoChild  = styled.div`

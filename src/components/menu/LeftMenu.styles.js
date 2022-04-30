@@ -9,18 +9,44 @@ export const MenuContainer = styled.div`
     display: flex;
     position: fixed;
     flex-direction: column;
+    align-items:flex-start;
+    
 
 `
 
 export const OptionContainer = styled.div`
-    border-radius: 25%;
     height:40px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    padding: 8px 20px;
+    padding: 8px 20px;  
+    cursor: pointer;
+
+    &:hover{
+        background-color: #f7f7f7;
+    }
 `
+
+export const ProfileOptionContainer = styled.div`
+    height:40px;
+    bottom:2;
+    display: flex;
+    align-items: center;
+    padding: 10px;  
+    cursor: pointer;
+
+    &:hover{
+        background-color: #f7f7f7;
+    }
+`
+export const PostOptionContainer = styled.div`
+    height:40px;
+    display: flex;
+    align-items: center;
+    padding:10px;  
+`
+
 export const OptionIcon = styled.div`
     width: 25px;
     height:25px;
@@ -29,6 +55,7 @@ export const OptionIcon = styled.div`
     background-position: center;
     background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 `
+
 export const OptionText = styled.span`
     color: #000;
     font-size: 20px;

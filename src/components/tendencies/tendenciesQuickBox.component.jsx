@@ -1,28 +1,34 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { selectAllUsers } from '../../redux/user/user.selectors';
+import { selectAllUsers, selectFollowingUsers } from '../../redux/user/user.selectors';
+import { followStart, unfollowStart } from '../../redux/user/user.actions';
 
 import { UserInfoChild } from '../posts/post/post.styles';
 import CustomButton from '../utils/custom-button/custom-button.component';
 import { BoxContainer,BoxFixedContainer, FollowContentContainer, FollowUserInfoContainer, InfoTextContainer, PostUserIcon, FollowTitle } from './tendencies.styles';
 
 const TendenciesQuickBox = () => {
+    const dispatch = useDispatch()
     const users = useSelector(selectAllUsers)
-    console.log('users: ', users)
-
+    const following = useSelector(selectFollowingUsers)
+    const FollowUser = (userId) =>{
+        dispatch(followStart(userId))
+    }
+    const UnFollowUser = (userId) =>{
+        dispatch(unfollowStart(userId))
+    }
     return(
         <BoxContainer>
          <BoxFixedContainer>
             <FollowContentContainer>
-                <FollowTitle>Tendencies</FollowTitle>
+                <FollowTitle>Other Users</FollowTitle>
             </FollowContentContainer>
             {
                 users && 
                 users
-                     .filter((_, idx) => idx < 4)
                      .map( (user, idx) => {
-                        const { photo, name, email } = user;
+                        const { photo, name, email, id } = user;
                         return(
                             <FollowContentContainer key={idx} >
                                 <FollowUserInfoContainer>
@@ -36,7 +42,13 @@ const TendenciesQuickBox = () => {
                                     <p style={{fontSize:'10px',color:'gray',margin:'0px' }}>{ email} </p>
                                 </UserInfoChild>
                                 <UserInfoChild > 
-                                    <CustomButton isFollow> FOLLOW </CustomButton>
+                                {
+                                    following.includes(user.id)?
+                                    <CustomButton onClick={()=>UnFollowUser(id)} isUnFollow> UNFOLLOW </CustomButton>
+                                    :
+                                    <CustomButton isFollow onClick={()=>FollowUser(id)} > FOLLOW </CustomButton>
+
+                                }
                                 </UserInfoChild>
                             </InfoTextContainer>  
                             </FollowContentContainer>
