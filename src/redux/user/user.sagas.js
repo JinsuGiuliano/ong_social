@@ -2,27 +2,19 @@ import { takeLatest, put, all, call } from 'redux-saga/effects';
 
 import UserActionTypes from './user.types';
 import {
-  signInSuccess,
-  signInFailure,
-  signOutSuccess,
-  signOutFailure,
-  signUpSuccess,
-  signUpFailure,
-  fetchUsersSuccess,
-  fetchUsersFailure,
-  followSuccess,
-  followFailure,
-  unfollowSuccess,
-  unfollowFailure,
-  fetchFollowSuccess,
-  fetchFollowFailure,
-  postSaveSuccess,
-  postSaveFailure,
-  postUnSaveSuccess,
-  postUnSaveFailure
+  signInSuccess, signInFailure,
+  signOutSuccess, signOutFailure,
+  signUpSuccess, signUpFailure,
+  fetchUsersSuccess, fetchUsersFailure,
+  followSuccess, followFailure,
+  unfollowSuccess, unfollowFailure,
+  fetchFollowSuccess, fetchFollowFailure,
+  postSaveSuccess, postSaveFailure,
+  postUnSaveSuccess, postUnSaveFailure,
+  updateUserSuccess, updateUserFailure
 } from './user.actions';
 import {signOut as signOutLib, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { getDoc, getDocs, collection ,doc, setDoc, deleteDoc} from "firebase/firestore";
+import { getDoc, getDocs, collection ,doc, setDoc, deleteDoc, updateDoc} from "firebase/firestore";
 import {
   provider,
   createUserProfileDocument,
@@ -37,8 +29,9 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
       userAuth,
       additionalData
     );
+    console.log('userAuth: ', userAuth)
     const userSnapshot = yield getDoc(userRef);
-    yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data(), photo:userAuth.photoURL?userAuth.photoURL: userSnapshot.data().photo }));
+    yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data(), photo:userAuth.providerData[0].photoURL?userAuth.providerData[0].photoURL: userSnapshot.data().photo }));
   } catch (error) {
     yield put(signInFailure(error));
   }
@@ -175,6 +168,18 @@ export function* unSavePostAsync({ payload: userId  }) {
   }
 }
 
+export function* updateUserAsync({ payload: user  }) {
+  try {
+    const uid = yield getAuth().currentUser.uid
+    yield console.log('updateUser: ', user)
+    const userRef = yield doc(firestore, "users", uid );
+    yield updateDoc(userRef, user);
+    yield put(updateUserSuccess(user));
+  } catch (error) {
+    yield put(updateUserFailure(error));
+  }
+}
+
 //Actual SAGAS!
 export function* onGoogleSignInStart() {
   yield takeLatest(UserActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle);
@@ -224,6 +229,10 @@ export function* onUnSavePostAsync() {
   yield takeLatest(UserActionTypes.POST_UNSAVE_START, unSavePostAsync);
 }
 
+export function* onUpdateUserAsync() {
+  yield takeLatest(UserActionTypes.UPDATE_USER_START, updateUserAsync);
+}
+
 export function* userSagas() {
   yield all([
     call(onGoogleSignInStart),
@@ -237,6 +246,7 @@ export function* userSagas() {
     call(onUnFollowAsync),
     call(onFetchFollowing),
     call(onSavePostAsync),
-    call(onUnSavePostAsync)
+    call(onUnSavePostAsync),
+    call(onUpdateUserAsync)
   ]);
 }

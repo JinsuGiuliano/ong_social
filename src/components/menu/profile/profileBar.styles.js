@@ -27,6 +27,13 @@ export const ProfileInfoContainer = styled.div`
     justify-content: space-between;
 ` 
 
+export const signInProfileContainer = styled.div`
+    display: flex;
+    flex-direction:column;
+    align-items: flex-start;
+    justify-content: space-between;
+` 
+
 export const InfoTextContainer = styled.div`
     width: 100%;
     display: flex;

@@ -15,10 +15,7 @@ const App = () => {
     dispatch(checkUserSession());
   });
     return(
-        <Routes>
-            <Route path='/' element={<Home/>}/>
-            <Route path='signin' element={<SignInAndSignUpPage />} />
-        </Routes>
+        <Home/>
     );
   }
 

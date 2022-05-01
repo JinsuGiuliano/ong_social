@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Routes, Route } from 'react-router-dom';
 
 import { postFetchStart } from '../../redux/posts/posts.actions';
 import { fetchUsersStart , fetchFollowStart} from '../../redux/user/user.actions';
@@ -10,6 +11,9 @@ import MenuTop from '../../components/menu/menuTop/menuTop.component';
 import { HomeContainer } from './home.styles';
 import TendenciesQuickBox from '../../components/tendencies/tendenciesQuickBox.component';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
+import Profile from '../profile/profile.component';
+
+
 const Home = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser)
@@ -24,7 +28,10 @@ const Home = () => {
             <MenuTop/>
             <HomeContainer>
                 <LeftMenu/>
-                <Posts/>
+                <Routes>
+                    <Route path='/' element={<Posts/>}/>
+                    <Route path='profile' element={<Profile />} />
+                </Routes>
                 <TendenciesQuickBox/>
             </HomeContainer>
         </div>

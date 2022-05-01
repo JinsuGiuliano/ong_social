@@ -17,6 +17,12 @@ const postInputStyle = css`
   width: 400px;
 `
 
+const siginInputStyle = css`
+  height:25px;
+  font-size:13px;
+`
+
+
 const searchBarShrinkLabelStyles = css`
   top: -10px;
   font-size: 10px;
@@ -41,7 +47,10 @@ const getInputStyles = props => {
     return postInputStyle;
   }
   if(props.searchBar){
-    return searchInputStyle ;
+    return searchInputStyle;
+  }
+  if(props.isSignin){
+    return siginInputStyle;
   }
   return;
 };
@@ -62,7 +71,7 @@ export const FormInputContainer = styled.input`
   width: 100%;
   border: none;
   border-radius: 0;
-  border-bottom: 1px solid ${textColor};
+  border-bottom: none;
   margin: 25px 0;
 
   &:focus {

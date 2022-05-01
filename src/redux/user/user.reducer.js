@@ -6,6 +6,10 @@ const INITIAL_STATE = {
   following:[],
   saved:[],
   notifications:[],
+  forms:{
+    signInForm: false,
+    signUpForm: false
+  },
   error: null
 };
 
@@ -15,6 +19,10 @@ export const userReducer = (state = INITIAL_STATE, action) => {
     case UserActionTypes.SIGN_IN_SUCCESS:
       return {
         ...state,
+        forms:{
+          signInForm: false,
+          signUpForm: false
+        },
         currentUser: payload
       };
     case UserActionTypes.SIGN_OUT_SUCCESS:
@@ -53,7 +61,12 @@ export const userReducer = (state = INITIAL_STATE, action) => {
           ...state,
           following: state.following.filter(e => e !== payload)
         }
-
+    case UserActionTypes.UPDATE_USER_SUCCESS:
+      return{
+        ...state,
+        currentUser: payload
+      }
+    case UserActionTypes.UPDATE_USER_FAILURE:
     case UserActionTypes.POST_SAVE_FAILURE:
     case UserActionTypes.SIGN_IN_FAILURE:
     case UserActionTypes.SIGN_OUT_FAILURE:

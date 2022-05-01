@@ -28,6 +28,7 @@ const googleSignInStyles = css`
   background-color: #4285f4;
   color: white;
   font-size: 13px;
+  border:none;
   &:hover {
     background-color: #357ae8;
     border: none;
@@ -47,6 +48,7 @@ const isPostStyles = css`
     background-color: #357ae8;
   }
 `;
+
 
 const isUnFollowStyles = css`
   background-color: #000;

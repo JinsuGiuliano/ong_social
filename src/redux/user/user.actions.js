@@ -52,6 +52,23 @@ export const signUpFailure = error => ({
 });
 
 
+// Update User
+export const updateUserStart = user => ({
+  type: UserActionTypes.UPDATE_USER_START,
+  payload: user
+});
+
+export const updateUserSuccess = user => ({
+  type: UserActionTypes.UPDATE_USER_SUCCESS,
+  payload: user
+});
+
+export const updateUserFailure = error => ({
+  type: UserActionTypes.UPDATE_USER_FAILURE,
+  payload: error
+});
+
+
 export const fetchUsersStart = () => ({
   type: UserActionTypes.FETCH_USERS_START
 });
@@ -145,3 +162,5 @@ export const postUnSaveFailure = error => ({
   type: UserActionTypes.POST_UNSAVE_FAILURE,
   payload: error
 });
+
+
