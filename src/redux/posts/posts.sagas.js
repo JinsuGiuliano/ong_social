@@ -54,11 +54,7 @@ export function* postCreate({payload:{post, user}}) {
     const postSnap = yield addDoc(newPostRef, {...post, file:1});
     const storage = yield getStorage();
     const fileRef = yield ref(storage, `files/${postSnap.id}`);
-    const gsReference = ref(storage, `gs://ysp-api.appspot.com/${fileRef._location.path_}`);
-    yield console.log('gsReference: ', gsReference)
     
-    
-   
     const metadata = yield {
       contentType: post.file.type,
     };
@@ -67,7 +63,6 @@ export function* postCreate({payload:{post, user}}) {
       console.log('Uploaded a blob or file!', snapshot.ref);
     });
     const downloadURL = yield getDownloadURL(fileRef)
-    yield console.log('downloadURL: ', downloadURL)
 
     yield setDoc(postSnap, {...post, file:1, filePath:downloadURL})
     

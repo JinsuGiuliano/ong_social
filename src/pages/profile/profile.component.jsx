@@ -15,7 +15,6 @@ const Profile =  () => {
     const currentUser = useSelector(selectCurrentUser)
     const posts = useSelector(selectAllPosts)
     const following = useSelector(selectFollowingUsers)
-    console.log('currentUser: ', currentUser)
 
     posts.sort((a,b) => b.createdAt -  a.createdAt )
     return(
@@ -26,7 +25,7 @@ const Profile =  () => {
 
         }
         <h2>{currentUser.name}</h2>
-        <TopProfile>
+        <TopProfile imageUrl={currentUser.photoBg}>
             <ProfilePhoto imageUrl={currentUser.photo}/>
             <div style={{display:'flex',flexDirection:'column'}}>
                 <ProfileName>{currentUser.name}</ProfileName>
@@ -48,8 +47,8 @@ const Profile =  () => {
             posts && 
             posts
                  .filter(e => e.uid === currentUser.id)
-                 .map( p => (
-                     <Post key={p.id} data={p}/> 
+                 .map( (p, idx) => (
+                     <Post key={p.id + `${idx}`} data={p}/> 
                      ))
         }
         </PostContainer>

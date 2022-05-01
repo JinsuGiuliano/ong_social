@@ -14,7 +14,8 @@ import {
   updateUserSuccess, updateUserFailure
 } from './user.actions';
 import {signOut as signOutLib, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { getDoc, getDocs, collection ,doc, setDoc, deleteDoc, updateDoc} from "firebase/firestore";
+import { getDoc, getDocs, collection ,doc, setDoc, deleteDoc, updateDoc, increment} from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import {
   provider,
   createUserProfileDocument,
@@ -171,10 +172,55 @@ export function* unSavePostAsync({ payload: userId  }) {
 export function* updateUserAsync({ payload: user  }) {
   try {
     const uid = yield getAuth().currentUser.uid
-    yield console.log('updateUser: ', user)
+    const storage = yield getStorage();
     const userRef = yield doc(firestore, "users", uid );
-    yield updateDoc(userRef, user);
-    yield put(updateUserSuccess(user));
+    let nUser = user;
+
+    if ( user.files === false) {
+      // variable is undefined
+      console.log('user Updated: ',userRef )
+      yield updateDoc(userRef, user);
+      yield put(updateUserSuccess(user));
+    } 
+
+
+    if ( user.files === true) {
+      console.log('userFiles is undefined: ',userRef )
+
+      if( typeof user.photo === 'object' ){
+        const PhotoRef = yield ref(storage, `${uid}/${user.photo.name}`);
+        const metadata = yield {
+          contentType: user.photo.type,
+        };
+        yield uploadBytes(PhotoRef, user.photo, metadata).then((snapshot) => {
+          console.log('Uploaded a blob or file!', snapshot.ref);
+        });
+        const downloadURL = yield getDownloadURL(PhotoRef)
+
+        nUser = {...nUser, photo: downloadURL}
+        yield updateDoc(userRef, nUser);
+        
+      }
+
+      if(typeof user.photoBg === 'object' ){
+        console.log('hasta aqui hemo llegao ~~~~ BG!')
+
+        const PhotoBgRef = yield ref(storage, `${uid}/${user.photoBg.name}`);
+        const metadata = yield {
+          contentType: user.photoBg.type,
+        };
+        yield uploadBytes(PhotoBgRef, user.photoBg, metadata).then((snapshot) => {
+          console.log('Uploaded a blob or file!', snapshot.ref);
+        });
+        const downloadURL = yield getDownloadURL(PhotoBgRef)
+        nUser = {...nUser, photoBg: downloadURL}
+        yield updateDoc(userRef, nUser);
+       
+      }
+
+      yield put(updateUserSuccess({...nUser}));
+    } 
+
   } catch (error) {
     yield put(updateUserFailure(error));
   }

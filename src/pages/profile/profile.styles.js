@@ -13,6 +13,9 @@ export const TopProfile = styled.div`
     background-color: gray;
     height:200px;
     width:100%;
+    background-size: cover;
+    background-position: center;
+    background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 `
 
 export const ProfileName = styled.span`
@@ -20,13 +23,14 @@ export const ProfileName = styled.span`
     font-size: 18px;
     font-weight: 600;
     color:white;
-
+    text-shadow: 1px 1px 8px  #000;
 `
 export const ProfileEmail = styled.span`
     margin:5px 0;   
     font-size: 12px;
     font-weight: normal;
     color:white;
+    text-shadow: 1px 1px 8px  #000;
 `
 export const ProfileInfoContainer = styled.div`
     display:flex;
@@ -46,6 +50,7 @@ export const CalendarIcon = styled(CalendarSVG)`
     width: 15px;
     height: 100%;
     margin: 0 5px 0px 0px; 
+    text-shadow: 1px 1px 8px  #000;
     cursor: pointer;
         & path {
             fill: white;
