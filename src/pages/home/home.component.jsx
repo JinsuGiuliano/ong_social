@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 import { postFetchStart } from '../../redux/posts/posts.actions';
 import { fetchUsersStart , fetchFollowStart} from '../../redux/user/user.actions';
 
+import SavedPosts from '../saves/saves.component';
 import LeftMenu from '../../components/menu/LeftMenu.component';
 import Posts from '../../components/posts/posts.component';
 import MenuTop from '../../components/menu/menuTop/menuTop.component';
@@ -31,6 +32,7 @@ const Home = () => {
                 <Routes>
                     <Route path='/' element={<Posts/>}/>
                     <Route path='profile' element={<Profile />} />
+                    <Route path='saved-posts' element={<SavedPosts/>}/>
                 </Routes>
                 <TendenciesQuickBox/>
             </HomeContainer>

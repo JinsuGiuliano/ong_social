@@ -51,8 +51,8 @@ const LeftMenu = () => {
                     <EnvelopeIcon color={'black'}/>
                     <OptionText>Mensajes</OptionText>
                 </OptionContainer>
-                <OptionContainer>
-                    <HeartIcon color={'black'}/>
+                <OptionContainer onClick={()=>navigate('/saved-posts')}>
+                    <HeartIcon color={'black'} />
                     <OptionText>Guardados </OptionText>
                     {
                         savedPostsLength?
