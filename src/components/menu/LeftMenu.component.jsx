@@ -32,7 +32,7 @@ const LeftMenu = () => {
         setShowSignUp(false);
     },[currentUser])
 
-    const savedPostsLength = useSelector(selectSavedPostsLength) 
+    const savedPostsLength = useSelector(selectSavedPostsLength)
 
     return(
         <MainMenuContainer>
@@ -53,7 +53,7 @@ const LeftMenu = () => {
                     <HeartIcon color={'black'} />
                     <OptionText>Guardados </OptionText>
                     {
-                        savedPostsLength?
+                        savedPostsLength.length?
                         <SavedCounterContainer>
                             <span style={{color:'white', fontSize:'12px'}}> {savedPostsLength}  </span>
                         </SavedCounterContainer>

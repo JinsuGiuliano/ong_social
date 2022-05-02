@@ -41,7 +41,7 @@ const MobileMenu = () => {
                     <HeartIcon color={'black'} />
                     <OptionText>Guardados </OptionText>
                     {
-                        savedPostsLength?
+                        savedPostsLength.length?
                         <SavedCounterContainer>
                             <span style={{color:'white', fontSize:'12px'}}> {savedPostsLength}  </span>
                         </SavedCounterContainer>
