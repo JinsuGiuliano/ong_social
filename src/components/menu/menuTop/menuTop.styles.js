@@ -11,6 +11,10 @@ export const MenuTopContainer = styled.div`
     z-index:9999999;
     background-color: #fff;
     padding: 10 10px;
+    @media only screen and (max-width: 700px){
+        display: none;
+    }
+
 `;
 
 export const MenuLogoContainer = styled.div`
@@ -21,6 +25,11 @@ export const MenuLogoContainer = styled.div`
     align-items: center;
     justify-content: flex-start;
     padding: 5px 5px;
+
+    @media only screen and (max-width: 700px){
+        width: 15%;
+        justify-content: center;
+    }
 `;
 
 
@@ -33,11 +42,19 @@ export const CenterBarContainer = styled.div`
     background-color: #fff;
     width: 50%;
     padding: 5px 5px;
+
+    @media only screen and (max-width: 700px){
+        display: none;
+    }
 `;
 
 export const SearchBarContainer =  styled.div`
     display: flex;
     width: 25%;
+
+    @media only screen and (max-width: 700px){
+        display:none;
+    }
 `;
     
 

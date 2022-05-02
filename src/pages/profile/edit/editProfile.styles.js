@@ -13,6 +13,9 @@ export const EditProfileContainer = styled.div`
     background-color: #fff;
     border-radius: 25px;
     box-shadow: 5px 5px 30px gray ;
+    @media only screen and (max-width: 700px){
+        width:100%;
+    }
 `
 
 
@@ -53,6 +56,7 @@ export const EditIcon = styled(EditSVG)`
             }
             width: 21px;
         }
+    
 `
 
 export const EditProfileForm = styled.div`
@@ -61,6 +65,9 @@ export const EditProfileForm = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     padding: 10 20px;
+    @media only screen and (max-width: 700px){
+        padding: 5 10px;
+    }
 `
 
 export const EditFormInput = styled.div`
@@ -92,5 +99,6 @@ export const InputInputImage = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    
 
 `;

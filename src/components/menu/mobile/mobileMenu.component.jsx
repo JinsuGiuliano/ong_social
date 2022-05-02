@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import {selectCurrentUser, selectFormsState, selectSavedPosts, selectSavedPostsLength} from '../../redux/user/user.selectors'
+import {selectCurrentUser, selectFormsState, selectSavedPosts, selectSavedPostsLength} from '../../../redux/user/user.selectors'
 import {
   MainMenuContainer,
   MenuContainer,
@@ -11,15 +11,15 @@ import {
   PostOptionContainer,
   SavedCounterContainer, OptionsListContainer,
   UserIcon, HeartIcon, HomeIcon, BellIcon, EnvelopeIcon
-} from './LeftMenu.styles'
-import SignIn from '../signInUp/sign-in/sign-in.component';
-import SignUp from '../signInUp/sign-up/sign-up.component'
-import CustomButton from '../utils/custom-button/custom-button.component';
-import ProfileBar from './profile/profileBar.component';
+} from './mobileMenu.styles'
+import SignIn from '../../signInUp/sign-in/sign-in.component';
+import SignUp from '../../signInUp/sign-up/sign-up.component'
+import CustomButton from '../../utils/custom-button/custom-button.component';
+import ProfileBar from '../profile/profileBar.component';
 import { useNavigate } from 'react-router-dom';
 
 
-const LeftMenu = () => {
+const MobileMenu = () => {
 
    
     const navigate = useNavigate()
@@ -38,6 +38,7 @@ const LeftMenu = () => {
     return(
         <MainMenuContainer>
         <MenuContainer>
+            <OptionsListContainer>
                 <OptionContainer onClick={()=>navigate('/')}>
                     <HomeIcon color={'black'}/>
                     <OptionText>Inicio</OptionText>
@@ -61,37 +62,24 @@ const LeftMenu = () => {
                         : '' 
                     }
                 </OptionContainer>
-                {
-                    currentUser &&
-                    <OptionContainer onClick={()=>navigate('/profile')}>
-                            <UserIcon color={'black'}/>
-                            <OptionText>Perfil</OptionText>
-                     </OptionContainer>
+            {
+                currentUser ?
+                <OptionContainer onClick={()=>navigate('/profile')}>
+                    <UserIcon color={'black'}/>
+                    <OptionText>Perfil</OptionText>
+                </OptionContainer>
+                :
+                <OptionContainer onClick={()=>navigate('/signin')}>
+                    <UserIcon color={'black'}/>
+                    <OptionText>SignIn</OptionText>
+                </OptionContainer>
+            }
 
-                }
-               
-            <PostOptionContainer  style={{margin:'30px'}} onClick={()=>{return}}>
-                <CustomButton isPost  style={{width:'200px', float:'center'}}> Post Something! </CustomButton>
-            </PostOptionContainer>
-            <ProfileOptionContainer style={{marginTop:'150px'}}>
-                <ProfileBar setShowSignin={setShowSignin} showSignin={showSignin} setShowSignUp={setShowSignUp} showSignUp={showSignUp}/>
-            </ProfileOptionContainer>
+            </OptionsListContainer>
         </MenuContainer>
 
-          { 
-            showSignin  ?
-              <SignIn/>
-              :
-              null
-          }
-          { 
-            showSignUp  ?
-              <SignUp/>
-              :
-              null
-          }
         </MainMenuContainer>
     )
 }
 
-export default LeftMenu;
+export default MobileMenu;

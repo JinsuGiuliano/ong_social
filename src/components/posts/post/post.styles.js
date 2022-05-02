@@ -11,10 +11,16 @@ export const PostContainer = styled.div`
     flex-direction:row;
     margin: 5px 0px;
     cursor: pointer;
+    border-bottom: 1px solid #f8f8f8;
 
     &:hover{
         background-color: #f7f7f7;
     }
+    @media only screen and (max-width: 700px){
+        width:95%;
+
+    }
+
 `
 
 export const PostUserIcon = styled.img`
@@ -27,6 +33,10 @@ export const PostContentContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: normal;
+    @media only screen and (max-width: 700px){
+        width:100%;
+
+    }
 `
 
 export const PostUserInfoContainer = styled.div`
@@ -36,6 +46,10 @@ export const PostUserInfoContainer = styled.div`
     align-items: flex-start;
     justify-content: flex-start;
     align-items: center;
+    @media only screen and (max-width: 700px){
+        width:100%;
+
+    }
 ` 
 
 export const PostActionsContainer = styled.div`
@@ -45,6 +59,9 @@ export const PostActionsContainer = styled.div`
     align-items: flex-start;
     justify-content: flex-end;
     align-items: center;
+    @media only screen and (max-width: 700px){
+        width:100%;
+    }
 ` 
 
 export const InfoTextContainer = styled.div`
@@ -53,11 +70,17 @@ export const InfoTextContainer = styled.div`
     flex-direction:row;
     align-items: baseline;
     justify-content: flex-start;
+
+    @media only screen and (max-width: 700px){
+        width:100%;
+        flex-direction:column;
+
+    }
 ` 
 
 export const PostText = styled.span`
     color: #000;
-    margin-left: 50px;
+    margin-left: 45px;
     font-size: 14px;
 `
 
@@ -65,11 +88,22 @@ export const CreatePostContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 5px 0px;
+    margin: 40px 0px 0px 0px;
+    max-height:30%;
+    @media only screen and (max-width: 700px){
+        width:100%;
+        height:65px;
+        margin: 0px;
+
+    }
 `
 
 export const UserInfoChild  = styled.div`
     margin-right: 4px; 
+    @media only screen and (max-width: 700px){
+        height:22px;
+    }
 `
 
 export const HeartIcon = styled(HeartSVG)`

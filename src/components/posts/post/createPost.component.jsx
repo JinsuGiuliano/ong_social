@@ -45,40 +45,42 @@ const CreatePost = () => {
 
     
     return(
+        <div style={{ borderBottom: '1px solid #f8f8f8', padding:'10px 0px' }}>
         <CreatePostContainer >
-        <div>
-            <PostUserIcon src={ `${currentUser? currentUser.photo:'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png'}` } alt=''/>
-        </div>
-        <div style={{display:'flex',flexDirection:'column'}}>
-            
-                <div>
-                    <FormInput
-                        name='caption'
-                        type='textarea'
-                        handleChange={handleChange}
-                        value={postCaption}
-                        label='Write your opinion...'
-                        required
-                        isPost
-                    />
-                </div> 
-                <div>
-                    <ImageIcon onClick={()=>setShowDnD(true)} style={showDnD?{display: 'none'}:{}}/>
-                    <div style={!showDnD?{display: 'none'}:{}}>
-                     <FileUploader
-                        type="file"
-                        handleChange={FileHandleChange}
-                        name="file" types={fileTypes}
-                    />
-                    </div>
-                   
-                </div>
-        </div>
-        <div>
+            <div >
+                <PostUserIcon src={ `${currentUser? currentUser.photo:'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png'}` } alt=''/>
+            </div>
+
+        <div style={{width:'60%'}}>
+            <FormInput
+                name='caption'
+                type='textarea'
+                handleChange={handleChange}
+                value={postCaption}
+                label='Write your opinion...'
+                required
+                isPost
+            />
+        </div> 
+        <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between', alignItems:'center'}}>                    
             <CustomButton isPost onClick={()=>handleSubmit()}> Post It! </CustomButton>
         </div>
-           
         </CreatePostContainer>
+        <div style={{display:'flex',flexDirection:'column',justifyContent:'space-around',width:'100%'}}>
+        <ImageIcon onClick={()=>setShowDnD(!showDnD)} />
+        <div>
+            <div style={!showDnD?{display: 'none'}:{}}>
+             <FileUploader
+                type="file"
+                handleChange={FileHandleChange}
+                name="file" types={fileTypes}
+            />
+            </div>
+           
+        </div>
+       
+</div>
+        </div>
     )
 }
 

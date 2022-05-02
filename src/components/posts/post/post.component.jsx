@@ -42,9 +42,7 @@ const Post = ({ data }) => {
                 <UserInfoChild>
                     <p style={{fontSize:'12px',color:'gray' }}> { email } </p>
                 </UserInfoChild> 
-                <UserInfoChild>
-                    <p style={{fontSize:'12px',color:'gray' }}> { createdAt? new Date(createdAt.seconds*1000).toDateString() : new Date(creation.seconds*1000).toDateString() } </p>
-                </UserInfoChild> 
+               
             </InfoTextContainer>     
         </PostUserInfoContainer>
         <div style={{display:'flex',flexDirection:'column', padding:'10px'}}>
@@ -73,6 +71,9 @@ const Post = ({ data }) => {
                 </div>
                 <div><ShareIcon color='#75ae2b'/></div>
             </PostActionsContainer>
+            <UserInfoChild>
+            <p style={{fontSize:'11px',color:'#e1e0e0' }}> post created at { createdAt? new Date(createdAt.seconds*1000).toDateString() : new Date(creation.seconds*1000).toDateString() } </p>
+        </UserInfoChild> 
         </div>
     </PostContentContainer>
 

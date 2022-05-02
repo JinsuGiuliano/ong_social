@@ -6,6 +6,9 @@ export const PostContainer = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: 40px;
+    @media only screen and (max-width: 700px){
+        width:100%;
+    }
 `
 export const TopProfile = styled.div`
     display: flex;
@@ -72,4 +75,5 @@ export const ProfilePhoto = styled.div`
     border: 5px solid #fff;
     margin:10px;
     background-image: ${({ imageUrl }) => `url(${imageUrl})`};
+    
 `

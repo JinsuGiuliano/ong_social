@@ -15,11 +15,26 @@ export const GroupContainer = styled.div`
 
 const postInputStyle = css`
   width: 400px;
+  padding: 0px 5px 0px 5px;
+  margin: 5px 0px;
+  font-size: 13px;
+  background-color:#f7f7f7;
+  height: 40px;
+  border-radius: 25px;
+  @media only screen and (max-width: 700px){
+    width:100%;
+    font-size: 12px;
+    padding: 2px 2px 2px 2px;
+   
+}
 `
 
 const siginInputStyle = css`
   height:25px;
   font-size:13px;
+  @media only screen and (max-width: 700px){
+    width:100%;
+}
 `
 
 

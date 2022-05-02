@@ -6,6 +6,9 @@ export const PostContainer = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: 40px;
+    @media only screen and (max-width: 700px){
+        width:100%;
+    }
 `
 export const TopMenuBar = styled.div`
     display: flex;

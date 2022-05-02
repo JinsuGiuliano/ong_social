@@ -25,6 +25,10 @@ export const ProfileInfoContainer = styled.div`
     flex-direction:row;
     align-items: flex-start;
     justify-content: space-between;
+
+    @media only screen and (max-width: 700px){
+        display:none;
+    }
 ` 
 
 export const signInProfileContainer = styled.div`
@@ -40,6 +44,10 @@ export const InfoTextContainer = styled.div`
     flex-direction:row;
     align-items: flex-start;
     justify-content: space-between;
+    
+    @media only screen and (max-width: 700px){
+        display:none;
+    }
 ` 
 
 export const UserIcon = styled.img`

@@ -1,62 +1,60 @@
 import styled  from 'styled-components'
-import { ReactComponent as UserSVG  } from '../../assets/icons/user.svg'
-import { ReactComponent as HeartSVG  } from '../../assets/icons/heart.svg'
-import { ReactComponent as HomeSVG  } from '../../assets/icons/home.svg'
-import { ReactComponent as BellSVG  } from '../../assets/icons/bell.svg'
-import { ReactComponent as EnvelopeSVG  } from '../../assets/icons/envelope.svg'
+import { ReactComponent as UserSVG  } from '../../../assets/icons/user.svg'
+import { ReactComponent as HeartSVG  } from '../../../assets/icons/heart.svg'
+import { ReactComponent as HomeSVG  } from '../../../assets/icons/home.svg'
+import { ReactComponent as BellSVG  } from '../../../assets/icons/bell.svg'
+import { ReactComponent as EnvelopeSVG  } from '../../../assets/icons/envelope.svg'
 
 
 
 export const MainMenuContainer = styled.div`
-    width: 25%;
-    margin-top: 80px;
-
     @media only screen and (max-width: 700px){
-        display:none;
+        display: flex;
+        margin: 0px;
+        height:50px;
+        width: 100%;
+        background-color:#fff;
+        z-index:99999999;    
     }
+       
+    display:none;
+
 `
 
 export const MenuContainer = styled.div`
     display: flex;
     position: fixed;
-    flex-direction: column;
-    align-items:flex-start;
+    flex-direction: row;
+    justify-content: center;
+    bottom: 5;
+    align-items:center;
+    background-color:#fff;
+    width:100%;
+    z-index:9999999999;
 `
 
 export const OptionContainer = styled.div`
+    width: 100%;
     height:40px;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-around;
     align-items: center;
-    padding: 8px 20px;  
+    padding: 2px 2px;  
     cursor: pointer;
 
     &:hover{
         background-color: #f7f7f7;
     }
-
 `
 
 export const ProfileOptionContainer = styled.div`
-    height:40px;
-    bottom:2;
-    display: flex;
-    align-items: center;
-    padding: 10px;  
-    cursor: pointer;
+        display:none; 
 
-    &:hover{
-        background-color: #f7f7f7;
-    }
 
 `
 export const PostOptionContainer = styled.div`
-    height:40px;
-    display: flex;
-    align-items: center;
-    padding:10px;  
-
+        display:none;
 `
 
 export const OptionIcon = styled.div`
@@ -69,9 +67,7 @@ export const OptionIcon = styled.div`
 `
 
 export const OptionText = styled.span`
-    color: #000;
-    font-size: 20px;
-    margin-left: 15px;
+        display:none;
 `
 
 export const SavedCounterContainer = styled.div`
@@ -158,4 +154,10 @@ export const EnvelopeIcon = styled(EnvelopeSVG)`
                fill: ${({color}) => color };
             }
         }
+`
+
+export const OptionsListContainer = styled.div`
+    display:flex;
+    flex-direction: row;
+    width:100%;
 `

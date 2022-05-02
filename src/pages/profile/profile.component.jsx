@@ -9,6 +9,8 @@ import Post from '../../components/posts/post/post.component';
 import CreatePost from '../../components/posts/post/createPost.component';
 import CustomButton from '../../components/utils/custom-button/custom-button.component';
 import EditProfile from './edit/editProfile.component';
+import SignIn from '../../components/signInUp/sign-in/sign-in.component';
+import SignUp from '../../components/signInUp/sign-up/sign-up.component';
 
 const Profile =  () => {
     const [edit, setEdit] = useState(false)
@@ -19,12 +21,13 @@ const Profile =  () => {
     posts.sort((a,b) => b.createdAt -  a.createdAt )
     return(
         <PostContainer>
+        
         {
             edit && 
             <EditProfile setEdit={setEdit} edit={edit}/>
 
         }
-        <h2>{currentUser.name}</h2>
+        <h2 style={{margin:'0px 4px', fontFamily:'Arial, Helvetica, sans-serif'}}>{currentUser.name}</h2>
         <TopProfile imageUrl={currentUser.photoBg}>
             <ProfilePhoto imageUrl={currentUser.photo}/>
             <div style={{display:'flex',flexDirection:'column'}}>
@@ -51,6 +54,7 @@ const Profile =  () => {
                      <Post key={p.id + `${idx}`} data={p}/> 
                      ))
         }
+
         </PostContainer>
     )
 }
