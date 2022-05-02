@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postSaveStart, postUnSaveStart } from "../../../redux/user/user.actions";
-import { postLikeStart, postDisLikeStart } from "../../../redux/posts/posts.actions";
+import { postLikeStart } from "../../../redux/posts/posts.actions";
 import { selectSavedPosts } from "../../../redux/user/user.selectors";
 import { PostContainer, PostUserIcon, PostContentContainer, PostImage,
         PostUserInfoContainer, PostText , UserInfoChild, InfoTextContainer,PostActionsContainer ,HeartIcon, ClapIcon, ShareIcon } from './post.styles'
@@ -23,9 +23,7 @@ const Post = ({ data }) => {
     const likePost = () => {
         dispatch(postLikeStart(id, uid))
     }
-    const dislikePost = () => {
-        dispatch(postDisLikeStart(id))
-    }
+
     return(
     <PostContainer>   
     {   

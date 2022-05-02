@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import {selectCurrentUser, selectFormsState, selectSavedPosts, selectSavedPostsLength} from '../../redux/user/user.selectors'
+import {selectCurrentUser, selectSavedPostsLength} from '../../redux/user/user.selectors'
 import {
   MainMenuContainer,
   MenuContainer,
   OptionContainer,
-  OptionIcon,
   OptionText,
   ProfileOptionContainer,
   PostOptionContainer,
-  SavedCounterContainer, OptionsListContainer,
+  SavedCounterContainer,
   UserIcon, HeartIcon, HomeIcon, BellIcon, EnvelopeIcon
 } from './LeftMenu.styles'
 import SignIn from '../signInUp/sign-in/sign-in.component';

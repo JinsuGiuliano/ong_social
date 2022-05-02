@@ -3,20 +3,17 @@ import { useSelector } from 'react-redux';
 import { PostContainer, TopProfile, ProfileName, ProfileEmail, CalendarIcon, JoinContainer,ProfilePhoto, ProfileInfoContainer } from './profile.styles';
 
 import { selectAllPosts } from '../../redux/posts/posts.selectors';
-import { selectCurrentUser, selectFollowingUsers } from '../../redux/user/user.selectors';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 import Post from '../../components/posts/post/post.component';
 import CreatePost from '../../components/posts/post/createPost.component';
 import CustomButton from '../../components/utils/custom-button/custom-button.component';
 import EditProfile from './edit/editProfile.component';
-import SignIn from '../../components/signInUp/sign-in/sign-in.component';
-import SignUp from '../../components/signInUp/sign-up/sign-up.component';
 
 const Profile =  () => {
     const [edit, setEdit] = useState(false)
     const currentUser = useSelector(selectCurrentUser)
     const posts = useSelector(selectAllPosts)
-    const following = useSelector(selectFollowingUsers)
 
     posts.sort((a,b) => b.createdAt -  a.createdAt )
     return(

@@ -15,13 +15,15 @@ import { selectCurrentUser } from '../../redux/user/user.selectors';
 import Profile from '../profile/profile.component';
 import MobileMenu from '../../components/menu/mobile/mobileMenu.component';
 import SignInAndSignUpPage from '../sign-in-and-sign-up/sign-in-and-sign-up.component';
+
+
 const Home = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser)
     useEffect(()=>{
-        dispatch(postFetchStart())
-        dispatch(fetchUsersStart())
-        dispatch(fetchFollowStart())
+        dispatch(postFetchStart());
+        dispatch(fetchUsersStart());
+        dispatch(fetchFollowStart());
     },[currentUser])
 
     return(
