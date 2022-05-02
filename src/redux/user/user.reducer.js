@@ -28,6 +28,9 @@ export const userReducer = (state = INITIAL_STATE, action) => {
     case UserActionTypes.SIGN_OUT_SUCCESS:
       return {
         ...state,
+        following:[],
+        saved:[],
+        notifications:[],
         currentUser: null
       };
     case UserActionTypes.FETCH_USERS_SUCCESS:
