@@ -53,7 +53,7 @@ const LeftMenu = () => {
                     <HeartIcon color={'black'} />
                     <OptionText>Guardados </OptionText>
                     {
-                        savedPostsLength.length?
+                        savedPostsLength?
                         <SavedCounterContainer>
                             <span style={{color:'white', fontSize:'12px'}}> {savedPostsLength}  </span>
                         </SavedCounterContainer>
