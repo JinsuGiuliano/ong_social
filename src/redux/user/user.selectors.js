@@ -24,7 +24,7 @@ export const selectSavedPosts = createSelector(
 
 export const selectSavedPostsLength = createSelector(
   [selectUser],
-  user => user && user.saved
+  user => user.saved.length
 );
 
 export const selectFormsState = createSelector(
