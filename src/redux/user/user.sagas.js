@@ -11,7 +11,8 @@ import {
   fetchFollowSuccess, fetchFollowFailure,
   postSaveSuccess, postSaveFailure,
   postUnSaveSuccess, postUnSaveFailure,
-  updateUserSuccess, updateUserFailure
+  updateUserSuccess, updateUserFailure,
+  fetchUserProfileSuccess, fetchUserProfileFailure
 } from './user.actions';
 import {signOut as signOutLib, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { getDoc, getDocs, collection ,doc, setDoc, deleteDoc, updateDoc, increment} from "firebase/firestore";
@@ -226,6 +227,22 @@ export function* updateUserAsync({ payload: user  }) {
   }
 }
 
+export function* fetchUserProfileAsync({payload:userId}) {
+  try {
+    const userRef = yield doc(firestore,'users', userId)
+    const userSnap = yield getDoc(userRef);
+    const postsRef = yield collection(firestore,'posts', userId, 'userPosts')
+    const postsSnap = yield getDocs(postsRef);
+    let posts = []
+    postsSnap.docs.map( u => posts.push({...u.data(), id:u.id, ...userSnap.data()}))
+    yield console.log('profile posts: ',posts)
+    yield put(fetchUserProfileSuccess({user: userSnap.data(), posts:posts}));
+  } catch (error) {
+    yield put(fetchUserProfileFailure(error));
+  }
+}
+
+
 //Actual SAGAS!
 export function* onGoogleSignInStart() {
   yield takeLatest(UserActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle);
@@ -279,6 +296,10 @@ export function* onUpdateUserAsync() {
   yield takeLatest(UserActionTypes.UPDATE_USER_START, updateUserAsync);
 }
 
+export function* onFetchUserProfileAsync() {
+  yield takeLatest(UserActionTypes.FETCH_USER_PROFILE_START, fetchUserProfileAsync);
+}
+
 export function* userSagas() {
   yield all([
     call(onGoogleSignInStart),
@@ -293,6 +314,7 @@ export function* userSagas() {
     call(onFetchFollowing),
     call(onSavePostAsync),
     call(onUnSavePostAsync),
-    call(onUpdateUserAsync)
+    call(onUpdateUserAsync),
+    call(onFetchUserProfileAsync)
   ]);
 }

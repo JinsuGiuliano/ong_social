@@ -17,13 +17,22 @@ const Posts =  () => {
     posts.sort((a,b) => b.createdAt -  a.createdAt )
     return(
         <PostContainer>
-        <CreatePost/>
         {
-            posts && 
+            currentUser && <CreatePost/> 
+        }
+       
+        {
+            posts && currentUser && 
             posts.filter(e => following.includes(e.uid))
                  .filter(e => currentUser? e.id !== currentUser.id: e.id !== null)
-                 .map( p => (
-                     <Post key={p.id} data={p}/> 
+                 .map( (p, idx) => (
+                     <Post key={p.id + idx} data={p}/> 
+                     ))
+        }
+        {
+            posts &&  !currentUser &&
+            posts.map( (p, idx) => (
+                     <Post key={p.id + idx} data={p}/> 
                      ))
         }
         </PostContainer>

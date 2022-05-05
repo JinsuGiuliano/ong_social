@@ -7,3 +7,11 @@ export const selectAllPosts = createSelector(
   posts =>  posts.posts
 );
 
+export const selectUserProfilePosts = username =>
+  createSelector(
+    [selectAllPosts],
+    (posts) => {
+      console.log(username);
+      return (posts ? posts.find(e => e.uid === username): null)
+    }
+  );

@@ -2,20 +2,21 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { PostContainer, TopProfile, ProfileName, ProfileEmail, CalendarIcon, JoinContainer,ProfilePhoto, ProfileInfoContainer } from './profile.styles';
 
-import { selectAllPosts } from '../../redux/posts/posts.selectors';
-import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { selectAllPosts } from '../../../redux/posts/posts.selectors';
+import { selectCurrentUser } from '../../../redux/user/user.selectors';
 
-import Post from '../../components/posts/post/post.component';
-import CreatePost from '../../components/posts/post/createPost.component';
-import CustomButton from '../../components/utils/custom-button/custom-button.component';
-import EditProfile from './edit/editProfile.component';
+import Post from '../../../components/posts/post/post.component';
+import CreatePost from '../../../components/posts/post/createPost.component';
+import CustomButton from '../../../components/utils/custom-button/custom-button.component';
+import EditProfile from '../edit/editProfile.component';
+import SignInAndSignUpPage from '../../sign-in-and-sign-up/sign-in-and-sign-up.component';
 
 const Profile =  () => {
+    //const user = useSelector(selectCollection(category));
     const [edit, setEdit] = useState(false)
     const currentUser = useSelector(selectCurrentUser)
     const posts = useSelector(selectAllPosts)
-
-    posts.sort((a,b) => b.createdAt -  a.createdAt )
+    //posts.sort((a,b) => b.createdAt -  a.createdAt )
     return(
         <PostContainer>
         
@@ -44,12 +45,16 @@ const Profile =  () => {
         
         <CreatePost/>
         {
-            posts && 
+            posts && currentUser &&
             posts
                  .filter(e => e.uid === currentUser.id)
                  .map( (p, idx) => (
                      <Post key={p.id + `${idx}`} data={p}/> 
                      ))
+        }
+        {
+             !currentUser &&
+            <SignInAndSignUpPage/>
         }
 
         </PostContainer>

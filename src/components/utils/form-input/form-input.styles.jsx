@@ -47,7 +47,9 @@ const searchBarShrinkLabelStyles = css`
 const searchInputStyle = css`
   margin:0px;
   font-size: 13px;
-
+  background-color:#f7f7f7;
+  height: 20px;
+  border-radius: 25px;
   &.shrink {
     ${searchBarShrinkLabelStyles}
   }

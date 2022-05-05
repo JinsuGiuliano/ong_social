@@ -12,7 +12,7 @@ import MenuTop from '../../components/menu/menuTop/menuTop.component';
 import { HomeContainer, HomeMainContainer } from './home.styles';
 import TendenciesQuickBox from '../../components/tendencies/tendenciesQuickBox.component';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
-import Profile from '../profile/profile.component';
+import ProfilePage from '../profile/profilePage.component';
 import MobileMenu from '../../components/menu/mobile/mobileMenu.component';
 import SignInAndSignUpPage from '../sign-in-and-sign-up/sign-in-and-sign-up.component';
 
@@ -30,12 +30,11 @@ const Home = () => {
         <HomeMainContainer >
             <MenuTop/>
            <MobileMenu/>
-
             <HomeContainer>
                 <LeftMenu/>
                 <Routes>
                     <Route path='/' element={<Posts/>}/>
-                    <Route path='profile' element={<Profile />} />
+                    <Route path='profile/*' element={<ProfilePage/>} />
                     <Route path='saved-posts' element={<SavedPosts/>}/>
                     <Route path='signin' element={<SignInAndSignUpPage/>}/>
                 </Routes>

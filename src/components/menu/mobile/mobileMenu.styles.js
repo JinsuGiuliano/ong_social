@@ -31,6 +31,8 @@ export const MenuContainer = styled.div`
     background-color:#fff;
     width:100%;
     z-index:9999999999;
+    box-shadow: 1px 1px 8px #ddd;
+
 `
 
 export const OptionContainer = styled.div`

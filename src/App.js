@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import { checkUserSession } from './redux/user/user.actions';
 import Home from './pages/home/home.component';
 import { GlobalStyle } from './globalStyles';
+import ErrorBoundary from './ErrorBoundary'
 
 // import { addCollectionAndDocuments } from './firebase/firebase.utils';
 // import SHOP_DATA from './redux/shop/shop.data';
@@ -15,7 +14,10 @@ const App = () => {
     dispatch(checkUserSession());
   });
     return(
-        <Home/>
+      <ErrorBoundary>
+            <Home/>
+      </ErrorBoundary>
+
     );
   }
 

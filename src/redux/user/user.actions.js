@@ -164,3 +164,19 @@ export const postUnSaveFailure = error => ({
 });
 
 
+
+
+export const fetchUserProfileStart = userId => ({
+  type: UserActionTypes.FETCH_USER_PROFILE_START,
+  payload: userId
+});
+
+export const fetchUserProfileSuccess = profile => ({
+  type: UserActionTypes.FETCH_USER_PROFILE_SUCCESS,
+  payload: profile
+});
+
+export const fetchUserProfileFailure = error => ({
+  type: UserActionTypes.FETCH_USER_PROFILE_FAILURE,
+  payload: error
+});

@@ -3,6 +3,7 @@ import { ReactComponent as HeartSVG  } from '../../../assets/icons/heart.svg'
 import { ReactComponent as ClapSVG  } from '../../../assets/icons/clap.svg'
 import { ReactComponent as ShareSVG  } from '../../../assets/icons/share.svg'
 import { ReactComponent as ImageSVG  } from '../../../assets/icons/image.svg'
+import { Link } from 'react-router-dom';
 
 export const PostContainer = styled.div`
     width: 95%;
@@ -177,3 +178,13 @@ export const PostImage = styled.div`
     margin:10px;
     background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 `
+
+export const UserNameContainer = styled(Link)`
+    font-size: 13px;
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+    &:hover{
+        color:gray; 
+    }
+`;

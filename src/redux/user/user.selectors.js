@@ -31,3 +31,17 @@ export const selectFormsState = createSelector(
   [selectUser],
   user => user.forms
 );
+
+export const selectProfilePageState = createSelector(
+  [selectUser],
+  user => user.profile
+);
+
+export const selectUserProfile = username =>
+  createSelector(
+    [selectAllUsers],
+    (allUsers) => {
+      console.log(username);
+      return (allUsers ? allUsers.find(e => e.id === username): null)
+    }
+  );

@@ -10,6 +10,7 @@ const INITIAL_STATE = {
     signInForm: false,
     signUpForm: false
   },
+  profile:{},
   error: null
 };
 
@@ -38,6 +39,11 @@ export const userReducer = (state = INITIAL_STATE, action) => {
          ...state,
          allUsers: payload
        }
+    case UserActionTypes.FETCH_USER_PROFILE_SUCCESS:
+      return{
+        ...state,
+        profile: payload
+      }
     case UserActionTypes.FETCH_FOLLOW_SUCCESS:
       return{
         ...state,
@@ -69,6 +75,7 @@ export const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentUser: payload
       }
+    case UserActionTypes.FETCH_USER_PROFILE_FAILURE:
     case UserActionTypes.UPDATE_USER_FAILURE:
     case UserActionTypes.POST_SAVE_FAILURE:
     case UserActionTypes.SIGN_IN_FAILURE:
