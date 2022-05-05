@@ -14,7 +14,7 @@ const Posts =  () => {
     const posts = useSelector(selectAllPosts)
     const following = useSelector(selectFollowingUsers)
     console.log('following: ', following)
-    posts.sort((a,b) => b.createdAt -  a.createdAt )
+    posts && posts.sort((a,b) => b.createdAt -  a.createdAt )
     return(
         <PostContainer>
         {
@@ -23,7 +23,7 @@ const Posts =  () => {
        
         {
             posts && currentUser && 
-            posts.filter(e => following.includes(e.uid))
+            posts.filter(e => following && following.includes(e.uid))
                  .filter(e => currentUser? e.id !== currentUser.id: e.id !== null)
                  .map( (p, idx) => (
                      <Post key={p.id + idx} data={p}/> 
