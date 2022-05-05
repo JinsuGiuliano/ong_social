@@ -9,7 +9,7 @@ import CreatePost from '../../../components/posts/post/createPost.component';
 const ProfileById =  () => {
     const profile = useSelector(selectProfilePageState);
     
-    const {user, posts} =  profile;
+    const {user, posts} =  profile && profile;
 
   
     return(
