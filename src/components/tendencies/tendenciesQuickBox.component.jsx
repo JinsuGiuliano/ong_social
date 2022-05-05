@@ -47,7 +47,7 @@ const TendenciesQuickBox = () => {
                                 <UserInfoChild > 
                                 {
                                     currentUser &&
-                                    <CustomButton onClick={following.includes(user.id) ? ()=>UnFollowUser(id): ()=>FollowUser(id)} isUnFollow>{following.includes(user.id) ?'UNFOLLOW': 'FOLLOW'}  </CustomButton>
+                                    <CustomButton onClick={following && following.includes(user.id) ? ()=>UnFollowUser(id): ()=>FollowUser(id)} isUnFollow>{following && following.includes(user.id) ?'UNFOLLOW': 'FOLLOW'}  </CustomButton>
 
                                 }
                                 {
