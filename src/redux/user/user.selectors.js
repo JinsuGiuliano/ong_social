@@ -45,3 +45,8 @@ export const selectUserProfile = username =>
       return (allUsers ? allUsers.find(e => e.id === username): null)
     }
   );
+
+  export const selectIsFetching = createSelector(
+    [selectUser],
+    user => user.isFetching
+  );

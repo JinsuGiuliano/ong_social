@@ -80,6 +80,21 @@ const isFollowStyles = css`
   }
 `;
 
+const isProfileTabStyles = css`
+  min-width: auto;
+  width: 100%;
+  background-color: #fff;
+  color: #4285f4;
+  padding: 0 2px 0 2px;
+  font-size: 10px;
+  height: 30px;
+  border: none;
+  &:hover {
+    background-color: #357ae8;
+    color:white
+}
+`;
+
 const getButtonStyles = props => {
   if (props.isGoogleSignIn) {
     return googleSignInStyles;
@@ -92,6 +107,9 @@ const getButtonStyles = props => {
   }
   if(props.isUnFollow){
     return isUnFollowStyles
+  }
+  if(props.isProfileTab){
+    return isProfileTabStyles
   }
   return props.inverted ? invertedButtonStyles : buttonStyles;
 };

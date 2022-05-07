@@ -6,16 +6,22 @@ import { selectCurrentUser, selectSavedPosts } from "../../../redux/user/user.se
 import { PostContainer, PostUserIcon, PostContentContainer, PostImage,
         PostUserInfoContainer, PostText , UserInfoChild, InfoTextContainer,
         PostActionsContainer ,HeartIcon, ClapIcon, ShareIcon, UserNameContainer } from './post.styles'
+import { useLocation, useNavigate } from "react-router-dom";
 
-const Post = ({ data }) => {
-
+const Post = ({data}) => {
     const dispatch = useDispatch()
-
+    const location = useLocation()
+    const navigate = useNavigate()
+    console.log('location: ', location)
     const { caption, createdAt, creation, filePath, likesCount, photo, name, email, id, uid } = data
     const savedPosts = useSelector(selectSavedPosts);
     const currentUser = useSelector(selectCurrentUser);
     const postSaved =  savedPosts? !savedPosts.includes(id) :false ;
 
+    const goToProfile = () => {
+        navigate(`profile/${uid}`,{replace: true});
+      }
+    
     const savePost = () => {
         dispatch(postSaveStart(id))
     }
@@ -37,7 +43,7 @@ const Post = ({ data }) => {
             </UserInfoChild>   
             <InfoTextContainer>
                 <UserInfoChild > 
-                    <UserNameContainer to={`profile/${uid}`} onClick={()=> dispatch(fetchUserProfileStart(uid))} ><strong> { name.toUpperCase() } </strong></UserNameContainer>
+                    <UserNameContainer onClick={()=> {dispatch(fetchUserProfileStart(uid)); goToProfile()}} ><strong> { name.toUpperCase() } </strong></UserNameContainer>
                 </UserInfoChild> 
                 <UserInfoChild>
                     <p style={{fontSize:'12px',color:'gray' }}> { email } </p>

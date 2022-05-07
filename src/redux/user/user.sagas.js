@@ -16,7 +16,7 @@ import {
 } from './user.actions';
 import {signOut as signOutLib, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { getDoc, getDocs, collection ,doc, setDoc, deleteDoc, updateDoc, increment} from "firebase/firestore";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes, listAll } from "firebase/storage";
 import {
   provider,
   createUserProfileDocument,
@@ -111,8 +111,13 @@ export function* followAsync({ payload: userId  }) {
   try {
     const uid = yield getAuth().currentUser.uid
     yield console.log('follow: ', userId)
+
     const followingRef = yield doc(firestore, "following", uid, 'userFollowing', userId);
     yield setDoc(followingRef, {});
+
+    const followersRef = yield doc(firestore, "followers", userId, 'userFollower', uid);
+    yield setDoc(followersRef, {});
+
     yield put(followSuccess(userId));
   } catch (error) {
     yield put(followFailure(error));
@@ -124,8 +129,13 @@ export function* unfollowAsync({ payload: userId  }) {
   try {
     const uid = yield getAuth().currentUser.uid
     yield console.log('follow: ', userId)
+    
     const followingRef = yield doc(firestore, "following", uid, 'userFollowing', userId);
     yield deleteDoc(followingRef, {});
+
+    const followerRef = yield doc(firestore, "followers", userId, 'userFollower', uid);
+    yield deleteDoc(followerRef, {});
+
     yield put(unfollowSuccess(userId));
   } catch (error) {
     yield put(unfollowFailure(error));
@@ -229,14 +239,37 @@ export function* updateUserAsync({ payload: user  }) {
 
 export function* fetchUserProfileAsync({payload:userId}) {
   try {
+    const storage = yield getStorage();
+    const ImagesRef = yield ref(storage, `${userId}`);
+    const ImageRefList = yield listAll(ImagesRef); 
+    const images = []
+    console.log('URL: ', ImageRefList.items)
+
+    for(let r in ImageRefList.items){
+      const URL = yield getDownloadURL(ImageRefList.items[r])
+      images.push(URL)
+    }
+   
+    let posts = []
+    let follwing = []
+    let followers = []
     const userRef = yield doc(firestore,'users', userId)
     const userSnap = yield getDoc(userRef);
+
     const postsRef = yield collection(firestore,'posts', userId, 'userPosts')
     const postsSnap = yield getDocs(postsRef);
-    let posts = []
     postsSnap.docs.map( u => posts.push({...u.data(), id:u.id, ...userSnap.data()}))
-    yield console.log('profile posts: ',posts)
-    yield put(fetchUserProfileSuccess({user: userSnap.data(), posts:posts}));
+
+    const followingRef = yield collection(firestore,'following', userId, 'userFollowing')
+    const followingSnap = yield getDocs(followingRef);
+    followingSnap.docs.map( u => follwing.push(u.id))
+
+    const followersgRef = yield collection(firestore,'followers', userId, 'userFollowers')
+    const followersSnap = yield getDocs(followersgRef);
+    followersSnap.docs.map( u => followers.push(u.id))
+
+
+    yield put(fetchUserProfileSuccess({user: userSnap.data(), posts:posts, following:follwing, followers:followers, images:images}));
   } catch (error) {
     yield put(fetchUserProfileFailure(error));
   }

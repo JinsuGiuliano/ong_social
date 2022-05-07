@@ -15,3 +15,8 @@ export const selectUserProfilePosts = username =>
       return (posts ? posts.find(e => e.uid === username): null)
     }
   );
+
+  export const selectIsFetching = createSelector(
+    [selectPosts],
+    posts =>  posts.isFetching
+  );

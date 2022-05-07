@@ -179,9 +179,11 @@ export const PostImage = styled.div`
     background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 `
 
-export const UserNameContainer = styled(Link)`
+export const UserNameContainer = styled.button`
     font-size: 13px;
     color: black;
+    border:none;
+    background-color: #fff;
     cursor: pointer;
     text-decoration: none;
     &:hover{

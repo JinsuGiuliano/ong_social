@@ -2,6 +2,7 @@ import UserActionTypes from './user.types';
 
 const INITIAL_STATE = {
   currentUser: null,
+  isFetching: false,
   allUsers:[],
   following:[],
   saved:[],
@@ -17,6 +18,19 @@ const INITIAL_STATE = {
 export const userReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
+    case UserActionTypes.EMAIL_SIGN_IN_START:
+    case UserActionTypes.FETCH_FOLLOW_START:
+    case UserActionTypes.FETCH_USERS_START:
+    case UserActionTypes.FETCH_USER_PROFILE_START:
+    case UserActionTypes.GOOGLE_SIGN_IN_START:
+    case UserActionTypes.SIGN_OUT_START:
+    case UserActionTypes.SIGN_UP_START:
+    case UserActionTypes.UPDATE_USER_START:
+      return {
+        ...state,
+        isFetching: true
+      }
+
     case UserActionTypes.SIGN_IN_SUCCESS:
       return {
         ...state,
@@ -24,7 +38,8 @@ export const userReducer = (state = INITIAL_STATE, action) => {
           signInForm: false,
           signUpForm: false
         },
-        currentUser: payload
+        currentUser: payload,
+        isFetching: false
       };
     case UserActionTypes.SIGN_OUT_SUCCESS:
       return {
@@ -32,22 +47,26 @@ export const userReducer = (state = INITIAL_STATE, action) => {
         following:[],
         saved:[],
         notifications:[],
-        currentUser: null
+        currentUser: null,
+        isFetching: false
       };
     case UserActionTypes.FETCH_USERS_SUCCESS:
        return{
          ...state,
-         allUsers: payload
+         allUsers: payload,
+         isFetching: false
        }
     case UserActionTypes.FETCH_USER_PROFILE_SUCCESS:
       return{
         ...state,
-        profile: payload
+        profile: payload,
+        isFetching: false
       }
     case UserActionTypes.FETCH_FOLLOW_SUCCESS:
       return{
         ...state,
-        following: payload
+        following: payload,
+        isFetching: false
       }
   
     case UserActionTypes.FOLLOW_SUCCESS:
@@ -58,12 +77,14 @@ export const userReducer = (state = INITIAL_STATE, action) => {
     case UserActionTypes.POST_SAVE_SUCCESS:
       return{
         ...state,
-        saved: [...state.saved, payload]
+        saved: [...state.saved, payload],
+        isFetching: false
       }
     case UserActionTypes.POST_UNSAVE_SUCCESS:
       return{
         ...state,
-        saved: state.saved.filter(e => e !== payload)
+        saved: state.saved.filter(e => e !== payload),
+        isFetching: false
       }
     case UserActionTypes.UNFOLLOW_SUCCESS:
         return{
@@ -73,7 +94,8 @@ export const userReducer = (state = INITIAL_STATE, action) => {
     case UserActionTypes.UPDATE_USER_SUCCESS:
       return{
         ...state,
-        currentUser: payload
+        currentUser: payload,
+        isFetching: false
       }
     case UserActionTypes.FETCH_USER_PROFILE_FAILURE:
     case UserActionTypes.UPDATE_USER_FAILURE:
@@ -87,7 +109,8 @@ export const userReducer = (state = INITIAL_STATE, action) => {
     case UserActionTypes.FETCH_USERS_FAILURE:
       return {
         ...state,
-        error: payload
+        error: payload,
+        isFetching: false
       };
     default:
       return state;

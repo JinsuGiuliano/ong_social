@@ -7,7 +7,7 @@ import { PostContainer } from '../profile/profile.styles';
 const SavedPosts = () => {
     const savedList = useSelector(selectSavedPosts) 
     const posts = useSelector(selectAllPosts)
-    const list =  posts.filter(e => savedList.includes(e.id))
+    const list = savedList && posts.filter(e => savedList.includes(e.id))
     console.log('list: ~~~~~', list)
     return(
         <PostContainer>

@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { ReactComponent as YspSVG  } from '../../../assets/icons/ysp-logo.svg'
+import { ReactComponent as StarSVG  } from '../../../assets/icons/stars.svg'
 
 export const MenuTopContainer = styled.div`
     display: flex;
@@ -58,19 +60,37 @@ export const SearchBarContainer =  styled.div`
 `;
     
 
-export const MenuLogo = styled.img`
+export const MenuLogo = styled(YspSVG)`
     width: 50px;
     height: 50px;
     cursor:pointer;
+    & path {
+            fill: #4285f4;
+        }
+    &:hover{
+        & path {
+            fill: ${({color}) => color };
+        }
+    }
 `;
 
-export const TendenciesLogo = styled.img`
+export const MenuTitle = styled.span`
+font-size:100px,;
+font-weight:lighter; 
+color:#4285f4;
+`
+
+
+export const TendenciesLogo = styled(StarSVG)`
     width: 30px;
     height: 30px;
     cursor:pointer;
-
+    & path {
+            fill: #ffda00;
+        }
     &:hover{
-        width: 33px;
-        height: 33px; 
+        & path {
+            fill: ${({color}) => color };
+        }
     }
 `;

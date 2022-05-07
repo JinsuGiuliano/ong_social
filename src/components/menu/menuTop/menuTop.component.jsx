@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { CenterBarContainer, MenuLogoContainer, MenuTopContainer, SearchBarContainer, MenuLogo, TendenciesLogo } from './menuTop.styles';
+import { CenterBarContainer, MenuLogoContainer, MenuTopContainer, 
+    SearchBarContainer, MenuLogo, TendenciesLogo, MenuTitle } from './menuTop.styles';
 import SearchBar from '../../searchBar/searchBar.components';
 const MenuTop = () => {
 
@@ -8,13 +9,16 @@ const MenuTop = () => {
         <MenuTopContainer>
             <MenuLogoContainer>
               <div>
-                <MenuLogo src={'./ysp-logo.png'} alt=''/>
+                <MenuLogo />
+              </div>
+              <div>
+                <MenuTitle>ONG SOCIAL</MenuTitle>
               </div>
             </MenuLogoContainer>
             <CenterBarContainer>
                 <div><span style={{fontSize:'18px'}}> Inicio </span></div>
                 <div> 
-                    <TendenciesLogo src={'./icons/stars.png'} alt='tendencias hoy'/>
+                    <TendenciesLogo />
                 </div>
             </CenterBarContainer>
             <SearchBarContainer>

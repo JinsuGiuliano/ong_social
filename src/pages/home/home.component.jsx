@@ -18,14 +18,7 @@ import SignInAndSignUpPage from '../sign-in-and-sign-up/sign-in-and-sign-up.comp
 
 
 const Home = () => {
-    const dispatch = useDispatch();
-    const currentUser = useSelector(selectCurrentUser)
-    useEffect(()=>{
-        dispatch(postFetchStart());
-        dispatch(fetchUsersStart());
-        dispatch(fetchFollowStart());
-    },[currentUser])
-
+  
     return(
         <HomeMainContainer >
             <MenuTop/>
