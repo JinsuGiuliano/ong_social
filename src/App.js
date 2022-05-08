@@ -6,10 +6,13 @@ import { GlobalStyle } from './globalStyles';
 import ErrorBoundary from './ErrorBoundary'
 import { postFetchStart } from './redux/posts/posts.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
-
 // import { addCollectionAndDocuments } from './firebase/firebase.utils';
 // import SHOP_DATA from './redux/shop/shop.data';
 const App = () => {
+
+const currentUser = useSelector(selectCurrentUser)
+
+
   const dispatch = useDispatch();
  // const currentUser = useSelector(selectCurrentUser)
   useEffect(()=>{
@@ -17,7 +20,7 @@ const App = () => {
       dispatch(postFetchStart());
       dispatch(fetchUsersStart());
       dispatch(fetchFollowStart());
-  })
+  },[])
 
     return(
       <ErrorBoundary>

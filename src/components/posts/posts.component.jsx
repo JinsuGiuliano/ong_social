@@ -30,7 +30,7 @@ const Posts =  () => {
                 {
                     posts && currentUser && 
                     posts.filter(e => following && following.includes(e.uid))
-                        .filter(e => currentUser? e.id !== currentUser.id: e.id !== null)
+                        .filter(e => currentUser? e.id !== currentUser.id: e)
                         .map( (p, idx) => (
                             <Post key={p.id + idx} data={p}/> 
                             ))

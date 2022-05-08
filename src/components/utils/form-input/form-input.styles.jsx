@@ -50,6 +50,7 @@ const searchInputStyle = css`
   background-color:#f7f7f7;
   height: 20px;
   border-radius: 25px;
+  color: #ddd;
   &.shrink {
     ${searchBarShrinkLabelStyles}
   }

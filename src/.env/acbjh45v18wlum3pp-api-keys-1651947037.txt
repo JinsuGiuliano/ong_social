@@ -1,0 +1,10 @@
+=== Typesense Cloud: acbjh45v18wlum3pp ===
+
+Admin API Key:
+bWvcaB20XWUNJN98VYREeFpUQkMLhHT2
+
+Search Only API Key:
+0smn8hDoqszxefmOOLPIoggU3PylYvmv
+
+Nodes:
+- acbjh45v18wlum3pp-1.a1.typesense.net [https:443]

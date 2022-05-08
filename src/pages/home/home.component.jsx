@@ -10,15 +10,16 @@ import LeftMenu from '../../components/menu/LeftMenu.component';
 import Posts from '../../components/posts/posts.component';
 import MenuTop from '../../components/menu/menuTop/menuTop.component';
 import { HomeContainer, HomeMainContainer } from './home.styles';
-import TendenciesQuickBox from '../../components/tendencies/tendenciesQuickBox.component';
-import { selectCurrentUser } from '../../redux/user/user.selectors';
 import ProfilePage from '../profile/profilePage.component';
 import MobileMenu from '../../components/menu/mobile/mobileMenu.component';
 import SignInAndSignUpPage from '../sign-in-and-sign-up/sign-in-and-sign-up.component';
-
+import MenuRight from '../../components/menu/menuRight/menuRight.component';
+import { selectAllUsers } from '../../redux/user/user.selectors';
 
 const Home = () => {
-  
+
+    const users = useSelector(selectAllUsers)
+
     return(
         <HomeMainContainer >
             <MenuTop/>
@@ -31,7 +32,7 @@ const Home = () => {
                     <Route path='saved-posts' element={<SavedPosts/>}/>
                     <Route path='signin' element={<SignInAndSignUpPage/>}/>
                 </Routes>
-                <TendenciesQuickBox/>
+                <MenuRight/>
             </HomeContainer>
         </HomeMainContainer>
     )

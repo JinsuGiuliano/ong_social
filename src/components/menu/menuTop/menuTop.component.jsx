@@ -16,14 +16,10 @@ const MenuTop = () => {
               </div>
             </MenuLogoContainer>
             <CenterBarContainer>
-                <div><span style={{fontSize:'18px'}}> Inicio </span></div>
                 <div> 
                     <TendenciesLogo />
                 </div>
             </CenterBarContainer>
-            <SearchBarContainer>
-                <SearchBar searchBar />
-            </SearchBarContainer>
         </MenuTopContainer>
     )
 }

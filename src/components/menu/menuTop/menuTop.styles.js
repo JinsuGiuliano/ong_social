@@ -7,8 +7,8 @@ export const MenuTopContainer = styled.div`
     flex-direction: row;
     align-items: center;
     position: fixed;
-    height: 60px;
-    width: 100%;
+    height: 50px;
+    width: 75%;
     top:0;
     z-index:9999999;
     background-color: #fff;

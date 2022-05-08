@@ -12,7 +12,6 @@ const Post = ({data}) => {
     const dispatch = useDispatch()
     const location = useLocation()
     const navigate = useNavigate()
-    console.log('location: ', location)
     const { caption, createdAt, creation, filePath, likesCount, photo, name, email, id, uid } = data
     const savedPosts = useSelector(selectSavedPosts);
     const currentUser = useSelector(selectCurrentUser);

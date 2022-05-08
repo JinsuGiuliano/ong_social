@@ -109,7 +109,7 @@ export function* signInAfterSignUp({ payload: { user, additionalData } }) {
 
 export function* followAsync({ payload: userId  }) {
   try {
-    const uid = yield getAuth().currentUser.uid
+    const uid =  yield getCurrentUser().uid
     yield console.log('follow: ', userId)
 
     const followingRef = yield doc(firestore, "following", uid, 'userFollowing', userId);
@@ -127,7 +127,7 @@ export function* followAsync({ payload: userId  }) {
 
 export function* unfollowAsync({ payload: userId  }) {
   try {
-    const uid = yield getAuth().currentUser.uid
+    const uid = yield getCurrentUser().uid
     yield console.log('follow: ', userId)
     
     const followingRef = yield doc(firestore, "following", uid, 'userFollowing', userId);
@@ -144,10 +144,10 @@ export function* unfollowAsync({ payload: userId  }) {
 
 export function* fetchFollowAsync() {
   try {
-    const uid = yield getAuth().currentUser.uid
-    yield console.log('follow: ', uid)
+    const userAuth = yield getCurrentUser();
+    yield console.log('follow: ', userAuth.uid)
     const Following = []
-    const followingUsersRef = yield collection(firestore, "following",  uid, 'userFollowing')
+    const followingUsersRef = yield collection(firestore, "following",  userAuth.uid, 'userFollowing')
     const followingUserSnap = yield getDocs(followingUsersRef)
     followingUserSnap.docs.map(e => Following.push(e.id));
     yield put(fetchFollowSuccess(Following));
