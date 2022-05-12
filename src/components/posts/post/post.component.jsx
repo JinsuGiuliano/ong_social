@@ -10,7 +10,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const Post = ({data}) => {
     const dispatch = useDispatch()
-    const location = useLocation()
     const navigate = useNavigate()
     const { caption, createdAt, creation, filePath, likesCount, photo, name, email, id, uid } = data
     const savedPosts = useSelector(selectSavedPosts);

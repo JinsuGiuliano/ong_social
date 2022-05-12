@@ -1,10 +1,5 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-
-import { postFetchStart } from '../../redux/posts/posts.actions';
-import { fetchUsersStart , fetchFollowStart} from '../../redux/user/user.actions';
-
 import SavedPosts from '../saves/saves.component';
 import LeftMenu from '../../components/menu/LeftMenu.component';
 import Posts from '../../components/posts/posts.component';
@@ -14,8 +9,8 @@ import ProfilePage from '../profile/profilePage.component';
 import MobileMenu from '../../components/menu/mobile/mobileMenu.component';
 import SignInAndSignUpPage from '../sign-in-and-sign-up/sign-in-and-sign-up.component';
 import MenuRight from '../../components/menu/menuRight/menuRight.component';
-import { selectAllUsers } from '../../redux/user/user.selectors';
 import MessagesPage from '../messages/messagesPage.component';
+import ChatScreen from '../messages/chat/chatScreen.component';
 
 const Home = () => {
 
@@ -32,6 +27,7 @@ const Home = () => {
                     <Route path='saved-posts' element={<SavedPosts/>}/>
                     <Route path='signin' element={<SignInAndSignUpPage/>}/>
                     <Route path='messages' element={<MessagesPage/>}/>
+                    <Route path='chat/*' element={<ChatScreen/>}/>
 
                 </Routes>
                 <MenuRight/>

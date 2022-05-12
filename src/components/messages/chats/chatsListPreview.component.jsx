@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import {selectAllChats, selectIsFetching } from '../../../redux/messages/messages.selectors';
+import {selectAllChats } from '../../../redux/messages/messages.selectors';
 import ChatPreview from './chatPreview.component';
 import { ChatPreviewContainer } from './chat.styles';
 
@@ -13,7 +13,7 @@ const ChatsListPreview = () => {
             {
               chats &&
                 chats.map( (chat, idx) =>
-                    <ChatPreview key={idx} chat={{...chat[Object.keys(chat)[0]]}}/>
+                    <ChatPreview key={idx} id={Object.keys(chat)[0]} chat={{...chat[Object.keys(chat)[0]]}}/>
                 )
             }
             </ChatPreviewContainer>

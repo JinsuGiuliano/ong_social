@@ -6,7 +6,8 @@ import { UserInfoChild, UserNameContainer } from '../../posts/post/post.styles';
 import { ViewIcon, LastMessagePreview, LastMessageTextPreview, LastMessageDatePreview } from './chat.styles';
 import { ChatContentContainer, ChatUserInfoContainer, InfoTextContainer, PostUserIcon,  } from './chat.styles';
 
-const ChatPreview = ({chat}) => {
+const ChatPreview = ({chat, id}) => {
+
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
@@ -15,6 +16,10 @@ const ChatPreview = ({chat}) => {
         navigate(`profile/${uid}`,{replace: true});
       }
     
+    const goToChat = () => {
+    navigate(`chats/${id}`,{replace: true});
+    }
+
     const lastMessage = chat.messages.slice(-1)[0] 
     console.log('lastMessage: ', lastMessage)
     return(
@@ -35,7 +40,7 @@ const ChatPreview = ({chat}) => {
                 <LastMessageDatePreview>{ new Date(lastMessage.createdAt.seconds*1000).toDateString()+ ': '}</LastMessageDatePreview><LastMessageTextPreview >{lastMessage.text.length > 20? lastMessage.text.slice(0,20) + ' ...': lastMessage.text}</LastMessageTextPreview>
             </LastMessagePreview>
             <div>
-                <ViewIcon onClick={()=>{}}/>
+                <ViewIcon onClick={() => goToChat()}/>
             </div>
             </InfoTextContainer>  
           

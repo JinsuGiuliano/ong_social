@@ -7,9 +7,8 @@ import {
     messageCreateSuccess, 
     messageCreateFailure,
 } from './messages.actions'
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
-import { getDoc, collection, getDocs, doc, setDoc, addDoc, updateDoc, increment } from "firebase/firestore";
+import { getDoc, collection, getDocs, doc, setDoc, addDoc } from "firebase/firestore";
 import {
   firestore, getCurrentUser
 } from '../../firebase/firebase.utils'
