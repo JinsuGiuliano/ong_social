@@ -15,10 +15,10 @@ import MobileMenu from '../../components/menu/mobile/mobileMenu.component';
 import SignInAndSignUpPage from '../sign-in-and-sign-up/sign-in-and-sign-up.component';
 import MenuRight from '../../components/menu/menuRight/menuRight.component';
 import { selectAllUsers } from '../../redux/user/user.selectors';
+import MessagesPage from '../messages/messagesPage.component';
 
 const Home = () => {
 
-    const users = useSelector(selectAllUsers)
 
     return(
         <HomeMainContainer >
@@ -31,6 +31,8 @@ const Home = () => {
                     <Route path='profile/*' element={<ProfilePage/>} />
                     <Route path='saved-posts' element={<SavedPosts/>}/>
                     <Route path='signin' element={<SignInAndSignUpPage/>}/>
+                    <Route path='messages' element={<MessagesPage/>}/>
+
                 </Routes>
                 <MenuRight/>
             </HomeContainer>

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { Fragment, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {selectCurrentUser, selectSavedPostsLength} from '../../redux/user/user.selectors'
 import {
   MainMenuContainer,
@@ -9,18 +9,19 @@ import {
   ProfileOptionContainer,
   PostOptionContainer,
   SavedCounterContainer,
-  UserIcon, HeartIcon, HomeIcon, BellIcon, EnvelopeIcon
+  UserIcon, HeartIcon, HomeIcon, BellIcon, EnvelopeIcon, FixedContainer
 } from './LeftMenu.styles'
 import SignIn from '../signInUp/sign-in/sign-in.component';
 import SignUp from '../signInUp/sign-up/sign-up.component'
 import CustomButton from '../utils/custom-button/custom-button.component';
 import ProfileBar from './profile/profileBar.component';
 import { useNavigate } from 'react-router-dom';
+import { messageFetchStart } from '../../redux/messages/messages.actions';
 
 
 const LeftMenu = () => {
 
-   
+   const dispatch = useDispatch();
     const navigate = useNavigate()
     const currentUser = useSelector(selectCurrentUser)
 
@@ -36,19 +37,25 @@ const LeftMenu = () => {
 
     return(
         <MainMenuContainer>
+        <FixedContainer>
         <MenuContainer>
                 <OptionContainer onClick={()=>navigate('/')}>
                     <HomeIcon color={'black'}/>
                     <OptionText>Inicio</OptionText>
                 </OptionContainer>
+                {
+                    currentUser &&
+                    <Fragment>
                 <OptionContainer>
                     <BellIcon color={'black'}/>
                     <OptionText>Notificaciones</OptionText>
                 </OptionContainer>
-                <OptionContainer>
-                    <EnvelopeIcon color={'black'}/>
-                    <OptionText>Mensajes</OptionText>
-                </OptionContainer>
+              
+                    <OptionContainer onClick={()=>{navigate('/messages');dispatch(messageFetchStart())}}>
+                        <EnvelopeIcon color={'black'}/>
+                        <OptionText>Mensajes</OptionText>
+                    </OptionContainer>
+              
                 <OptionContainer onClick={()=>navigate('/saved-posts')}>
                     <HeartIcon color={'black'} />
                     <OptionText>Guardados </OptionText>
@@ -60,23 +67,22 @@ const LeftMenu = () => {
                         : '' 
                     }
                 </OptionContainer>
-                {
-                    currentUser &&
                     <OptionContainer onClick={()=>navigate('/profile')}>
                             <UserIcon color={'black'}/>
                             <OptionText>Perfil</OptionText>
                      </OptionContainer>
 
-                }
                
             <PostOptionContainer  style={{margin:'30px'}} onClick={()=>{return}}>
                 <CustomButton isPost  style={{width:'200px', float:'center'}}> Post Something! </CustomButton>
             </PostOptionContainer>
-            <ProfileOptionContainer style={{marginTop:'150px'}}>
-                <ProfileBar setShowSignin={setShowSignin} showSignin={showSignin} setShowSignUp={setShowSignUp} showSignUp={showSignUp}/>
-            </ProfileOptionContainer>
+            </Fragment>
+        }
+           
         </MenuContainer>
-
+        <ProfileOptionContainer >
+            <ProfileBar setShowSignin={setShowSignin} showSignin={showSignin} setShowSignUp={setShowSignUp} showSignUp={showSignUp}/>
+        </ProfileOptionContainer>
           { 
             showSignin  ?
               <SignIn/>
@@ -88,7 +94,9 @@ const LeftMenu = () => {
               <SignUp/>
               :
               null
+          
           }
+          </FixedContainer>
         </MainMenuContainer>
     )
 }

@@ -12,7 +12,7 @@ const MenuTop = () => {
                 <MenuLogo />
               </div>
               <div>
-                <MenuTitle>ONG SOCIAL</MenuTitle>
+                <MenuTitle><strong>ONG </strong>SOCIAL</MenuTitle>
               </div>
             </MenuLogoContainer>
             <CenterBarContainer>

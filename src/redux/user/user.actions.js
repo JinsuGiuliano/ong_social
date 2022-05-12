@@ -84,6 +84,22 @@ export const fetchUsersFailure = error => ({
 });
 
 
+export const fetchOneUserStart = () => ({
+  type: UserActionTypes.FETCH_USERS_START
+});
+
+export const fetchOneUserSuccess = id => ({
+  type: UserActionTypes.FETCH_USERS_SUCCESS,
+  payload: id
+});
+
+export const fetchOneUserFailure = error => ({
+  type: UserActionTypes.FETCH_USERS_FAILURE,
+  payload: error
+});
+
+
+
 export const followStart = userId => ({
   type: UserActionTypes.FOLLOW_START,
   payload: userId

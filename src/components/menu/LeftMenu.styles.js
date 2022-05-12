@@ -10,17 +10,26 @@ import { ReactComponent as EnvelopeSVG  } from '../../assets/icons/envelope.svg'
 export const MainMenuContainer = styled.div`
     width: 25%;
     margin-top: 80px;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     @media only screen and (max-width: 700px){
         display:none;
     }
 `
-
+export const FixedContainer = styled.div`
+    position: fixed;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 90%;
+`
 export const MenuContainer = styled.div`
     display: flex;
-    position: fixed;
     flex-direction: column;
     align-items:flex-start;
+    height:80%;
 `
 
 export const OptionContainer = styled.div`
@@ -53,6 +62,7 @@ export const ProfileOptionContainer = styled.div`
 `
 export const PostOptionContainer = styled.div`
     height:40px;
+    width:100%;
     display: flex;
     align-items: center;
     padding:10px;  

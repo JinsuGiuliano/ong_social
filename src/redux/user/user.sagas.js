@@ -6,6 +6,7 @@ import {
   signOutSuccess, signOutFailure,
   signUpSuccess, signUpFailure,
   fetchUsersSuccess, fetchUsersFailure,
+  fetchOneUserSuccess, fetchOneUserFailure,
   followSuccess, followFailure,
   unfollowSuccess, unfollowFailure,
   fetchFollowSuccess, fetchFollowFailure,
@@ -49,6 +50,17 @@ export function* fetchUsersAsync() {
     yield put(fetchUsersSuccess(Users));
   } catch (error) {
     yield put(fetchUsersFailure(error));
+  }
+}
+
+export function* fetchOneUserAsync({payload:{id}}) {
+  try {
+    const userRef = yield doc(firestore,'users', id)
+    const userSnapshot = yield getDoc(userRef);
+    const User = {...userSnapshot.data(), id:userSnapshot.id}
+    yield put(fetchOneUserSuccess(User));
+  } catch (error) {
+    yield put(fetchOneUserFailure(error));
   }
 }
 
@@ -109,13 +121,13 @@ export function* signInAfterSignUp({ payload: { user, additionalData } }) {
 
 export function* followAsync({ payload: userId  }) {
   try {
-    const uid =  yield getCurrentUser().uid
+    const uid =  yield getCurrentUser();
     yield console.log('follow: ', userId)
 
-    const followingRef = yield doc(firestore, "following", uid, 'userFollowing', userId);
+    const followingRef = yield doc(firestore, "following", uid.uid, 'userFollowing', userId);
     yield setDoc(followingRef, {});
 
-    const followersRef = yield doc(firestore, "followers", userId, 'userFollower', uid);
+    const followersRef = yield doc(firestore, "followers", userId, 'userFollower', uid.uid);
     yield setDoc(followersRef, {});
 
     yield put(followSuccess(userId));
@@ -127,13 +139,13 @@ export function* followAsync({ payload: userId  }) {
 
 export function* unfollowAsync({ payload: userId  }) {
   try {
-    const uid = yield getCurrentUser().uid
+    const uid = yield getCurrentUser()
     yield console.log('follow: ', userId)
     
-    const followingRef = yield doc(firestore, "following", uid, 'userFollowing', userId);
+    const followingRef = yield doc(firestore, "following", uid.uid, 'userFollowing', userId);
     yield deleteDoc(followingRef, {});
 
-    const followerRef = yield doc(firestore, "followers", userId, 'userFollower', uid);
+    const followerRef = yield doc(firestore, "followers", userId, 'userFollower', uid.uid);
     yield deleteDoc(followerRef, {});
 
     yield put(unfollowSuccess(userId));
@@ -144,11 +156,14 @@ export function* unfollowAsync({ payload: userId  }) {
 
 export function* fetchFollowAsync() {
   try {
-    const userAuth = yield getCurrentUser();
-    yield console.log('follow: ', userAuth.uid)
+    const userAuth = yield getAuth();
+    yield console.log('follow: ', userAuth)
+
     const Following = []
     const followingUsersRef = yield collection(firestore, "following",  userAuth.uid, 'userFollowing')
+
     const followingUserSnap = yield getDocs(followingUsersRef)
+
     followingUserSnap.docs.map(e => Following.push(e.id));
     yield put(fetchFollowSuccess(Following));
   } catch (error) {

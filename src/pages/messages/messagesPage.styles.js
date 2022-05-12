@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 
-export const PostContainer = styled.div`
+export const MessagesListContainer = styled.div`
     width: 50%;
     display: flex;
     flex-direction: column;
