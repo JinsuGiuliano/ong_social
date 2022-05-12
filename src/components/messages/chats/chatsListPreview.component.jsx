@@ -13,7 +13,7 @@ const ChatsListPreview = () => {
             {
               chats &&
                 chats.map( (chat, idx) =>
-                    <ChatPreview key={idx} id={Object.keys(chat)[0]} chat={{...chat[Object.keys(chat)[0]]}}/>
+                    <ChatPreview key={idx} id={chat.chatId} chat={chat}/>
                 )
             }
             </ChatPreviewContainer>

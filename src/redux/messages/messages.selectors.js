@@ -4,19 +4,9 @@ const selectMessages = (state) => state.messages;
 
 export const selectAllChats = createSelector(
   [selectMessages],
-  messages =>  {
-    console.log('selectAllChats: ', messages.chats)
-    return(messages.chats)}
+  messages => messages.chats
 );
 
-export const selectUserProfileMessages = username =>
-  createSelector(
-    [selectAllChats],
-    (messages) => {
-      console.log(username);
-      return (messages ? messages.find(e => e.uid === username): null)
-    }
-  );
 
   export const selectIsFetching = createSelector(
     [selectMessages],
@@ -28,3 +18,12 @@ export const selectUserProfileMessages = username =>
     (chats) => chats ? Object.keys(chats).map(key => chats[key]) : []
   );
   
+
+  export const selectChatMessages = chatId =>
+  createSelector(
+    [selectChatsForPreview],
+    (chats) => {
+      console.log('selectChatMessages: ', chats)
+      return (chats ? chats.find(e => e.chatId === chatId ): null)
+    }
+  );

@@ -6,7 +6,6 @@ export const PostContainer = styled.div`
     display: flex;
     flex-direction: column;
     overflow: auto;
-    margin-top: 60px;
     @media only screen and (max-width: 700px){
         width:100%;
     }

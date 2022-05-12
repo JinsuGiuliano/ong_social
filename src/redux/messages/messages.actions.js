@@ -16,9 +16,9 @@ export const messageFetchFailure = error => ({
 });
 
 // Create message
-export const messageCreateStart = (message, user) => ({
+export const messageCreateStart = (message, to, chatId) => ({
     type: messageActionTypes.MESSAGE_CREATE_START,
-    payload: { message, user }
+    payload: { message, to, chatId }
   });
   
 export const messageCreateSuccess = message => ({

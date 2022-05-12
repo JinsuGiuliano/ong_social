@@ -38,7 +38,7 @@ export function* messageFetch() {
           let  toSnap = yield getDoc(toRef)
           let  sendBySnap = yield getDoc(sendByRef)
           to = currentUser.uid === toSnap.data().id ? sendBySnap.data() : toSnap.data(); 
-          yield chats.push({[ userChatsList[i].id ]:{ messages:Nchat,...chatSnap.data(), to }})
+          yield chats.push({ chatId:userChatsList[i].id ,messages:Nchat,...chatSnap.data(), to })
         }
       }
 
@@ -48,31 +48,33 @@ export function* messageFetch() {
     }
   }
 
-export function* messageCreate({payload:{message, sendBy, to}}) {
+export function* messageCreate({payload:{message, to, chatId}}) {
   try {
     const currentUser = yield getCurrentUser()
 
-    if(message.chatId){
-      const chatColRef = yield collection(firestore, "chats", message.chatId, 'messages' );
+    if(chatId){
+      console.log('haz entrado aquí')
+      const chatColRef = yield collection(firestore, "chats", chatId, 'messages' );
       const messageSnap = yield addDoc(chatColRef, {...message})
 
+      yield put(messageCreateSuccess({...message, id:messageSnap.id, chatId}));
+    }else{
+      const chatsColRef = yield collection(firestore, "chats" );
+      const newChatDocRef  = yield addDoc(chatsColRef, {sendBy:message.sendBy, to:to, createdAt:message.createdAt})
+      
+      const chatMessagesRef = yield collection(firestore, "chats", newChatDocRef.id, 'messages') 
+      const messageSnap = yield addDoc(chatMessagesRef, {...message})
+  
+      const user_SendBy_Ref = collection(firestore, 'users', currentUser.uid, 'chats')
+      const user_To_Ref = collection(firestore, 'users', to, 'chats' )
+  
+      yield setDoc(doc(user_SendBy_Ref, newChatDocRef.id ), {});
+  
+      yield setDoc(doc(user_To_Ref, newChatDocRef.id ), {});
+      
       yield put(messageCreateSuccess({...message, id:messageSnap.id}));
     }
-
-    const chatsColRef = yield collection(firestore, "chats" );
-    const newChatDocRef  = yield addDoc(chatsColRef, {sendBy:sendBy, to:to, createdAt:message.createdAt})
-    
-    const chatMessagesRef = yield collection(firestore, "chats", newChatDocRef.id, 'messages') 
-    const messageSnap = yield addDoc(chatMessagesRef, {...message})
-
-    const user_SendBy_Ref = collection(firestore, 'users', currentUser.uid, 'chats')
-    const user_To_Ref = collection(firestore, 'users', to, 'chats' )
-
-    yield setDoc(doc(user_SendBy_Ref, newChatDocRef.id ), {});
-
-    yield setDoc(doc(user_To_Ref, newChatDocRef.id ), {});
-    
-    yield put(messageCreateSuccess({...message, id:messageSnap.id}));
+ 
   } catch (error) {
     yield put(messageCreateFailure(error));
   }

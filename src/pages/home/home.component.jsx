@@ -17,7 +17,6 @@ const Home = () => {
 
     return(
         <HomeMainContainer >
-            <MenuTop/>
            <MobileMenu/>
             <HomeContainer>
                 <LeftMenu/>
@@ -26,8 +25,7 @@ const Home = () => {
                     <Route path='profile/*' element={<ProfilePage/>} />
                     <Route path='saved-posts' element={<SavedPosts/>}/>
                     <Route path='signin' element={<SignInAndSignUpPage/>}/>
-                    <Route path='messages' element={<MessagesPage/>}/>
-                    <Route path='chat/*' element={<ChatScreen/>}/>
+                    <Route path='messages/*' element={<MessagesPage/>}/>
 
                 </Routes>
                 <MenuRight/>

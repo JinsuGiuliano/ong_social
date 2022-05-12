@@ -8,11 +8,9 @@ import UserTabs from './tabs/userTabs.components';
 
 const ProfileById =  () => {
 
-
     const profile = useSelector(selectProfilePageState);
     const isFetching = useSelector(selectIsFetching);
     const {user, posts, following, followers, images} =  profile && profile;
-  console.log('profile: ', profile)
     return(
         <Fragment>
         {

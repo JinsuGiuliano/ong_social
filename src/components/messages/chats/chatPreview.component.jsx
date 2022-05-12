@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchUserProfileStart } from '../../../redux/user/user.actions';
 import { UserInfoChild, UserNameContainer } from '../../posts/post/post.styles';
 import { ViewIcon, LastMessagePreview, LastMessageTextPreview, LastMessageDatePreview } from './chat.styles';
 import { ChatContentContainer, ChatUserInfoContainer, InfoTextContainer, PostUserIcon,  } from './chat.styles';
 
-const ChatPreview = ({chat, id}) => {
+const ChatPreview = ({chat, id, onView}) => {
 
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
-    
-    const goToProfile = (uid) => {
-        navigate(`profile/${uid}`,{replace: true});
+    const goToProfile = () => {
+        navigate(`profile/${chat.to.id}`,{replace: true});
       }
     
     const goToChat = () => {
-    navigate(`chats/${id}`,{replace: true});
+    navigate(id,{replace: true});
     }
 
     const lastMessage = chat.messages.slice(-1)[0] 
@@ -31,17 +30,23 @@ const ChatPreview = ({chat, id}) => {
                 </ChatUserInfoContainer>
                 <InfoTextContainer>
                 <UserInfoChild > 
-                    <UserNameContainer  onClick={()=> {dispatch(fetchUserProfileStart(chat.to.id)); goToProfile(chat.to.id)}}>
+                    <UserNameContainer  onClick={()=> {dispatch(fetchUserProfileStart(chat.to.id)); goToProfile()}}>
                         <strong> { chat.to.name.toUpperCase() } </strong>
                     </UserNameContainer>
                     <p style={{fontSize:'10px',color:'gray',margin:'0px' }}>{ chat.to.email} </p>
                 </UserInfoChild>
-                <LastMessagePreview>
-                <LastMessageDatePreview>{ new Date(lastMessage.createdAt.seconds*1000).toDateString()+ ': '}</LastMessageDatePreview><LastMessageTextPreview >{lastMessage.text.length > 20? lastMessage.text.slice(0,20) + ' ...': lastMessage.text}</LastMessageTextPreview>
-            </LastMessagePreview>
-            <div>
-                <ViewIcon onClick={() => goToChat()}/>
-            </div>
+            
+              {
+                !onView &&  
+                <Fragment>
+                    <LastMessagePreview>
+                        <LastMessageDatePreview>{ new Date(lastMessage.createdAt.seconds*1000).toDateString() + ': '}</LastMessageDatePreview><LastMessageTextPreview >{lastMessage.text.length > 20? lastMessage.text.slice(0,20) + ' ...': lastMessage.text}</LastMessageTextPreview>
+                    </LastMessagePreview>
+                    <div>
+                        <ViewIcon onClick={() => goToChat()}/>
+                    </div>
+                </Fragment>
+              }
             </InfoTextContainer>  
           
             

@@ -4,12 +4,13 @@ import {selectCurrentUser, selectSavedPostsLength} from '../../redux/user/user.s
 import {
   MainMenuContainer,
   MenuContainer,
+  MenuTitle,
   OptionContainer,
   OptionText,
   ProfileOptionContainer,
   PostOptionContainer,
   SavedCounterContainer,
-  UserIcon, HeartIcon, HomeIcon, BellIcon, EnvelopeIcon, FixedContainer
+  UserIcon, HeartIcon, HomeIcon, BellIcon, EnvelopeIcon, FixedContainer, MenuLogoContainer, MenuLogo
 } from './LeftMenu.styles'
 import SignIn from '../signInUp/sign-in/sign-in.component';
 import SignUp from '../signInUp/sign-up/sign-up.component'
@@ -39,6 +40,14 @@ const LeftMenu = () => {
         <MainMenuContainer>
         <FixedContainer>
         <MenuContainer>
+                <MenuLogoContainer>
+                    <div>
+                        <MenuLogo />
+                    </div>
+                    <div>
+                        <MenuTitle><strong>ONG </strong>SOCIAL</MenuTitle>
+                    </div>
+                </MenuLogoContainer>
                 <OptionContainer onClick={()=>navigate('/')}>
                     <HomeIcon color={'black'}/>
                     <OptionText>Inicio</OptionText>

@@ -30,10 +30,11 @@ export const  messagesReducer = (state = INITIAL_STATE, action) => {
         errorMessage: payload
       };
     case MessageActionTypes.MESSAGE_CREATE_SUCCESS:
-      let chatId = payload.chatId
          return {
           ...state,
-            chats: {...state.chats,[chatId]:{...state.chats[payload.chatId], payload }},
+            chats: state.chats.map( chat => chat.chatId === payload.chatId ? 
+            {...chat, messages:[...chat.messages, payload] }
+            : chat),
             isFetching: false,
         }
     default:

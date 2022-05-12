@@ -7,19 +7,18 @@ import CustomButton from '../utils/custom-button/custom-button.component'
 import { CreatePostContainer, PostUserIcon } from '../posts/post/post.styles'
 import { messageCreateStart } from '../../redux/messages/messages.actions';
 
-const SendMessage = ( destination) => {
+const SendMessage = ({ to, chatId }) => {
     const dispatch = useDispatch()
     const currentUser = useSelector(selectCurrentUser)
     const [ messageCaption, setMessageCaption ] = useState('')
 
    const handleSubmit = () => {
         const message = {
-            caption: messageCaption,
+            text: messageCaption,
             createdAt:Date.now(),
-            a: currentUser.id,
-            b:'JLRBCJqjLiU0KZBwQGD2xbULslN2'
+            sendBy: currentUser.id,
         }
-        dispatch(messageCreateStart(message, {...currentUser, ...destination}));
+        dispatch(messageCreateStart(message, to, chatId));
         setMessageCaption('')
       };
     

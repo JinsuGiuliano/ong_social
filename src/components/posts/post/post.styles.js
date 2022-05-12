@@ -89,9 +89,8 @@ export const CreatePostContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 0px;
-    margin: 40px 0px 0px 0px;
-    max-height:30%;
+    padding: 5px;
+    height:70px;
     @media only screen and (max-width: 700px){
         width:100%;
         height:65px;

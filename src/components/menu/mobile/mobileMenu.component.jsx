@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {selectCurrentUser, selectSavedPostsLength} from '../../../redux/user/user.selectors'
 import {
   MainMenuContainer,
@@ -11,11 +11,12 @@ import {
 } from './mobileMenu.styles'
 
 import { useNavigate } from 'react-router-dom';
+import { messageFetchStart } from '../../../redux/messages/messages.actions';
 
 
 const MobileMenu = () => {
 
-   
+    const dispatch = useDispatch() 
     const navigate = useNavigate()
     const currentUser = useSelector(selectCurrentUser)
 
@@ -33,8 +34,8 @@ const MobileMenu = () => {
                     <BellIcon color={'black'}/>
                     <OptionText>Notificaciones</OptionText>
                 </OptionContainer>
-                <OptionContainer>
-                    <EnvelopeIcon color={'black'}/>
+                <OptionContainer onClick={()=>{navigate('/messages');dispatch(messageFetchStart())}}>
+                    <EnvelopeIcon color={'black'} />
                     <OptionText>Mensajes</OptionText>
                 </OptionContainer>
                 <OptionContainer onClick={()=>navigate('/saved-posts')}>

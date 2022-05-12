@@ -4,12 +4,11 @@ import { ReactComponent as HeartSVG  } from '../../assets/icons/heart.svg'
 import { ReactComponent as HomeSVG  } from '../../assets/icons/home.svg'
 import { ReactComponent as BellSVG  } from '../../assets/icons/bell.svg'
 import { ReactComponent as EnvelopeSVG  } from '../../assets/icons/envelope.svg'
-
+import { ReactComponent as YspSVG  } from '../../assets/icons/ysp-logo.svg'
 
 
 export const MainMenuContainer = styled.div`
     width: 25%;
-    margin-top: 80px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -32,6 +31,43 @@ export const MenuContainer = styled.div`
     height:80%;
 `
 
+export const MenuLogoContainer = styled.div`
+    width: 23%;
+    height: 50px;
+    top:0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5px 5px;
+
+    @media only screen and (max-width: 700px){
+        width: 15%;
+        justify-content: center;
+    }
+`;
+
+
+export const MenuLogo = styled(YspSVG)`
+    width: 50px;
+    height: 50px;
+    cursor:pointer;
+    & path {
+            fill: #4285f4;
+        }
+    &:hover{
+        & path {
+            fill: ${({color}) => color };
+        }
+    }
+`;
+
+
+export const MenuTitle = styled.span`
+    font-size:100px,;
+    font-weight:lighter; 
+    color:#4285f4;
+`
+
 export const OptionContainer = styled.div`
     height:40px;
     display: flex;
@@ -49,7 +85,8 @@ export const OptionContainer = styled.div`
 
 export const ProfileOptionContainer = styled.div`
     height:40px;
-    bottom:2;
+    position: fixed;
+    bottom:0;
     display: flex;
     align-items: center;
     padding: 10px;  
