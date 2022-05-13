@@ -284,7 +284,7 @@ export function* fetchUserProfileAsync({payload:userId}) {
     followersSnap.docs.map( u => followers.push(u.id))
 
 
-    yield put(fetchUserProfileSuccess({user: userSnap.data(), posts:posts, following:follwing, followers:followers, images:images}));
+    yield put(fetchUserProfileSuccess({id:userId, user: userSnap.data(), posts:posts, following:follwing, followers:followers, images:images}));
   } catch (error) {
     yield put(fetchUserProfileFailure(error));
   }

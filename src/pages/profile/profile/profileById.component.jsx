@@ -1,16 +1,21 @@
-import React, { Fragment} from 'react';
+import React, { Fragment, useState} from 'react';
 import {  useSelector } from 'react-redux';
-import { PostContainer, TopProfile, ProfileName, ProfileEmail, CalendarIcon, JoinContainer,ProfilePhoto } from './profile.styles';
+import { PostContainer, TopProfile, ProfileName, ProfileEmail, 
+    CalendarIcon, JoinContainer,ProfilePhoto, SendMessageButton, MessageIcon,
+    SendText } from './profile.styles';
 
 import { selectIsFetching, selectProfilePageState } from '../../../redux/user/user.selectors';
 import Spinner from '../../../components/utils/with-spinner/with-spinner.component';
 import UserTabs from './tabs/userTabs.components';
+import NewMessageForm from '../../../components/messages/newMessage/newMessage.component';
 
 const ProfileById =  () => {
 
+    const [ newMessage, setNewMessage] = useState(false)
     const profile = useSelector(selectProfilePageState);
     const isFetching = useSelector(selectIsFetching);
-    const {user, posts, following, followers, images} =  profile && profile;
+    const { user, id } =  profile && profile;
+    console.log('profile: ', profile)
     return(
         <Fragment>
         {
@@ -19,6 +24,10 @@ const ProfileById =  () => {
             :
             <Fragment>
                 <PostContainer>
+                {
+                    newMessage && 
+                    <NewMessageForm setNewMessage={setNewMessage} newMessage={newMessage} to={id}/>
+                }
                 {
                     user &&
                     <Fragment>
@@ -31,6 +40,10 @@ const ProfileById =  () => {
                             <JoinContainer>
                                 <div><CalendarIcon color='white'/></div>
                             </JoinContainer>
+                            <SendMessageButton onClick={()=>setNewMessage(!newMessage)}>
+                                <SendText>ENVIAR MENSAJE</SendText>
+                                <MessageIcon/>
+                            </SendMessageButton>
                         </div>
                     </TopProfile>
                     </Fragment>

@@ -4,7 +4,7 @@ import { ReactComponent as ViewSVG  } from '../../../assets/icons/view.svg'
 
 export const  ChatPreviewContainer = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     height: 100%;
     overflow-y: auto;
     padding: 5px;

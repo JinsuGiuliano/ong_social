@@ -6,9 +6,11 @@ import {
     messageFetchFailure,
     messageCreateSuccess, 
     messageCreateFailure,
+    messageCreateNewSuccess,
+    messageCreateNewFailure
 } from './messages.actions'
 
-import { getDoc, collection, getDocs, doc, setDoc, addDoc } from "firebase/firestore";
+import { getDoc, collection, getDocs, doc, setDoc, addDoc, query, where } from "firebase/firestore";
 import {
   firestore, getCurrentUser
 } from '../../firebase/firebase.utils'
@@ -48,38 +50,74 @@ export function* messageFetch() {
     }
   }
 
-export function* messageCreate({payload:{message, to, chatId}}) {
+export function* messageCreate({payload:{message, chatId}}) {
   try {
-    const currentUser = yield getCurrentUser()
-
     if(chatId){
-      console.log('haz entrado aquí')
       const chatColRef = yield collection(firestore, "chats", chatId, 'messages' );
       const messageSnap = yield addDoc(chatColRef, {...message})
 
       yield put(messageCreateSuccess({...message, id:messageSnap.id, chatId}));
-    }else{
-      const chatsColRef = yield collection(firestore, "chats" );
-      const newChatDocRef  = yield addDoc(chatsColRef, {sendBy:message.sendBy, to:to, createdAt:message.createdAt})
-      
-      const chatMessagesRef = yield collection(firestore, "chats", newChatDocRef.id, 'messages') 
-      const messageSnap = yield addDoc(chatMessagesRef, {...message})
-  
-      const user_SendBy_Ref = collection(firestore, 'users', currentUser.uid, 'chats')
-      const user_To_Ref = collection(firestore, 'users', to, 'chats' )
-  
-      yield setDoc(doc(user_SendBy_Ref, newChatDocRef.id ), {});
-  
-      yield setDoc(doc(user_To_Ref, newChatDocRef.id ), {});
-      
-      yield put(messageCreateSuccess({...message, id:messageSnap.id}));
     }
- 
   } catch (error) {
     yield put(messageCreateFailure(error));
   }
 }
 
+
+
+export function* newMessageCreate({payload:{message, to}}) {
+  try {
+    console.log('newMessageCreate: ', message, to)
+
+      const user_SendBy_Ref = yield collection(firestore, 'users', message.sendBy, 'chats')
+      const user_To_Ref = yield collection(firestore, 'users', to, 'chats' )
+
+      let chat = {sendBy:message.sendBy, to:to, createdAt:message.createdAt} 
+      const chatsColRef = yield collection(firestore, "chats" );
+
+      const case_1_Ref = yield query(chatsColRef, where("sendBy", "==", message.sendBy), where('to', '==', to));
+      const case_1 = yield getDocs(case_1_Ref)
+      const case_2_Ref = yield query(chatsColRef, where("sendBy", "==", to), where('to', '==', message.sendBy));
+      const case_2 = yield getDocs(case_2_Ref)
+
+      let chatSnap = yield case_1.docs.length && !case_2.docs.length? case_1_Ref:  !case_2.docs.length? null : case_2_Ref;
+
+      if(chatSnap){
+        let chat = yield getDocs(chatSnap)
+        let prevChatNewMessageSnap;
+        for(let i in chat.docs){
+
+          yield console.log('chatSnap.docs[i].id : ', chat.docs[i].id )
+            prevChatNewMessageSnap = yield collection(firestore, 'chats', chat.docs[i].id, 'messages' )
+            let prevChatAdd = yield addDoc(prevChatNewMessageSnap, message)
+            yield console.log('prevChatAdd: ', prevChatAdd)
+        }
+        yield put(messageCreateNewSuccess({...message, id:prevChatNewMessageSnap.id}));
+
+      }
+      else{
+      
+        const newChatDocRef  = yield addDoc(chatsColRef, chat )
+        let newChatDocSnap = yield getDoc(newChatDocRef)
+  
+        const chatMessagesRef = yield collection(firestore, "chats", newChatDocSnap.id, 'messages') 
+        
+        const messageSnap = yield addDoc(chatMessagesRef,message)
+  
+        console.log('messageSnap: ', messageSnap)
+
+        yield setDoc(doc(user_SendBy_Ref, newChatDocSnap.id ), {});
+    
+        yield setDoc(doc(user_To_Ref, newChatDocSnap.id ), {});
+        
+        yield put(messageCreateNewSuccess({...message, id:messageSnap.id}));
+      }
+   
+ 
+  } catch (error) {
+    yield put(messageCreateNewFailure(error));
+  }
+}
 
 //Actual SAGAS!
 export function* onMessageFetchStart() {
@@ -90,11 +128,15 @@ export function* onMessageCreateStart() {
   yield takeLatest(messageActionTypes.MESSAGE_CREATE_START, messageCreate);
 }
 
+export function* onMessageCreateNewStart() {
+  yield takeLatest(messageActionTypes.MESSAGE_CREATE_NEW_START, newMessageCreate);
+}
 
 
 export function* messageSagas() {
   yield all([
     call(onMessageFetchStart),
-    call(onMessageCreateStart)
+    call(onMessageCreateStart),
+    call(onMessageCreateNewStart)
   ]);
 }

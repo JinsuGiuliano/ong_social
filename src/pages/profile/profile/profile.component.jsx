@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { PostContainer, TopProfile, ProfileName, ProfileEmail, CalendarIcon, JoinContainer,ProfilePhoto, ProfileInfoContainer } from './profile.styles';
+import { PostContainer, TopProfile, ProfileName, 
+    ProfileEmail, CalendarIcon, JoinContainer,
+    ProfilePhoto, ProfileInfoContainer} from './profile.styles';
 
 import { selectAllPosts } from '../../../redux/posts/posts.selectors';
 import { selectCurrentUser, selectIsFetching } from '../../../redux/user/user.selectors';

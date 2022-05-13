@@ -30,3 +30,21 @@ export const messageCreateFailure = error => ({
     type: messageActionTypes.MESSAGE_CREATE_FAILURE,
     payload: error
 });
+
+
+// Create New message
+export const messageCreateNewStart = (message, to) => ({
+    type: messageActionTypes.MESSAGE_CREATE_NEW_START,
+    payload: { message, to }
+  });
+  
+export const messageCreateNewSuccess = message => ({
+    type: messageActionTypes.MESSAGE_CREATE_NEW_SUCCESS,
+    payload: message
+});
+
+export const messageCreateNewFailure = error => ({
+    type: messageActionTypes.MESSAGE_CREATE_NEW_FAILURE,
+    payload: error
+});
+

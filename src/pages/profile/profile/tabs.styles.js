@@ -7,7 +7,7 @@ export const TabSelectorContainer = styled.div`
   flex-direction: row;
   justify-content: space-evenly;
   width: 100%;
-  z-index:99999999999999;
+  z-index:99999999999;
 `
 export const ButtonContainer = styled.div`
     width:100%;
