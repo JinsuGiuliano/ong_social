@@ -47,7 +47,7 @@ const Profile =  () => {
             </div>
         </ProfileInfoContainer>
         
-        <CreatePost/>
+        <CreatePost isFixed={false}/>
         {
             isFetching?
             <Spinner/>

@@ -46,6 +46,7 @@ export const ProfileInfoContainer = styled.div`
 export const JoinContainer = styled.div`
     margin:5px 0;
     display: flex;
+    width:100%;
     flex-direction: row;
     align-items:center;
     justify-content: flex-start;

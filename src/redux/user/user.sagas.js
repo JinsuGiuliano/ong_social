@@ -156,15 +156,16 @@ export function* unfollowAsync({ payload: userId  }) {
 
 export function* fetchFollowAsync() {
   try {
-    const userAuth = yield getAuth();
-    yield console.log('follow: ', userAuth)
+    const userAuth = yield getCurrentUser();
+    yield console.log('currentUser: ', userAuth)
 
     const Following = []
     const followingUsersRef = yield collection(firestore, "following",  userAuth.uid, 'userFollowing')
 
     const followingUserSnap = yield getDocs(followingUsersRef)
 
-    followingUserSnap.docs.map(e => Following.push(e.id));
+    yield followingUserSnap.docs.forEach(e => Following.push(e.id));
+
     yield put(fetchFollowSuccess(Following));
   } catch (error) {
     yield put(fetchFollowFailure(error));

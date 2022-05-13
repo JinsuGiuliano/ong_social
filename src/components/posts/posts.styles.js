@@ -10,6 +10,11 @@ export const PostContainer = styled.div`
         width:100%;
     }
 `
+export const PostsListContainer = styled.div`
+    padding-top:100px;
+`
+
+
 export const TopMenuBar = styled.div`
     display: flex;
     justify-content: space-between;

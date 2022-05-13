@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { PostContainer } from './posts.styles';
+import { PostContainer, PostsListContainer } from './posts.styles';
 
 import { selectAllPosts, selectIsFetching } from '../../redux/posts/posts.selectors';
 import { selectCurrentUser, selectFollowingUsers } from '../../redux/user/user.selectors';
@@ -19,14 +19,14 @@ const Posts =  () => {
     return(
         <PostContainer>
         {
-            currentUser && <CreatePost/> 
+            currentUser && <CreatePost isFixed={true}/> 
         }
     
     {
             isFetching?
             <Spinner/>
             :
-            <Fragment>
+            <PostsListContainer>
                 {
                     posts && currentUser && 
                     posts.filter(e => following && following.includes(e.uid))
@@ -41,7 +41,7 @@ const Posts =  () => {
                             <Post key={p.id + idx} data={p}/> 
                             ))
                 }
-            </Fragment>
+            </PostsListContainer>
         }          
 
         </PostContainer>

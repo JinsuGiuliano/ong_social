@@ -7,10 +7,10 @@ import { selectCurrentUser } from '../../../redux/user/user.selectors'
 
 import FormInput from '../../utils/form-input/form-input.component'
 import CustomButton from '../../utils/custom-button/custom-button.component'
-import { CreatePostContainer, ImageIcon } from './post.styles'
+import { CreatePostContainer, CreatePostFixedContainer, ImageIcon } from './post.styles'
 import { PostUserIcon } from './post.styles'
 
-const CreatePost = () => {
+const CreatePost = ({isFixed}) => {
     const dispatch = useDispatch()
     const currentUser = useSelector(selectCurrentUser)
     const [ postCaption, setPostCaption ] = useState('')
@@ -45,7 +45,7 @@ const CreatePost = () => {
 
     
     return(
-        <div style={{ borderBottom: '1px solid #f8f8f8', padding:'10px 0px' }}>
+        <CreatePostFixedContainer isFixed={isFixed}>
         <CreatePostContainer >
             <div >
                 <PostUserIcon src={ `${currentUser? currentUser.photo:'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png'}` } alt=''/>
@@ -80,7 +80,7 @@ const CreatePost = () => {
         </div>
        
 </div>
-        </div>
+        </CreatePostFixedContainer>
     )
 }
 

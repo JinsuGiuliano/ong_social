@@ -34,7 +34,7 @@ const ProfileById =  () => {
                     <h2 style={{margin:'0px 4px', fontFamily:'Arial, Helvetica, sans-serif'}}>{user.name}</h2>
                     <TopProfile imageUrl={user.photoBg}>
                         <ProfilePhoto imageUrl={user.photo}/>
-                        <div style={{display:'flex',flexDirection:'column'}}>
+                        <div style={{display:'flex',flexDirection:'column', width:'30%'}}>
                             <ProfileName>{user.name}</ProfileName>
                             <ProfileEmail>{user.email}</ProfileEmail>
                             <JoinContainer>

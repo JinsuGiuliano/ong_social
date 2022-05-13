@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ReactComponent as HeartSVG  } from '../../../assets/icons/heart.svg'
 import { ReactComponent as ClapSVG  } from '../../../assets/icons/clap.svg'
 import { ReactComponent as ShareSVG  } from '../../../assets/icons/share.svg'
@@ -10,7 +10,6 @@ export const PostContainer = styled.div`
     padding: 20px 10px;
     display: flex;
     flex-direction:row;
-    margin: 5px 0px;
     cursor: pointer;
     border-bottom: 1px solid #f8f8f8;
 
@@ -19,7 +18,6 @@ export const PostContainer = styled.div`
     }
     @media only screen and (max-width: 700px){
         width:95%;
-
     }
 
 `
@@ -47,9 +45,9 @@ export const PostUserInfoContainer = styled.div`
     align-items: flex-start;
     justify-content: flex-start;
     align-items: center;
+
     @media only screen and (max-width: 700px){
         width:100%;
-
     }
 ` 
 
@@ -60,6 +58,7 @@ export const PostActionsContainer = styled.div`
     align-items: flex-start;
     justify-content: flex-end;
     align-items: center;
+
     @media only screen and (max-width: 700px){
         width:100%;
     }
@@ -75,7 +74,6 @@ export const InfoTextContainer = styled.div`
     @media only screen and (max-width: 700px){
         width:100%;
         flex-direction:column;
-
     }
 ` 
 
@@ -84,6 +82,17 @@ export const PostText = styled.span`
     margin-left: 45px;
     font-size: 14px;
 `
+
+const inFixedStyle = css`   
+    position: fixed;
+    width: 50%;
+`;
+
+const getStyles = props => {
+    if (props.isFixed === true) {
+      return inFixedStyle;
+    }
+  };
 
 export const CreatePostContainer = styled.div`
     display: flex;
@@ -98,6 +107,20 @@ export const CreatePostContainer = styled.div`
 
     }
 `
+
+export const CreatePostFixedContainer = styled.div`
+    background-color: #fff;
+    border-bottom: 1px solid #f8f8f8;
+    padding:10px 0px; 
+    
+    ${getStyles}
+
+    @media only screen and (max-width: 900px){
+        width:100%;
+    }
+
+`
+
 
 export const UserInfoChild  = styled.div`
     margin-right: 4px; 
