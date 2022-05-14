@@ -37,7 +37,7 @@ const Profile =  () => {
                 <ProfileEmail>{currentUser.email}</ProfileEmail>
                 <JoinContainer>
                     <div><CalendarIcon color='white'/></div>
-                    <div><ProfileEmail> Se unio {new Date(currentUser.createdAt.seconds*1000).toDateString()}</ProfileEmail></div>
+                    <div><ProfileEmail> </ProfileEmail></div>
                 </JoinContainer>
             </div>
         </TopProfile>

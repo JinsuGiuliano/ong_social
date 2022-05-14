@@ -10,7 +10,7 @@ import {
     messageCreateNewFailure
 } from './messages.actions'
 
-import { getDoc, collection, getDocs, doc, setDoc, addDoc, query, where } from "firebase/firestore";
+import { getDoc, collection, getDocs, doc, setDoc, addDoc, query, where, onSnapshot } from "firebase/firestore";
 import {
   firestore, getCurrentUser
 } from '../../firebase/firebase.utils'
@@ -23,7 +23,7 @@ export function* messageFetch() {
         const userChatsSnap = yield getDocs(userChatsRef);
         const chats = [];
         const userChatsList = userChatsSnap.docs
-
+        yield console.log('currentUser: ',currentUser)
       for(let i in userChatsList){
         let Nchat = [];
         let messagesRef =  collection(firestore,'chats', userChatsList[i].id, 'messages');
@@ -39,7 +39,7 @@ export function* messageFetch() {
           let sendByRef =  yield doc(firestore, 'users', chatSnap.data().sendBy )
           let  toSnap = yield getDoc(toRef)
           let  sendBySnap = yield getDoc(sendByRef)
-          to = currentUser.uid === toSnap.data().id ? sendBySnap.data() : toSnap.data(); 
+          to = currentUser.uid === toSnap.id ? sendBySnap.data() : toSnap.data(); 
           yield chats.push({ chatId:userChatsList[i].id ,messages:Nchat,...chatSnap.data(), to })
         }
       }

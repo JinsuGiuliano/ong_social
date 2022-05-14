@@ -1,13 +1,13 @@
 import React from "react";
 import { MessageContainer, Text, MessageMainContainer} from "./message.styles";
 
-const Message =  ({data, current}) => {
+const Message =  ({text, current}) => {
 
     return(
         <MessageMainContainer current={current}>
             <MessageContainer current={current}>
                 <div>
-                    <Text >{data.text}</Text>
+                    <Text >{text}</Text>
                 </div>
             </MessageContainer>
         </MessageMainContainer>

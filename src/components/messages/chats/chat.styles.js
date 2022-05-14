@@ -11,6 +11,22 @@ export const  ChatPreviewContainer = styled.div`
     border-bottom: 1px solid #f5f4f1;
 
 `
+export const ChatListTitle = styled.span`
+    font-size:70;
+    font-weight:lighter; 
+    color:#4285f4;
+`
+export const ChatsTopContainer = styled.div`
+    position: fixed;
+    width:100%;
+    height:auto;
+    background-color: #fff;
+`
+export const ChatsContainer = styled.div`
+    padding: 30px 5px;
+`
+
+
 
 export const LastMessagePreview = styled.div`
     width: 50%;
