@@ -81,10 +81,6 @@ const LeftMenu = () => {
                             <OptionText>Perfil</OptionText>
                      </OptionContainer>
 
-               
-            <PostOptionContainer  style={{margin:'30px'}} onClick={()=>{return}}>
-                <CustomButton isPost  style={{width:'200px', float:'center'}}> Post Something! </CustomButton>
-            </PostOptionContainer>
             </Fragment>
         }
            

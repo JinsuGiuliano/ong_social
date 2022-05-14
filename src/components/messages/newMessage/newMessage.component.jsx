@@ -23,7 +23,7 @@ const NewMessageForm = ({setNewMessage, newMessage, to}) => {
         const onSubmit = () => {
             const message = {
                 text: text,
-                sendBy: currentUser.id,
+                sendBy: currentUser,
                 createdAt: Date.now()
             }
             dispatch(messageCreateNewStart(message, to))

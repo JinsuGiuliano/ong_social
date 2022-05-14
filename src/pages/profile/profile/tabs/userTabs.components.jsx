@@ -9,7 +9,7 @@ import CustomButton from '../../../../components/utils/custom-button/custom-butt
 import { useSelector } from "react-redux";
 import { selectIsFetching, selectProfilePageState } from "../../../../redux/user/user.selectors";
 
-const UserTabs = ({isProfileById}) => {
+const UserTabs = ({currentUser, isProfileById}) => {
 
 
 

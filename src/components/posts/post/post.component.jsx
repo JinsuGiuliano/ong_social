@@ -8,6 +8,7 @@ import { PostContainer, PostUserIcon, PostContentContainer, PostImage,
         PostActionsContainer ,HeartIcon, ClapIcon, ShareIcon, UserNameContainer } from './post.styles'
 import { useLocation, useNavigate } from "react-router-dom";
 
+
 const Post = ({data}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()

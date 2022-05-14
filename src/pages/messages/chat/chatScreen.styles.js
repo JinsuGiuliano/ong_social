@@ -7,7 +7,7 @@ export const ChatMessagesContainer = styled.div`
     width: 50%;
     height:800px;
     flex-direction:column;
-    background-image: -webkit-linear-gradient(92deg,#d9d2e9, #ead1dc, #f4cccc);
+    background-image: -webkit-linear-gradient(67deg,#b042f4, #4842f4, #2C1393 );
     @media only screen and (max-width: 900px){
         width:100%;
         height:800px;

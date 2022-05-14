@@ -15,10 +15,11 @@ const ChatsListPreview = () => {
             </ChatsTopContainer>
             <ChatsContainer>
             {
-              chats &&
-                chats.map( (chat, idx) =>
-                    <ChatPreview key={idx} id={chat.chatId} chat={chat}/>
-                )
+              chats && 
+              chats.sort((a, b )=> a.createdAt - b.createdAt )
+                    .map( (chat, idx) =>
+                        <ChatPreview key={idx} id={chat.chatId} chat={chat}/>
+                    )
             }
             </ChatsContainer>
             </ChatPreviewContainer>

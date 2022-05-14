@@ -70,6 +70,7 @@ export const MenuTitle = styled.span`
 
 export const OptionContainer = styled.div`
     height:40px;
+    width:100%;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;

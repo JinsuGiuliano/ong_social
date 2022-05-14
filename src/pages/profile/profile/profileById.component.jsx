@@ -2,7 +2,8 @@ import React, { Fragment, useState} from 'react';
 import {  useSelector } from 'react-redux';
 import { PostContainer, TopProfile, ProfileName, ProfileEmail, 
     CalendarIcon, JoinContainer,ProfilePhoto, SendMessageButton, MessageIcon,
-    SendText } from './profile.styles';
+    SendText, 
+    UserProfileInfoContainer} from './profile.styles';
 
 import { selectIsFetching, selectProfilePageState } from '../../../redux/user/user.selectors';
 import Spinner from '../../../components/utils/with-spinner/with-spinner.component';
@@ -15,12 +16,14 @@ const ProfileById =  () => {
     const profile = useSelector(selectProfilePageState);
     const isFetching = useSelector(selectIsFetching);
     const { user, id } =  profile && profile;
-    console.log('profile: ', profile)
+
     return(
         <Fragment>
         {
             isFetching ?
-            <Spinner/>
+            <div>
+                <Spinner/>
+            </div>
             :
             <Fragment>
                 <PostContainer>
@@ -31,10 +34,9 @@ const ProfileById =  () => {
                 {
                     user &&
                     <Fragment>
-                    <h2 style={{margin:'0px 4px', fontFamily:'Arial, Helvetica, sans-serif'}}>{user.name}</h2>
                     <TopProfile imageUrl={user.photoBg}>
                         <ProfilePhoto imageUrl={user.photo}/>
-                        <div style={{display:'flex',flexDirection:'column', width:'30%'}}>
+                        <UserProfileInfoContainer >
                             <ProfileName>{user.name}</ProfileName>
                             <ProfileEmail>{user.email}</ProfileEmail>
                             <JoinContainer>
@@ -44,7 +46,7 @@ const ProfileById =  () => {
                                 <SendText>ENVIAR MENSAJE</SendText>
                                 <MessageIcon/>
                             </SendMessageButton>
-                        </div>
+                        </UserProfileInfoContainer>
                     </TopProfile>
                     </Fragment>
                 }

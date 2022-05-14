@@ -69,15 +69,15 @@ export function* newMessageCreate({payload:{message, to}}) {
   try {
     console.log('newMessageCreate: ', message, to)
 
-      const user_SendBy_Ref = yield collection(firestore, 'users', message.sendBy, 'chats')
+      const user_SendBy_Ref = yield collection(firestore, 'users', message.sendBy.id, 'chats')
       const user_To_Ref = yield collection(firestore, 'users', to, 'chats' )
 
-      let chat = {sendBy:message.sendBy, to:to, createdAt:message.createdAt} 
+      let chat = {sendBy:message.sendBy.id, to:to, createdAt:message.createdAt} 
       const chatsColRef = yield collection(firestore, "chats" );
 
-      const case_1_Ref = yield query(chatsColRef, where("sendBy", "==", message.sendBy), where('to', '==', to));
+      const case_1_Ref = yield query(chatsColRef, where("sendBy", "==", message.sendBy.id), where('to', '==', to));
       const case_1 = yield getDocs(case_1_Ref)
-      const case_2_Ref = yield query(chatsColRef, where("sendBy", "==", to), where('to', '==', message.sendBy));
+      const case_2_Ref = yield query(chatsColRef, where("sendBy", "==", to), where('to', '==', message.sendBy.id));
       const case_2 = yield getDocs(case_2_Ref)
 
       let chatSnap = yield case_1.docs.length && !case_2.docs.length? case_1_Ref:  !case_2.docs.length? null : case_2_Ref;

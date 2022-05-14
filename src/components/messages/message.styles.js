@@ -24,19 +24,20 @@ export const TopMenuBar = styled.div`
 `
 
 export const Text = styled.div`
-    font-size: 12px;
+    font-family: Bradley Hand, cursive;
+    font-size: 14px;
     line-height:13px;
     color: white;
 
 `
 
 const isCurrent = css`    
-    background-color:#357ae8;
+  background-image: -webkit-linear-gradient(33deg,#EB984E, #DC7633);
 
 `;
 
 const isNotCurrent = css`
-    background-color:#39a78e;
+  background-image: -webkit-linear-gradient(33deg,#F4D03F, #F5B041);
 `;
 
 const isMainCurrent = css`    
@@ -78,6 +79,7 @@ const getStylesMessageContainer = props => {
     padding:8px;
     align-items: center;
     border-radius:12px;
+    box-shadow: 1px 1px 1px #4A235A;
     color:#fff;
     margin:5px;
     ${getStylesMessageContainer}

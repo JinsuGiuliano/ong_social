@@ -11,12 +11,11 @@ const SendMessage = ({ to, chatId }) => {
     const dispatch = useDispatch()
     const currentUser = useSelector(selectCurrentUser)
     const [ messageCaption, setMessageCaption ] = useState('')
-
    const handleSubmit = () => {
         const message = {
             text: messageCaption,
             createdAt:Date.now(),
-            sendBy: currentUser.id,
+            sendBy: currentUser,
         }
         dispatch(messageCreateStart(message, to, chatId));
         setMessageCaption('')

@@ -16,7 +16,7 @@ import {
   fetchUserProfileSuccess, fetchUserProfileFailure
 } from './user.actions';
 import {signOut as signOutLib, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { getDoc, getDocs, collection ,doc, setDoc, deleteDoc, updateDoc, increment} from "firebase/firestore";
+import { getDoc, getDocs, collection ,doc, setDoc, deleteDoc, updateDoc, increment, query, orderBy, limit} from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes, listAll } from "firebase/storage";
 import {
   provider,
@@ -42,8 +42,8 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
 
 export function* fetchUsersAsync() {
   try {
-    const userRef = yield collection(firestore,'users')
-    const userSnapshot = yield getDocs(userRef);
+    const q = query(collection(firestore,'users'),  orderBy("createdAt", "desc", limit(15)))
+    const userSnapshot = yield getDocs(q);
     const Users = []
     userSnapshot.docs.map( u => Users.push({...u.data(), id:u.id}))
     yield console.log('USERS: ',Users)
@@ -121,13 +121,14 @@ export function* signInAfterSignUp({ payload: { user, additionalData } }) {
 
 export function* followAsync({ payload: userId  }) {
   try {
-    const uid =  yield getCurrentUser();
+    const auth = yield getCurrentUser()
+    const uid = auth.uid
     yield console.log('follow: ', userId)
 
-    const followingRef = yield doc(firestore, "following", uid.uid, 'userFollowing', userId);
+    const followingRef = yield doc(firestore, "following", uid, 'userFollowing', userId);
     yield setDoc(followingRef, {});
 
-    const followersRef = yield doc(firestore, "followers", userId, 'userFollower', uid.uid);
+    const followersRef = yield doc(firestore, "followers", userId, 'userFollower', uid);
     yield setDoc(followersRef, {});
 
     yield put(followSuccess(userId));
@@ -156,7 +157,8 @@ export function* unfollowAsync({ payload: userId  }) {
 
 export function* fetchFollowAsync() {
   try {
-    const uid = yield getAuth().currentUser.uid 
+    const auth = yield getCurrentUser()
+    const uid = auth.uid
     yield console.log('UID', uid)
     const Following = []
     const followingUsersRef = yield collection(firestore, "following",  uid, 'userFollowing')
@@ -173,7 +175,8 @@ export function* fetchFollowAsync() {
 
 export function* savePostAsync({ payload: userId  }) {
   try {
-    const uid = yield getAuth().currentUser.uid
+    const auth = yield getCurrentUser()
+    const uid = auth.uid
     yield console.log('saved: ', userId)
     const savedRef = yield doc(firestore, "saved", uid, 'postsSaved', userId);
     yield setDoc(savedRef, {});
@@ -185,7 +188,8 @@ export function* savePostAsync({ payload: userId  }) {
 
 export function* unSavePostAsync({ payload: userId  }) {
   try {
-    const uid = yield getAuth().currentUser.uid
+    const auth = yield getCurrentUser()
+    const uid = auth.uid
     yield console.log('saved: ', userId)
     const savedRef = yield doc(firestore, "saved", uid, 'postsSaved', userId);
     yield deleteDoc(savedRef, {});
@@ -197,7 +201,8 @@ export function* unSavePostAsync({ payload: userId  }) {
 
 export function* updateUserAsync({ payload: user  }) {
   try {
-    const uid = yield getAuth().currentUser.uid
+    const auth = yield getCurrentUser()
+    const uid = auth.uid
     const storage = yield getStorage();
     const userRef = yield doc(firestore, "users", uid );
     let nUser = user;

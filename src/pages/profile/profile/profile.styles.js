@@ -6,21 +6,27 @@ export const PostContainer = styled.div`
     width: 50%;
     display: flex;
     flex-direction: column;
-    margin-top: 60px;
+    margin-top: 20px;
     @media only screen and (max-width: 700px){
         width:100%;
+        margin-top: -10px;
     }
 `
 export const TopProfile = styled.div`
     display: flex;
     align-items: center;
-    background-color: #6a9ff8;
     height:200px;
     width:100%;
     background-size: cover;
     background-position: center;
-    background-image: ${({ imageUrl }) => `url(${imageUrl})`};
+    background-image: ${({ imageUrl }) => imageUrl?`url(${imageUrl})`: '-webkit-linear-gradient(92deg,#4285f4, #4842f4, #b042f4)'};
+    
 `
+export const UserProfileInfoContainer = styled.div`
+  display:flex;
+  flex-direction:column;
+`
+
 
 export const ProfileName = styled.span`
     margin:5px 0;
@@ -73,8 +79,8 @@ export const ProfilePhoto = styled.div`
     background-size: cover;
     background-position: center;
     margin-bottom: 5px;
-    border-radius:25px;
-    border: 5px solid #fff;
+    border-radius:50%;
+    border: 2px solid #fff;
     margin:10px;
     background-image: ${({ imageUrl }) => `url(${imageUrl})`};
     

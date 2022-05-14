@@ -30,7 +30,6 @@ const ChatScreen = () => {
                 ...doc.data(),
                 id: doc.id,
             })});
-            console.log('data: ', data)
 
             setMessages(data.sort((a, b )=> a.createdAt - b.createdAt ));
         });
@@ -47,7 +46,7 @@ const ChatScreen = () => {
                  
                     messages &&
                     messages.map((msg, idx) =>
-                            <Message key={idx} text={msg.text} current={msg.sendBy === currentUser.id? true: false}/>
+                            <Message key={idx} text={msg.text} current={msg.sendBy.id === currentUser.id? true: false}/>
                             )
 
                 }

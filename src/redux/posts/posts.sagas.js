@@ -15,18 +15,19 @@ import {
     postDisLikeSuccess,
     postDisLikeFailure  
 } from './posts.actions'
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { connectStorageEmulator, getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
-import { getDoc, collection, getDocs, doc, setDoc, addDoc, updateDoc, increment } from "firebase/firestore";
+import { getDoc, collection, getDocs, doc, setDoc, addDoc, updateDoc, increment, query, where } from "firebase/firestore";
 import {
-  firestore
+  firestore, getCurrentUser
 } from '../../firebase/firebase.utils'
 import { getAuth } from 'firebase/auth';
 
-
 export function* postFetch() {
     try {
-      const userRef = yield collection(firestore,'users')
+      const auth = yield getCurrentUser()
+      const uid = auth.uid
+      const userRef = yield collection(firestore,'following', uid, 'userFollowing')
       const userSnapshot = yield getDocs(userRef);
       const allPosts = [];
       for( let d in userSnapshot.docs){
@@ -36,11 +37,13 @@ export function* postFetch() {
         let postUserSnap = yield getDoc(postUserRef);
         userPostsSnap.docs.map(p => allPosts.push({
           ...p.data(), 
+          ...postUserSnap.data(),
           id: p.id, 
-          uid: userSnapshot.docs[d].id,
-          ...postUserSnap.data()}))
+          uid: userSnapshot.docs[d].id
+        }))
         
       }
+      yield console.log('postFetch: ', allPosts)
       yield put(postFetchSuccess(allPosts));
     } catch (error) {
       yield put(postFetchFailure(error));
@@ -51,7 +54,7 @@ export function* postCreate({payload:{post, user}}) {
   try {
    
     const newPostRef = yield collection(firestore, "posts", user.id, 'userPosts');
-    const postSnap = yield addDoc(newPostRef, {...post, file:1});
+    const postSnap = yield addDoc(newPostRef, post);
     const storage = yield getStorage();
     const fileRef = yield ref(storage, `files/${postSnap.id}`);
     
@@ -102,7 +105,6 @@ export function* postDelete() {
 export function* postLike({payload:{postId, uid}}) {
   try {
     const PostRef = yield doc(firestore, "posts", uid, 'userPosts', postId );
-    //const postSnap = yield setDoc(newPostRef, post).then();
     const postSnap = yield updateDoc(PostRef, {
       likesCount: increment(1)
     });

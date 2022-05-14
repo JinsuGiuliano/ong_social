@@ -7,7 +7,7 @@ import { selectCurrentUser } from '../../../redux/user/user.selectors'
 
 import FormInput from '../../utils/form-input/form-input.component'
 import CustomButton from '../../utils/custom-button/custom-button.component'
-import { CreatePostContainer, CreatePostFixedContainer, ImageIcon } from './post.styles'
+import { CommentIcon, CreatePostContainer, CreatePostFixedContainer, ImageIcon } from './post.styles'
 import { PostUserIcon } from './post.styles'
 
 const CreatePost = ({isFixed}) => {
@@ -61,12 +61,10 @@ const CreatePost = ({isFixed}) => {
                 required
                 isPost
             />
-        </div> 
-        <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between', alignItems:'center'}}>                    
-            <CustomButton isPost onClick={()=>handleSubmit()}> Post It! </CustomButton>
-        </div>
+        </div>            
+            <CommentIcon color='#4842f4' onClick={()=>handleSubmit()}/>
         </CreatePostContainer>
-        <div style={{display:'flex',flexDirection:'column',justifyContent:'space-around',width:'100%'}}>
+        <div style={{display:'flex',flexDirection:'column',justifyContent:'space-around',width:'100%', padding:'0px 30px'}}>
         <ImageIcon onClick={()=>setShowDnD(!showDnD)} />
         <div>
             <div style={!showDnD?{display: 'none'}:{}}>

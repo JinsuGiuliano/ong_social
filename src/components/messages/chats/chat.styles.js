@@ -34,8 +34,8 @@ export const LastMessagePreview = styled.div`
     border-bottom: 1px solid #f5f4f1;
 `
 export const LastMessageTextPreview = styled.span`
-    font-family:sans-serif;
-    font-weight:800;
+    font-family:Bradley Hand, cursive;
+    font-weight:500;
     font-size:11px;
     color:gray;
 `

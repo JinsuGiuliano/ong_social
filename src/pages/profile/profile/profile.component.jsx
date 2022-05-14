@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { PostContainer, TopProfile, ProfileName, 
     ProfileEmail, CalendarIcon, JoinContainer,
-    ProfilePhoto, ProfileInfoContainer} from './profile.styles';
+    ProfilePhoto, ProfileInfoContainer, UserProfileInfoContainer} from './profile.styles';
 
 import { selectAllPosts } from '../../../redux/posts/posts.selectors';
 import { selectCurrentUser, selectIsFetching } from '../../../redux/user/user.selectors';
@@ -29,17 +29,16 @@ const Profile =  () => {
             <EditProfile setEdit={setEdit} edit={edit}/>
 
         }
-        <h2 style={{margin:'0px 4px', fontFamily:'Arial, Helvetica, sans-serif'}}>{currentUser.name}</h2>
         <TopProfile imageUrl={currentUser.photoBg? currentUser.photoBg : ''}>
             <ProfilePhoto imageUrl={currentUser.photo}/>
-            <div style={{display:'flex',flexDirection:'column'}}>
+            <UserProfileInfoContainer>
                 <ProfileName>{currentUser.name}</ProfileName>
                 <ProfileEmail>{currentUser.email}</ProfileEmail>
                 <JoinContainer>
                     <div><CalendarIcon color='white'/></div>
                     <div><ProfileEmail> </ProfileEmail></div>
                 </JoinContainer>
-            </div>
+            </UserProfileInfoContainer>
         </TopProfile>
         <ProfileInfoContainer>
             <div>
@@ -68,6 +67,7 @@ const Profile =  () => {
             </Fragment>
 
         }
+
         </PostContainer>
     )
 }

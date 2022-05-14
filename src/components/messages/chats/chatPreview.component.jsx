@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchUserProfileStart } from '../../../redux/user/user.actions';
+import { selectCurrentUser } from '../../../redux/user/user.selectors';
 import { UserInfoChild, UserNameContainer } from '../../posts/post/post.styles';
 import { ViewIcon, LastMessagePreview, LastMessageTextPreview, LastMessageDatePreview } from './chat.styles';
 import { ChatContentContainer, ChatUserInfoContainer, InfoTextContainer, PostUserIcon,  } from './chat.styles';
@@ -9,7 +10,7 @@ import { ChatContentContainer, ChatUserInfoContainer, InfoTextContainer, PostUse
 const ChatPreview = ({chat, id, onView}) => {
 
     const dispatch = useDispatch()
-
+    const currentUser = useSelector(selectCurrentUser)
     const navigate = useNavigate()
     const goToProfile = () => {
         navigate(`profile/${chat.to.id}`,{replace: true});
@@ -40,7 +41,7 @@ const ChatPreview = ({chat, id, onView}) => {
                 !onView &&  
                 <Fragment>
                     <LastMessagePreview>
-                        <LastMessageDatePreview>{ new Date(lastMessage.createdAt.seconds*1000).toDateString() + ': '}</LastMessageDatePreview><LastMessageTextPreview >{lastMessage.text.length > 20? lastMessage.text.slice(0,20) + ' ...': lastMessage.text}</LastMessageTextPreview>
+                    <LastMessageDatePreview>at { new Date(lastMessage.createdAt).toDateString() + ' '} <strong> {lastMessage.sendBy.id === currentUser.id? 'You': lastMessage.sendBy.name }</strong> said: </LastMessageDatePreview> <LastMessageTextPreview >{lastMessage.text.length > 20? lastMessage.text.slice(0,20) + ' ...': lastMessage.text + ' '}</LastMessageTextPreview>
                     </LastMessagePreview>
                     <div>
                         <ViewIcon onClick={() => goToChat()}/>

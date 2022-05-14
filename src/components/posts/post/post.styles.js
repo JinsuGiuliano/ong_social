@@ -3,6 +3,8 @@ import { ReactComponent as HeartSVG  } from '../../../assets/icons/heart.svg'
 import { ReactComponent as ClapSVG  } from '../../../assets/icons/clap.svg'
 import { ReactComponent as ShareSVG  } from '../../../assets/icons/share.svg'
 import { ReactComponent as ImageSVG  } from '../../../assets/icons/image.svg'
+import { ReactComponent as CommentSVG  } from '../../../assets/icons/comment.svg'
+
 import { Link } from 'react-router-dom';
 
 export const PostContainer = styled.div`
@@ -96,21 +98,20 @@ const getStyles = props => {
 
 export const CreatePostContainer = styled.div`
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-around;
     padding: 5px;
     height:70px;
     @media only screen and (max-width: 700px){
         width:100%;
         height:65px;
         margin: 0px;
-
     }
 `
 
 export const CreatePostFixedContainer = styled.div`
     background-color: #fff;
-    border-bottom: 1px solid #f8f8f8;
+    border-bottom: 1px groove #4842f4;
     padding:10px 0px; 
     
     ${getStyles}
@@ -160,18 +161,18 @@ cursor: pointer;
 }
 `
 export const ShareIcon = styled(ShareSVG)`
-width: 24px;
-height: 100%;
-margin: 0 5px;
-cursor: pointer;
-& path {
-  fill: gray;
-}
-&:hover{
-    & path {
-  fill: ${({color}) => color };
-}
-}
+    width: 24px;
+    height: 100%;
+    margin: 0 5px;
+    cursor: pointer;
+        & path {
+            fill: gray;
+        }
+        &:hover{
+            & path {
+            fill: ${({color}) => color };   
+        }
+    }
 `
 
 export const ImageIcon = styled(ImageSVG)`
@@ -212,3 +213,18 @@ export const UserNameContainer = styled.button`
         color:gray; 
     }
 `;
+
+export const CommentIcon = styled(CommentSVG)`
+    width: 30px;
+    height: 100%;
+    margin: 0 5px;
+    cursor: pointer;
+        & path {
+            fill: #4285f4;
+        }
+        &:hover{
+            & path {
+            fill: ${({color}) => color };   
+        }
+    }
+`
