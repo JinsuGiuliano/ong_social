@@ -27,14 +27,13 @@ const Posts =  () => {
             :
             <PostsListContainer>
                 {
-                    posts && 
-                    posts.filter(e => following && following.includes(e.uid))
-                        .map( (p, idx) => (
+                    currentUser && posts && 
+                        posts.map( (p, idx) => (
                             <Post key={p.id + idx} data={p}/> 
                             ))
                 }
                 {
-                    posts &&  !currentUser &&
+                    !currentUser && posts &&  
                     posts.map( (p, idx) => (
                             <Post key={p.id + idx} data={p}/> 
                             ))

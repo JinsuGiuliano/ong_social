@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
 export const SignUpContainer = styled.div`
-   background-color: #fff;
-  padding: 0 10px;
+  padding: 10px;
+  margin: 50px 0px;
   width:20%;
   display: flex;
   flex-direction: column;
   z-index:99999;
   position: fixed;
-  top: 200;
-  right:200;
+  color:#fff;
+
   @media only screen and (max-width: 700px){
         width:100%;
         flex-direction: column;
@@ -22,4 +22,5 @@ export const SignUpContainer = styled.div`
 
 export const SignUpTitle = styled.h2`
   margin: 10px 0;
+  color:#fff;
 `;

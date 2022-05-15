@@ -1,15 +1,14 @@
 import styled from 'styled-components';
 
 export const SignInContainer = styled.div`
-  background-color: #fff;
-  padding: 0 10px;
+  padding:10px;
+  margin: 50px 0px;
   width:20%;
   display: flex;
   flex-direction: column;
   z-index:99999;
   position: fixed;
-  top: 200;
-  right:200;
+  color:#fff;
   @media only screen and (max-width: 700px){
         width:100%;
         display: flex;
@@ -21,6 +20,7 @@ export const SignInContainer = styled.div`
 
 export const SignInTitle = styled.h2`
   margin: 5px 0;
+  color:#fff;
 `;
 
 export const ButtonsBarContainer = styled.div`

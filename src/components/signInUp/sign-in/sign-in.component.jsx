@@ -65,8 +65,9 @@ class SignIn extends React.Component {
             required
           />
           <ButtonsBarContainer>
-            <CustomButton type='submit'> Sign in </CustomButton>
+            <CustomButton style={{borderRadius:'25px', margin:'5px 0px'}}  type='submit'> Sign in </CustomButton>
             <CustomButton
+             style={{borderRadius:'25px', margin:'5px 0px'}}
               type='button'
               onClick={googleSignInStart}
               isGoogleSignIn

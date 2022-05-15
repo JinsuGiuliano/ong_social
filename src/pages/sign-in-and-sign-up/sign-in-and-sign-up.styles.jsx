@@ -5,7 +5,6 @@ export const SignInAndSignUpContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  margin: 50px auto;
   @media only screen and (max-width: 700px){
         width:100%;
         flex-direction:column;
@@ -16,7 +15,7 @@ export const SignInAndSignUpContainer = styled.div`
 
 export const TabSelectorContainer = styled.div`
   display: flex;
-  height:50px;
+  height:100%;
   flex-direction: row;
   justify-content: space-evenly;
   width: 100%;
@@ -24,6 +23,7 @@ export const TabSelectorContainer = styled.div`
 `
 
 export const FormWraperSignIn = styled.div`
+        width:100%;
    @media only screen and (max-width: 700px){
         width:100%;
         flex-direction:column;
@@ -33,6 +33,7 @@ export const FormWraperSignIn = styled.div`
 `
 
 export const FormWraperSignUp = styled.div`
+          width:100%;
    @media only screen and (max-width: 700px){
         width:100%;
         flex-direction:column;

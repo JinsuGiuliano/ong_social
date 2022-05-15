@@ -51,6 +51,7 @@ class SignUp extends React.Component {
             value={displayName}
             onChange={this.handleChange}
             label='Display Name'
+            isSignin
             required
           />
           <FormInput
@@ -59,6 +60,7 @@ class SignUp extends React.Component {
             value={email}
             onChange={this.handleChange}
             label='Email'
+            isSignin
             required
           />
           <FormInput
@@ -67,6 +69,7 @@ class SignUp extends React.Component {
             value={password}
             onChange={this.handleChange}
             label='Password'
+            isSignin
             required
           />
           <FormInput
@@ -75,9 +78,10 @@ class SignUp extends React.Component {
             value={confirmPassword}
             onChange={this.handleChange}
             label='Confirm Password'
+            isSignin
             required
           />
-          <CustomButton type='submit'>SIGN UP</CustomButton>
+          <CustomButton style={{borderRadius:'25px', backgroundColor:'#4285f4'}} type='submit'>SIGN UP</CustomButton>
         </form>
       </SignUpContainer>
     );

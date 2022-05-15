@@ -54,8 +54,8 @@ const ProfileBar = ({setShowSignin, showSignin, setShowSignUp,showSignUp }) => {
             </ProfileInfoContainer>
             <InfoTextContainer>
             <UserInfoChild > 
-                <p style={{fontSize:'13px',color:'black',margin:'0px' }} onClick={()=>{!showSignin?setShowSignUp(!showSignUp):setShowSignin(false)}}><strong> Create an Account</strong></p>
-                <p style={{fontSize:'10px',color:'gray',margin:'0px' }}> Sign In  </p>
+                <p style={{fontSize:'13px',color:'#fff',margin:'0px' }} onClick={()=>{!showSignin?setShowSignUp(!showSignUp):setShowSignin(false)}}><strong> Create an Account</strong></p>
+                <p style={{fontSize:'10px',color:'#fff',margin:'0px' }}> Sign In  </p>
             </UserInfoChild>
             <UserInfoChild > 
                 <CustomButton isFollow onClick={()=>{!showSignUp?setShowSignin(!showSignin):setShowSignUp(false)}}> SIGNIN </CustomButton>

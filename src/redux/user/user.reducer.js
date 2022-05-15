@@ -38,7 +38,7 @@ export const userReducer = (state = INITIAL_STATE, action) => {
           signInForm: false,
           signUpForm: false
         },
-        currentUser: payload,
+        currentUser:{ ...state.currentUser, ...payload},
         isFetching: false
       };
     case UserActionTypes.SIGN_OUT_SUCCESS:

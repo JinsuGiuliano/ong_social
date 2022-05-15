@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
 import { selectAllUsers, selectCurrentUser, selectFollowingUsers, selectIsFetching } from '../../redux/user/user.selectors';
-import { fetchUserProfileStart, followStart, unfollowStart } from '../../redux/user/user.actions';
+import { fetchFollowStart, fetchUserProfileStart, followStart, unfollowStart } from '../../redux/user/user.actions';
 
 import { UserInfoChild } from '../posts/post/post.styles';
 import CustomButton from '../utils/custom-button/custom-button.component';
@@ -31,6 +31,10 @@ const TendenciesQuickBox = () => {
     const UnFollowUser = (userId) =>{
         dispatch(unfollowStart(userId))
     }
+
+    useEffect(()=>{
+        dispatch(fetchFollowStart());
+    },[currentUser])
     return(
         <BoxContainer>
          <BoxFixedContainer>
@@ -45,8 +49,7 @@ const TendenciesQuickBox = () => {
                 <Fragment>
                 {
                     users && 
-                    users
-                        .map( (user, idx) => {
+                    users.map( (user, idx) => {
                             const { photo, name, email, id } = user;
                             return(
                                 <FollowContentContainer key={idx} >
@@ -63,7 +66,7 @@ const TendenciesQuickBox = () => {
                                     <UserInfoChild > 
                                     {
                                         currentUser &&
-                                        <CustomButton onClick={following && following.includes(user.id) ? ()=>UnFollowUser(id): ()=>FollowUser(id)} isUnFollow>{following && following.includes(user.id) ?'UNFOLLOW': 'FOLLOW'}  </CustomButton>
+                                        <CustomButton onClick={following && following.includes(user.id) ? ()=>UnFollowUser(id): ()=>FollowUser(id)} isUnFollow>{following.includes(user.id) ?'UNFOLLOW': 'FOLLOW'}  </CustomButton>
 
                                     }
                                     {

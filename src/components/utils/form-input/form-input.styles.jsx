@@ -30,8 +30,9 @@ const postInputStyle = css`
 `
 
 const siginInputStyle = css`
-  height:25px;
+  height:20px;
   font-size:13px;
+  color:#fff;
   @media only screen and (max-width: 700px){
     width:100%;
 }
