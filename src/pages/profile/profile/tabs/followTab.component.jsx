@@ -30,7 +30,7 @@ const FollowTab = ({following, followers, isProfileById}) => {
                 :
                 <Fragment>
                 {
-                    users && 
+                    users &&
                     users.filter( u => following? following.includes(u.id): followers.includes(u.id))
                         .map( (user, idx) => {
                             const { photo, name, email, id } = user;

@@ -5,7 +5,7 @@ import { postLikeStart } from "../../../redux/posts/posts.actions";
 import { selectCurrentUser, selectSavedPosts } from "../../../redux/user/user.selectors";
 import { PostContainer, PostUserIcon, PostContentContainer, PostImage,
         PostUserInfoContainer, PostText , UserInfoChild, InfoTextContainer,
-        PostActionsContainer ,HeartIcon, ClapIcon, ShareIcon, UserNameContainer } from './post.styles'
+        PostActionsContainer ,HeartIcon, ClapIcon, ShareIcon, UserNameContainer, Counter } from './post.styles'
 import { useLocation, useNavigate } from "react-router-dom";
 
 
@@ -17,7 +17,8 @@ const Post = ({data}) => {
     const currentUser = useSelector(selectCurrentUser);
     const postSaved =  savedPosts? !savedPosts.includes(id) :false ;
 
-    const goToProfile = () => {
+    const goToProfile = (uid) => {
+        console.log('UID: ', uid)
         navigate(`profile/${uid}`,{replace: true});
       }
     
@@ -42,7 +43,7 @@ const Post = ({data}) => {
             </UserInfoChild>   
             <InfoTextContainer>
                 <UserInfoChild > 
-                    <UserNameContainer onClick={()=> {dispatch(fetchUserProfileStart(uid)); goToProfile()}} ><strong> { name.toUpperCase() } </strong></UserNameContainer>
+                    <UserNameContainer onClick={()=> {dispatch(fetchUserProfileStart(uid)); goToProfile(uid)}} ><strong> { name.toUpperCase() } </strong></UserNameContainer>
                 </UserInfoChild> 
                 <UserInfoChild>
                     <p style={{fontSize:'12px',color:'gray' }}> { email } </p>
@@ -70,7 +71,7 @@ const Post = ({data}) => {
                 
                 <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
                     <div><ClapIcon color='#4285f4' onClick={()=>likePost()}/></div>
-                    <div><span style={{fontSize:'10px',color:'gray', position:'absolute', top:'3'}}>{likesCount === 0? '': likesCount }</span></div>
+                    <div><Counter>{likesCount === 0? '': likesCount }</Counter></div>
                 </div>
                 <div><ShareIcon color='#75ae2b'/></div>
             </PostActionsContainer>
@@ -92,7 +93,7 @@ const Post = ({data}) => {
             </UserInfoChild>   
             <InfoTextContainer>
                 <UserInfoChild > 
-                <UserNameContainer to={`profile/${uid}`} onClick={()=> dispatch(fetchUserProfileStart(uid))}><strong> { name.toUpperCase() } </strong></UserNameContainer>
+                <UserNameContainer to={`profile/${uid}`} onClick={()=> {dispatch(fetchUserProfileStart(uid)); goToProfile(uid)}}><strong> { name.toUpperCase() } </strong></UserNameContainer>
                 </UserInfoChild> 
                 <UserInfoChild>
                     <p style={{fontSize:'12px',color:'gray' }}> { email } </p>

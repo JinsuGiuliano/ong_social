@@ -7,7 +7,7 @@ import { selectCurrentUser } from '../../../redux/user/user.selectors'
 
 import FormInput from '../../utils/form-input/form-input.component'
 import CustomButton from '../../utils/custom-button/custom-button.component'
-import { CommentIcon, CreatePostContainer, CreatePostFixedContainer, ImageIcon } from './post.styles'
+import { ActionContainer, CommentIcon, CreatePostContainer, CreatePostFixedContainer, ImageIcon } from './post.styles'
 import { PostUserIcon } from './post.styles'
 
 const CreatePost = ({isFixed}) => {
@@ -45,13 +45,11 @@ const CreatePost = ({isFixed}) => {
 
     
     return(
-        <CreatePostFixedContainer isFixed={isFixed}>
+        <CreatePostFixedContainer isFixed={isFixed? true: false}>
         <CreatePostContainer >
             <div >
                 <PostUserIcon src={ `${currentUser? currentUser.photo:'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png'}` } alt=''/>
             </div>
-
-        <div style={{width:'60%'}}>
             <FormInput
                 name='caption'
                 type='textarea'
@@ -60,24 +58,23 @@ const CreatePost = ({isFixed}) => {
                 label='Write your opinion...'
                 required
                 isPost
-            />
-        </div>            
+            />          
             <CommentIcon color='#4842f4' onClick={()=>handleSubmit()}/>
         </CreatePostContainer>
-        <div style={{display:'flex',flexDirection:'column',justifyContent:'space-around',width:'100%', padding:'0px 30px'}}>
-        <ImageIcon onClick={()=>setShowDnD(!showDnD)} />
-        <div>
-            <div style={!showDnD?{display: 'none'}:{}}>
-             <FileUploader
-                type="file"
-                handleChange={FileHandleChange}
-                name="file" types={fileTypes}
-            />
+        <ActionContainer>
+            <ImageIcon onClick={()=>setShowDnD(!showDnD)} />
+            <div>
+                <div style={!showDnD?{display: 'none'}:{}}>
+                <FileUploader
+                    type="file"
+                    handleChange={FileHandleChange}
+                    name="file" types={fileTypes}
+                />
+                </div>
+            
             </div>
-           
-        </div>
        
-</div>
+        </ActionContainer>
         </CreatePostFixedContainer>
     )
 }

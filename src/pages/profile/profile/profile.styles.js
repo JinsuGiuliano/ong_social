@@ -3,9 +3,11 @@ import { ReactComponent as CalendarSVG  } from '../../../assets/icons/calendar.s
 import { ReactComponent as MessageSVG  } from '../../../assets/icons/envelope.svg'
 
 export const PostContainer = styled.div`
-    width: 50%;
+    width: 100%;
+    height:800PX;
     display: flex;
     flex-direction: column;
+    overflow-y:auto;
     margin-top: 20px;
     @media only screen and (max-width: 700px){
         width:100%;

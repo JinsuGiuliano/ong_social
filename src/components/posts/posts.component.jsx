@@ -15,11 +15,10 @@ const Posts =  () => {
     const following = useSelector(selectFollowingUsers)
     const isFetching = useSelector(selectIsFetching)
     posts && posts.sort((a,b) => b.createdAt -  a.createdAt )
-
     return(
         <PostContainer>
         {
-            currentUser && <CreatePost isFixed={true}/> 
+            currentUser && <CreatePost isFixed/> 
         }
     
     {
@@ -28,9 +27,8 @@ const Posts =  () => {
             :
             <PostsListContainer>
                 {
-                    posts && currentUser && 
+                    posts && 
                     posts.filter(e => following && following.includes(e.uid))
-                        .filter(e => currentUser? e.id !== currentUser.id: e)
                         .map( (p, idx) => (
                             <Post key={p.id + idx} data={p}/> 
                             ))

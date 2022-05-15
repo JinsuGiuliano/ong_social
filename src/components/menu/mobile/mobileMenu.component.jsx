@@ -38,7 +38,7 @@ const MobileMenu = () => {
                     <EnvelopeIcon color={'black'} />
                     <OptionText>Mensajes</OptionText>
                 </OptionContainer>
-                <OptionContainer onClick={()=>navigate('/saved-posts')}>
+                <OptionContainer onClick={()=>navigate('/saved-posts')} currentUser={currentUser? true : false}>
                     <HeartIcon color={'black'} />
                     <OptionText>Guardados </OptionText>
                     {

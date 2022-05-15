@@ -2,7 +2,9 @@ import styled from 'styled-components'
 import { ReactComponent as CalendarSVG  } from '../../assets/icons/calendar.svg'
 
 export const PostContainer = styled.div`
-    width: 50%;
+    width: 100%;
+    height:800px;
+    overflow-y:auto;
     display: flex;
     flex-direction: column;
     @media only screen and (max-width: 700px){

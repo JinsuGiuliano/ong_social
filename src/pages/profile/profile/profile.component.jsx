@@ -32,7 +32,7 @@ const Profile =  () => {
         <TopProfile imageUrl={currentUser.photoBg? currentUser.photoBg : ''}>
             <ProfilePhoto imageUrl={currentUser.photo}/>
             <UserProfileInfoContainer>
-                <ProfileName>{currentUser.name}</ProfileName>
+                <ProfileName>{currentUser.name.toUpperCase()}</ProfileName>
                 <ProfileEmail>{currentUser.email}</ProfileEmail>
                 <JoinContainer>
                     <div><CalendarIcon color='white'/></div>
@@ -47,6 +47,7 @@ const Profile =  () => {
         </ProfileInfoContainer>
         
         <CreatePost isFixed={false}/>
+        
         {
             isFetching?
             <Spinner/>

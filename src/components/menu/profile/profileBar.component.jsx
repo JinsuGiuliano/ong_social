@@ -36,8 +36,8 @@ const ProfileBar = ({setShowSignin, showSignin, setShowSignUp,showSignUp }) => {
                 </ProfileInfoContainer>
                 <InfoTextContainer>
                 <UserInfoChild > 
-                    <p style={{fontSize:'13px',color:'black',margin:'0px' }}><strong> { currentUser.name.toUpperCase() } </strong></p>
-                    <p style={{fontSize:'10px',color:'gray',margin:'0px' }}>{ currentUser.email} </p>
+                    <p style={{fontSize:'13px',color:'white',margin:'0px',fontWeight:'200' }}><strong> { currentUser.name.toUpperCase() } </strong></p>
+                    <p style={{fontSize:'10px',color:'white',margin:'0px',fontWeight:'200' }}>{ currentUser.email} </p>
                 </UserInfoChild>
                 <UserInfoChild > 
                     <CustomButton isFollow onClick={()=>signout()}> signout </CustomButton>

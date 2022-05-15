@@ -8,7 +8,7 @@ import { ReactComponent as CommentSVG  } from '../../../assets/icons/comment.svg
 import { Link } from 'react-router-dom';
 
 export const PostContainer = styled.div`
-    width: 95%;
+    width: 100%;
     padding: 20px 10px;
     display: flex;
     flex-direction:row;
@@ -34,6 +34,7 @@ export const PostContentContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: normal;
+    width:100%;
     @media only screen and (max-width: 700px){
         width:100%;
 
@@ -41,7 +42,7 @@ export const PostContentContainer = styled.div`
 `
 
 export const PostUserInfoContainer = styled.div`
-    width: 550px;
+    width: 100%;
     display: flex;
     flex-direction:row;
     align-items: flex-start;
@@ -54,7 +55,7 @@ export const PostUserInfoContainer = styled.div`
 ` 
 
 export const PostActionsContainer = styled.div`
-    width: 450px;
+    width: 100%;
     display: flex;
     flex-direction:row;
     align-items: flex-start;
@@ -87,13 +88,15 @@ export const PostText = styled.span`
 
 const inFixedStyle = css`   
     position: fixed;
-    width: 50%;
+    width:50%;
+    z-index: 999;
 `;
 
 const getStyles = props => {
     if (props.isFixed === true) {
       return inFixedStyle;
     }
+    return;
   };
 
 export const CreatePostContainer = styled.div`
@@ -102,6 +105,7 @@ export const CreatePostContainer = styled.div`
     justify-content: space-around;
     padding: 5px;
     height:70px;
+    width: 100%;
     @media only screen and (max-width: 700px){
         width:100%;
         height:65px;
@@ -110,6 +114,7 @@ export const CreatePostContainer = styled.div`
 `
 
 export const CreatePostFixedContainer = styled.div`
+    width: 100%;
     background-color: #fff;
     border-bottom: 1px groove #4842f4;
     padding:10px 0px; 
@@ -122,6 +127,21 @@ export const CreatePostFixedContainer = styled.div`
 
 `
 
+export const Counter = styled.span`
+    font-size:10px;
+    color:gray;
+    position:absolute;
+    top:3;
+    z-index:0;
+`
+
+export const ActionContainer = styled.div`
+    display:flex;
+    flex-direction:column;
+    justify-content:space-around;
+    width:100%; 
+    padding:0px 30px;
+`
 
 export const UserInfoChild  = styled.div`
     margin-right: 4px; 

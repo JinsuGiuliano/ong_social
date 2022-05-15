@@ -8,7 +8,6 @@ const PostTab = ({posts, user}) => {
         {
             posts &&
             posts
-                .filter(e => e.uid === user.id)
                 .map( (p, idx) => (
                     <Post key={p.id + `${idx}`} data={p}/> 
                     ))

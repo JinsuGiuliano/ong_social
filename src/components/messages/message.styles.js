@@ -2,10 +2,10 @@ import styled ,{ css }from 'styled-components'
 
 
 export const ChatListContainer = styled.div`
-    width: 50%;
+    width: 100%;
+    height:800px;
     display: flex;
     flex-direction: column;
-    overflow: auto;
     @media only screen and (max-width: 700px){
         width:100%;
     }

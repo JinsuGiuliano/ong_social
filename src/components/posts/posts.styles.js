@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 
 export const PostContainer = styled.div`
-    width: 50%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     overflow: auto;

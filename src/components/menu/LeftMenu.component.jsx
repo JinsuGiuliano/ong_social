@@ -38,9 +38,9 @@ const LeftMenu = () => {
 
     return(
         <MainMenuContainer>
-        <FixedContainer>
+        <FixedContainer currentUser={currentUser? true: false}>
         <MenuContainer>
-                <MenuLogoContainer>
+                <MenuLogoContainer onClick={()=>navigate('/')}>
                     <div>
                         <MenuLogo />
                     </div>
@@ -48,24 +48,20 @@ const LeftMenu = () => {
                         <MenuTitle><strong>ONG </strong>SOCIAL</MenuTitle>
                     </div>
                 </MenuLogoContainer>
-                <OptionContainer onClick={()=>navigate('/')}>
-                    <HomeIcon color={'black'}/>
-                    <OptionText>Inicio</OptionText>
-                </OptionContainer>
-                {
-                    currentUser &&
+            {
+                currentUser ?                
                     <Fragment>
-                <OptionContainer>
+                <OptionContainer >
                     <BellIcon color={'black'}/>
                     <OptionText>Notificaciones</OptionText>
                 </OptionContainer>
               
-                    <OptionContainer onClick={()=>{navigate('/messages');dispatch(messageFetchStart())}}>
+                    <OptionContainer onClick={()=>{navigate('/messages');dispatch(messageFetchStart())}} >
                         <EnvelopeIcon color={'black'}/>
                         <OptionText>Mensajes</OptionText>
                     </OptionContainer>
               
-                <OptionContainer onClick={()=>navigate('/saved-posts')}>
+                <OptionContainer onClick={()=>navigate('/saved-posts')} >
                     <HeartIcon color={'black'} />
                     <OptionText>Guardados </OptionText>
                     {
@@ -76,19 +72,16 @@ const LeftMenu = () => {
                         : '' 
                     }
                 </OptionContainer>
-                    <OptionContainer onClick={()=>navigate('/profile')}>
+             
+                    <OptionContainer onClick={()=>navigate('/profile')} >
                             <UserIcon color={'black'}/>
                             <OptionText>Perfil</OptionText>
                      </OptionContainer>
-
+                   
             </Fragment>
-        }
-           
-        </MenuContainer>
-        <ProfileOptionContainer >
-            <ProfileBar setShowSignin={setShowSignin} showSignin={showSignin} setShowSignUp={setShowSignUp} showSignUp={showSignUp}/>
-        </ProfileOptionContainer>
-          { 
+            : 
+           <Fragment>
+           { 
             showSignin  ?
               <SignIn/>
               :
@@ -101,6 +94,12 @@ const LeftMenu = () => {
               null
           
           }
+           </Fragment>
+           }
+        </MenuContainer>
+            <ProfileOptionContainer >
+                <ProfileBar setShowSignin={setShowSignin} showSignin={showSignin} setShowSignUp={setShowSignUp} showSignUp={showSignUp}/>
+            </ProfileOptionContainer>
           </FixedContainer>
         </MainMenuContainer>
     )

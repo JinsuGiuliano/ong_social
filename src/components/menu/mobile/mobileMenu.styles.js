@@ -43,8 +43,8 @@ export const OptionContainer = styled.div`
     justify-content: space-around;
     align-items: center;
     padding: 2px 2px;  
-    cursor: pointer;
-
+    cursor:  ${({ currentUser }) => currentUser?'pointer': 'inherit' };
+    filter:  ${({ currentUser }) => currentUser?'opacity(100%)': 'opacity(20%)' };
     &:hover{
         background-color: #f7f7f7;
     }

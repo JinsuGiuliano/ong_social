@@ -1,12 +1,13 @@
 import styled from 'styled-components'
 
 export const BoxContainer = styled.div`
-    width: 250px;
+    width: 100%;
     padding: 0 10px;
+
 `
 export const BoxFixedContainer = styled.div`
     position:fixed;
-    width: 300px;
+    width: 100%;
 `
 
 export const ProfileBarContainer = styled.div`

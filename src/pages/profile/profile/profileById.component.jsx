@@ -37,7 +37,7 @@ const ProfileById =  () => {
                     <TopProfile imageUrl={user.photoBg}>
                         <ProfilePhoto imageUrl={user.photo}/>
                         <UserProfileInfoContainer >
-                            <ProfileName>{user.name}</ProfileName>
+                            <ProfileName>{user.name.toUpperCase()}</ProfileName>
                             <ProfileEmail>{user.email}</ProfileEmail>
                             <JoinContainer>
                                 <div><CalendarIcon color='white'/></div>

@@ -12,6 +12,7 @@ export const MainMenuContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-image: -webkit-linear-gradient(67deg,#b042f4, #4842f4 );
     @media only screen and (max-width: 700px){
         display:none;
     }
@@ -22,13 +23,12 @@ export const FixedContainer = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    height: 90%;
 `
 export const MenuContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items:flex-start;
-    height:80%;
+    height: ${({ currentUser }) => currentUser?'80%': '20%' };
 `
 
 export const MenuLogoContainer = styled.div`
@@ -39,7 +39,7 @@ export const MenuLogoContainer = styled.div`
     align-items: center;
     justify-content: flex-start;
     padding: 5px 5px;
-
+    cursor:pointer;
     @media only screen and (max-width: 700px){
         width: 15%;
         justify-content: center;
@@ -52,7 +52,7 @@ export const MenuLogo = styled(YspSVG)`
     height: 50px;
     cursor:pointer;
     & path {
-            fill: #4285f4;
+            fill: #fff;
         }
     &:hover{
         & path {
@@ -64,8 +64,8 @@ export const MenuLogo = styled(YspSVG)`
 
 export const MenuTitle = styled.span`
     font-size:100px,;
-    font-weight:lighter; 
-    color:#4285f4;
+    font-weight:300; 
+    color:white;
 `
 
 export const OptionContainer = styled.div`
@@ -77,9 +77,8 @@ export const OptionContainer = styled.div`
     align-items: center;
     padding: 8px 20px;  
     cursor: pointer;
-
     &:hover{
-        background-color: #f7f7f7;
+        background-color:#2C1393 ;
     }
 
 `
@@ -92,15 +91,9 @@ export const ProfileOptionContainer = styled.div`
     align-items: center;
     padding: 10px;  
     cursor: pointer;
-
-    &:hover{
-        background-color: #f7f7f7;
-    }
-
 `
 export const PostOptionContainer = styled.div`
     height:40px;
-    width:100%;
     display: flex;
     align-items: center;
     padding:10px;  
@@ -117,7 +110,7 @@ export const OptionIcon = styled.div`
 `
 
 export const OptionText = styled.span`
-    color: #000;
+    color: white;
     font-size: 20px;
     margin-left: 15px;
 `
@@ -138,11 +131,11 @@ export const UserIcon = styled(UserSVG)`
     margin: 0 5px;
     cursor: pointer;
         & path {
-            fill: gray;
+            fill: #fff;
         }
         &:hover{
             & path {
-               fill: ${({color}) => color };
+                fill: #fdfdfd;
             }
         }
 `
@@ -153,11 +146,11 @@ export const HeartIcon = styled(HeartSVG)`
     margin: 0 5px;
     cursor: pointer;
         & path {
-            fill: gray;
+            fill: white;
         }
         &:hover{
             & path {
-               fill: ${({color}) => color };
+                fill: #fdfdfd;
             }
         }
 `
@@ -168,11 +161,11 @@ export const HomeIcon = styled(HomeSVG)`
     margin: 0 5px;
     cursor: pointer;
         & path {
-            fill: gray;
+            fill: white;
         }
         &:hover{
             & path {
-               fill: ${({color}) => color };
+                fill: #fdfdfd;
             }
         }
 `
@@ -184,11 +177,11 @@ export const BellIcon = styled(BellSVG)`
     margin: 0 5px;
     cursor: pointer;
         & path {
-            fill: gray;
+            fill: white;
         }
         &:hover{
             & path {
-               fill: ${({color}) => color };
+                fill: #fdfdfd;
             }
         }
 `
@@ -199,11 +192,11 @@ export const EnvelopeIcon = styled(EnvelopeSVG)`
     margin: 0 5px;
     cursor: pointer;
         & path {
-            fill: gray;
+            fill: white;
         }
         &:hover{
             & path {
-               fill: ${({color}) => color };
+               fill: #fdfdfd;
             }
         }
 `

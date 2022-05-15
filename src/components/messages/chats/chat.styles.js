@@ -6,7 +6,6 @@ export const  ChatPreviewContainer = styled.div`
     display: flex;
     flex-direction: column;
     height: 100%;
-    overflow-y: auto;
     padding: 5px;
     border-bottom: 1px solid #f5f4f1;
 
@@ -24,6 +23,8 @@ export const ChatsTopContainer = styled.div`
 `
 export const ChatsContainer = styled.div`
     padding: 30px 5px;
+    height:800px;
+    overflow-y:auto;
 `
 
 
