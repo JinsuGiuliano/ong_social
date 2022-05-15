@@ -1,11 +1,11 @@
-import React, { Fragment, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { Fragment, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { PostContainer, TopProfile, ProfileName, 
     ProfileEmail, CalendarIcon, JoinContainer,
     ProfilePhoto, ProfileInfoContainer, UserProfileInfoContainer} from './profile.styles';
 
 import { selectAllPosts } from '../../../redux/posts/posts.selectors';
-import { selectCurrentUser, selectIsFetching } from '../../../redux/user/user.selectors';
+import { selectCurrentUser, selectIsFetching, selectUserPosts } from '../../../redux/user/user.selectors';
 
 import Post from '../../../components/posts/post/post.component';
 import CreatePost from '../../../components/posts/post/createPost.component';
@@ -13,14 +13,23 @@ import CustomButton from '../../../components/utils/custom-button/custom-button.
 import EditProfile from '../edit/editProfile.component';
 import SignInAndSignUpPage from '../../sign-in-and-sign-up/sign-in-and-sign-up.component';
 import Spinner from '../../../components/utils/with-spinner/with-spinner.component';
+import { fetchUserPostsAsync } from '../../../redux/user/user.sagas';
+import { fetchUserPostsStart, signOutStart } from '../../../redux/user/user.actions';
 
 const Profile =  () => {
-    //const user = useSelector(selectCollection(category));
+    const dispatch = useDispatch()
     const [edit, setEdit] = useState(false)
     const currentUser = useSelector(selectCurrentUser)
-    const posts = useSelector(selectAllPosts)
+    const posts = useSelector(selectUserPosts)
     const isFetching = useSelector(selectIsFetching)
-    //posts.sort((a,b) => b.createdAt -  a.createdAt )
+    
+    const signout = () => {
+        dispatch(signOutStart())
+    }
+    
+    useEffect(()=>{
+        dispatch(fetchUserPostsStart())
+    },[currentUser])
     return(
         <PostContainer>
         
@@ -42,10 +51,13 @@ const Profile =  () => {
         </TopProfile>
         <ProfileInfoContainer>
             <div>
-            <CustomButton isFollow  onClick={()=>setEdit(!edit)} style={{margin:'5px 0', padding:'5 5px' }}> EDITAR </CustomButton>
+                <CustomButton isFollow onClick={()=>signout()} style={{margin:'5px 5px', padding:'5 5px', backgroundColor:'#d9534f' }}> signout </CustomButton> 
+            </div>
+            <div>
+                <CustomButton isFollow  onClick={()=>setEdit(!edit)} style={{margin:'5px  5px', padding:'5 5px' }}> EDITAR </CustomButton>
             </div>
         </ProfileInfoContainer>
-        
+
         <CreatePost isFixed={false}/>
         
         {
@@ -54,11 +66,9 @@ const Profile =  () => {
             :
             <Fragment>
             {
-                posts && currentUser &&
-                posts
-                    .filter(e => e.uid === currentUser.id)
-                    .map( (p, idx) => (
-                        <Post key={p.id + `${idx}`} data={p}/> 
+                posts && 
+                posts.map( (p, idx) => (
+                        <Post key={p.id + `${idx}`} data={{...p, ...currentUser}}/> 
                         ))
             }
             {

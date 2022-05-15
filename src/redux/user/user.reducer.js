@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   following:[],
   saved:[],
   notifications:[],
+  posts:[],
   forms:{
     signInForm: false,
     signUpForm: false
@@ -97,6 +98,13 @@ export const userReducer = (state = INITIAL_STATE, action) => {
         currentUser: payload,
         isFetching: false
       }
+    case UserActionTypes.FETCH_USER_POSTS_SUCCESS:
+      return{
+        ...state,
+        isFetching: false,
+        posts: payload
+      }
+    case UserActionTypes.FETCH_USER_POSTS_FAILURE:
     case UserActionTypes.FETCH_USER_PROFILE_FAILURE:
     case UserActionTypes.UPDATE_USER_FAILURE:
     case UserActionTypes.POST_SAVE_FAILURE:

@@ -13,7 +13,6 @@ export const MainMenuContainer = styled.div`
         margin: 0px;
         height:50px;
         width: 100%;
-        background-color:#fff;
         z-index:99999999;    
     }
        
@@ -27,8 +26,8 @@ export const MenuContainer = styled.div`
     flex-direction: row;
     justify-content: center;
     bottom: 5;
+    background-image: -webkit-linear-gradient(67deg,#b042f4, #4842f4 );
     align-items:center;
-    background-color:#fff;
     width:100%;
     z-index:9999999999;
     box-shadow: 1px 1px 8px #ddd;
@@ -45,9 +44,7 @@ export const OptionContainer = styled.div`
     padding: 2px 2px;  
     cursor:  ${({ currentUser }) => currentUser?'pointer': 'inherit' };
     filter:  ${({ currentUser }) => currentUser?'opacity(100%)': 'opacity(20%)' };
-    &:hover{
-        background-color: #f7f7f7;
-    }
+  
 `
 
 export const ProfileOptionContainer = styled.div`
@@ -62,7 +59,7 @@ export const PostOptionContainer = styled.div`
 export const OptionIcon = styled.div`
     width: 25px;
     height:25px;
-    margin: 10px 10px;
+    padding: 10px 10px;
     background-size: cover;
     background-position: center;
     background-image: ${({ imageUrl }) => `url(${imageUrl})`};
@@ -87,12 +84,12 @@ export const UserIcon = styled(UserSVG)`
     height: 100%;
     margin: 0 5px;
     cursor: pointer;
-        & path {
-            fill: gray;
+    & path {
+            fill: #fff;
         }
         &:hover{
             & path {
-               fill: ${({color}) => color };
+               fill: #fff;
             }
         }
 `
@@ -102,12 +99,12 @@ export const HeartIcon = styled(HeartSVG)`
     height: 100%;
     margin: 0 5px;
     cursor: pointer;
-        & path {
-            fill: gray;
+    & path {
+            fill: #fff;
         }
         &:hover{
             & path {
-               fill: ${({color}) => color };
+               fill: #fff;
             }
         }
 `
@@ -117,12 +114,12 @@ export const HomeIcon = styled(HomeSVG)`
     height: 100%;
     margin: 0 5px;
     cursor: pointer;
-        & path {
-            fill: gray;
+    & path {
+            fill: #fff;
         }
         &:hover{
             & path {
-               fill: ${({color}) => color };
+               fill: #fff;
             }
         }
 `
@@ -133,12 +130,12 @@ export const BellIcon = styled(BellSVG)`
     height: 100%;
     margin: 0 5px;
     cursor: pointer;
-        & path {
-            fill: gray;
+    & path {
+            fill: #fff;
         }
         &:hover{
             & path {
-               fill: ${({color}) => color };
+               fill: #fff;
             }
         }
 `
@@ -149,11 +146,11 @@ export const EnvelopeIcon = styled(EnvelopeSVG)`
     margin: 0 5px;
     cursor: pointer;
         & path {
-            fill: gray;
+            fill: #fff;
         }
         &:hover{
             & path {
-               fill: ${({color}) => color };
+               fill: #fff;
             }
         }
 `

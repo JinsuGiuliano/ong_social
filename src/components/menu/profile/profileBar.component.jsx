@@ -40,7 +40,7 @@ const ProfileBar = ({setShowSignin, showSignin, setShowSignUp,showSignUp }) => {
                     <p style={{fontSize:'10px',color:'white',margin:'0px',fontWeight:'200' }}>{ currentUser.email} </p>
                 </UserInfoChild>
                 <UserInfoChild > 
-                    <CustomButton isFollow onClick={()=>signout()}> signout </CustomButton>
+                    <CustomButton isFollow onClick={()=>signout()} style={{backgroundColor:'#d9534f'}}> signout </CustomButton>
                 </UserInfoChild>
                 </InfoTextContainer>  
             </ProfileBarContainer>

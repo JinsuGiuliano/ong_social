@@ -50,3 +50,8 @@ export const selectUserProfile = username =>
     [selectUser],
     user => user.isFetching
   );
+
+  export const selectUserPosts = createSelector(
+    [selectUser],
+    user => user.posts
+  );
