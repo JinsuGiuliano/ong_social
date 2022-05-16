@@ -20,3 +20,8 @@ export const selectUserProfilePosts = username =>
     [selectPosts],
     posts =>  posts.isFetching
   );
+
+  export const selectIsFetchingNewest = createSelector(
+    [selectPosts],
+    posts =>  posts.isFetchingNewest
+  );

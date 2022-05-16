@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { PostContainer, PostsListContainer, SeeNewest, SeeNewestContainer } from './posts.styles';
+import { Dot, LoadingWrapper, PostContainer, PostsListContainer, SeeNewest, SeeNewestContainer } from './posts.styles';
 
-import { selectAllPosts, selectIsFetching } from '../../redux/posts/posts.selectors';
+import { selectAllPosts, selectIsFetching, selectIsFetchingNewest } from '../../redux/posts/posts.selectors';
 import { selectCurrentUser, selectFollowingUsers } from '../../redux/user/user.selectors';
 
 import Post from './post/post.component';
@@ -15,6 +15,7 @@ const Posts =  () => {
     const posts = useSelector(selectAllPosts)
     const following = useSelector(selectFollowingUsers)
     const isFetching = useSelector(selectIsFetching)
+    const isFetchingNewest = useSelector(selectIsFetchingNewest)
     posts.sort((x,y) => {
         let a = x.createdAt
         let b = y.createdAt
@@ -51,8 +52,17 @@ const Posts =  () => {
             </PostsListContainer>
            
         }   
-        <SeeNewestContainer>       
-            <SeeNewest onClick={()=> RefreshNewestPosts()}> See Newest </SeeNewest>
+        <SeeNewestContainer>   
+        {    
+            isFetchingNewest?
+            <SeeNewest isLoading onClick={()=> RefreshNewestPosts()}>
+            see latest ...
+            </SeeNewest>
+            :
+            <SeeNewest onClick={()=> RefreshNewestPosts()}> 
+            see latest
+            </SeeNewest>
+        }
         </SeeNewestContainer>
         </PostContainer>
     )

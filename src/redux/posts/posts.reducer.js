@@ -3,6 +3,7 @@ import PostActionTypes from './posts.types'
 const INITIAL_STATE = {
   posts: [],
   isFetching: false,
+  isFetchingNewest: false,
   errorMessage: undefined
 };
 
@@ -23,6 +24,12 @@ export const postsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isFetching: true
       };
+    case PostActionTypes.FETCH_NEWEST_POSTS_START:
+        return {
+          ...state,
+          isFetchingNewest: true
+        };
+        
     case PostActionTypes.POST_FETCH_SUCCESS:
       return {
         ...state,
@@ -32,7 +39,7 @@ export const postsReducer = (state = INITIAL_STATE, action) => {
     case PostActionTypes.FETCH_NEWEST_POSTS_SUCCESS:
       return {
         ...state,
-        isFetching: false,
+        isFetchingNewest: false,
         posts: [...state.posts, ...payload]
       }
     case PostActionTypes.FETCH_NEWEST_POSTS_FAILURE:
