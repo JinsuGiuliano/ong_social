@@ -50,7 +50,6 @@ export const SeeNewest = styled.div`
     bottom:0;
     z-index:999999999999999999;
     border-radius:20px;
-    
     margin:10px;
     padding:10px;
     text-align: center;
@@ -66,7 +65,9 @@ export const SeeNewestContainer = styled.div`
     display:flex;
     flex-direction:column-reverse;
     align-items: center;
-    
+    @media only screen and (max-width: 700px){
+        width:100%;
+    }
 
 `
 
@@ -79,34 +80,4 @@ export const TopMenuBar = styled.div`
     top:0;
     background-color: #fff;
     height:50px;
-`
-
-export const LoadingWrapper = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-`
-export const BounceAnimation = keyframes`
-  0% { 
-    margin-bottom: 0; 
-  }
-
-  50% { 
-    margin-bottom: 1rem;
-  }
-
-  100% { 
-    margin-bottom: 0;
-  }
-`
-
-export const Dot = styled.div`
-  background-color: white;
-  border-radius: 50%;
-  width: 0.30rem;
-  height: 0.30rem;
-  margin: 0 0.50rem;
-  /*Animation*/
-  animation: ${BounceAnimation} 1s linear infinite;
-  animation-delay: ${(props) => props.delay};
 `
