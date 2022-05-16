@@ -16,6 +16,22 @@ export const postFetchFailure = error => ({
     payload: error
 });
 
+// Fetch Posts
+export const postFetchNewestStart = last => ({
+    type: PostActionTypes.FETCH_NEWEST_POSTS_START,
+    payload: last
+  });
+  
+export const postFetchNewestSuccess = newest => ({
+    type: PostActionTypes.FETCH_NEWEST_POSTS_SUCCESS,
+    payload: newest
+});
+
+export const postFetchNewestFailure = error => ({
+    type: PostActionTypes.FETCH_NEWEST_POSTS_FAILURE,
+    payload: error
+});
+
 // Create Post
 export const postCreateStart = (post, user) => ({
     type: PostActionTypes.POST_CREATE_START,

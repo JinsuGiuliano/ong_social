@@ -42,9 +42,7 @@ export const OptionContainer = styled.div`
     justify-content: space-around;
     align-items: center;
     padding: 2px 2px;  
-    cursor:  ${({ currentUser }) => currentUser?'pointer': 'inherit' };
-    filter:  ${({ currentUser }) => currentUser?'opacity(100%)': 'opacity(20%)' };
-  
+    cursor:  ${({ currentUser }) => currentUser?'pointer': 'inherit' };  
 `
 
 export const ProfileOptionContainer = styled.div`
@@ -85,7 +83,7 @@ export const UserIcon = styled(UserSVG)`
     margin: 0 5px;
     cursor: pointer;
     & path {
-            fill: #fff;
+            fill: #ddd;
         }
         &:hover{
             & path {
@@ -100,7 +98,7 @@ export const HeartIcon = styled(HeartSVG)`
     margin: 0 5px;
     cursor: pointer;
     & path {
-            fill: #fff;
+            fill: #ddd;
         }
         &:hover{
             & path {
@@ -115,7 +113,7 @@ export const HomeIcon = styled(HomeSVG)`
     margin: 0 5px;
     cursor: pointer;
     & path {
-            fill: #fff;
+            fill: #ddd;
         }
         &:hover{
             & path {
@@ -146,7 +144,7 @@ export const EnvelopeIcon = styled(EnvelopeSVG)`
     margin: 0 5px;
     cursor: pointer;
         & path {
-            fill: #fff;
+            fill: #ddd;
         }
         &:hover{
             & path {

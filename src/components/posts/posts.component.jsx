@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
-import { useSelector } from 'react-redux';
-import { PostContainer, PostsListContainer } from './posts.styles';
+import React, { Fragment, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { PostContainer, PostsListContainer, SeeNewest, SeeNewestContainer } from './posts.styles';
 
 import { selectAllPosts, selectIsFetching } from '../../redux/posts/posts.selectors';
 import { selectCurrentUser, selectFollowingUsers } from '../../redux/user/user.selectors';
@@ -8,13 +8,23 @@ import { selectCurrentUser, selectFollowingUsers } from '../../redux/user/user.s
 import Post from './post/post.component';
 import CreatePost from './post/createPost.component';
 import Spinner from '../utils/with-spinner/with-spinner.component'
+import { postFetchNewestStart } from '../../redux/posts/posts.actions';
 const Posts =  () => {
-
+    const dispatch = useDispatch()
     const currentUser = useSelector(selectCurrentUser)
     const posts = useSelector(selectAllPosts)
     const following = useSelector(selectFollowingUsers)
     const isFetching = useSelector(selectIsFetching)
-    posts && posts.sort((a,b) => b.createdAt -  a.createdAt )
+    posts.sort((x,y) => {
+        let a = x.createdAt
+        let b = y.createdAt
+       return(b-a)
+    } )
+    
+    const RefreshNewestPosts = () => {
+        console.log(posts.slice(-1)[0].createdAt)
+        dispatch(postFetchNewestStart(posts.slice(-1).createdAt))
+    }
     return(
         <PostContainer>
         {
@@ -34,13 +44,16 @@ const Posts =  () => {
                 }
                 {
                     !currentUser && posts &&  
-                    posts.map( (p, idx) => (
-                            <Post key={p.id + idx} data={p}/> 
-                            ))
+                        posts.map( (p, idx) => (
+                                <Post key={p.id + idx} data={p}/> 
+                                ))
                 }
             </PostsListContainer>
-        }          
-
+           
+        }   
+        <SeeNewestContainer>       
+            <SeeNewest onClick={()=> RefreshNewestPosts()}> See Newest </SeeNewest>
+        </SeeNewestContainer>
         </PostContainer>
     )
 }

@@ -2,22 +2,17 @@ import { takeLatest, put, all, call } from 'redux-saga/effects';
 
 import PostActionTypes from './posts.types'
 import { 
-    postFetchSuccess,
-    postFetchFailure,
-    postCreateSuccess, 
-    postCreateFailure, 
-    postUpdateSuccess, 
-    postUpdateFailure, 
-    postDeleteSuccess, 
-    postDeleteFailure,
-    postLikeSuccess,
-    postLikeFailure,
-    postDisLikeSuccess,
-    postDisLikeFailure  
+    postFetchSuccess, postFetchFailure,
+    postCreateSuccess,  postCreateFailure, 
+    postUpdateSuccess,  postUpdateFailure, 
+    postDeleteSuccess,  postDeleteFailure,
+    postLikeSuccess, postLikeFailure,
+    postDisLikeSuccess, postDisLikeFailure,
+    postFetchNewestSuccess, postFetchNewestFailure  
 } from './posts.actions'
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
-import { getDoc, collection, getDocs, doc, setDoc, addDoc, updateDoc, increment, query, where, orderBy, limit } from "firebase/firestore";
+import { getDoc, collection, getDocs, doc, setDoc, addDoc, updateDoc, increment, query, where, orderBy, limit, collectionGroup } from "firebase/firestore";
 import {
   firestore, getCurrentUser
 } from '../../firebase/firebase.utils'
@@ -39,6 +34,7 @@ export function* postFetch() {
         userPostsSnap.docs.map(p => allPosts.push({
           ...p.data(), 
           ...postUserSnap.data(),
+          createdAt:p.data().createdAt,
           id: p.id, 
           uid: userSnapshot.docs[d].id
         }))
@@ -50,12 +46,12 @@ export function* postFetch() {
       const UsersList = []
       userSnapshot.docs.map( u => UsersList.push(u.id))
       for(let i in UsersList){
-        const q =  yield query(collection(firestore,'posts', UsersList[i], 'userPosts'), orderBy("creation", "desc", limit(20)))
+        const q =  yield query(collection(firestore,'posts', UsersList[i], 'userPosts'), orderBy("createdAt", "desc", limit(20)))
         const postsSnapshot = yield getDocs(q);
         let postUserRef = yield doc(firestore,'users', UsersList[i]);
         let postUserSnap = yield getDoc(postUserRef);
         postsSnapshot.docs.forEach( p => {
-          return(allPosts.push({...p.data(),...postUserSnap.data(), id:p.id, uid:postUserSnap.id}))})
+          return(allPosts.push({...p.data(),...postUserSnap.data(), createdAt:p.data().createdAt, id:p.id, uid:postUserSnap.id}))})
       }
       
     }
@@ -65,11 +61,68 @@ export function* postFetch() {
     }
   }
 
+
+
+  export function* postFetchNewest({payload:last}) {
+    try {
+      const auth = yield getCurrentUser()
+      let allPosts = [];
+      if(auth){ 
+      const uid = auth.uid
+      const userRef = yield collection(firestore,'posts')
+      const userSnapshot = yield getDocs(userRef);
+      
+      for( let d in userSnapshot.docs){
+        let userPostsRef = yield query(collection(firestore,'posts', userSnapshot.docs[d].id, 'userPosts'), where('createdAt','>',last))
+        let userPostsSnap = yield getDocs(userPostsRef);
+        let postUserRef = yield doc(firestore,'users', userSnapshot.docs[d].id);
+        let postUserSnap = yield getDoc(postUserRef);
+        userPostsSnap.docs.map(p => allPosts.push({
+          ...p.data(), 
+          ...postUserSnap.data(),
+          createdAt:p.data().createdAt,
+          id: p.id, 
+          uid: userSnapshot.docs[d].id
+        }))
+        
+      }
+    }else{
+      const qUsers = yield query(collection(firestore,'users'),  orderBy("createdAt", "desc", limit(15)))
+      const userSnapshot = yield getDocs(qUsers);
+      const UsersList = []
+      userSnapshot.docs.map( u => UsersList.push(u.id))
+      
+      for(let i in UsersList){
+        const q =  yield query(collection(firestore,'posts', UsersList[i], 'userPosts'), where('createdAt','>',last), orderBy("createdAt", "desc", limit(20)))
+        const postsSnapshot = yield getDocs(q);
+        let postUserRef = yield doc(firestore,'users', UsersList[i]);
+        let postUserSnap = yield getDoc(postUserRef);
+
+        postsSnapshot.docs.forEach( p => {
+          return(allPosts.push(
+                          {
+                            ...p.data(),
+                            ...postUserSnap.data(), 
+                            createdAt:p.data().createdAt, 
+                            id:p.id, 
+                            uid:postUserSnap.id
+                          })
+          )
+        })
+      }
+      
+    }
+      yield put(postFetchNewestSuccess(allPosts));
+    } catch (error) {
+      yield put(postFetchNewestFailure(error));
+    }
+  }
+
 export function* postCreate({payload:{post, user}}) {
   try {
    
     const newPostRef = yield collection(firestore, "posts", user.id, 'userPosts');
-    const postSnap = yield addDoc(newPostRef, post);
+    const postSnap = yield addDoc(newPostRef, {...post, file:1});
     const storage = yield getStorage();
     const fileRef = yield ref(storage, `files/${postSnap.id}`);
     
@@ -88,6 +141,7 @@ export function* postCreate({payload:{post, user}}) {
       {
         ...post,
         ...user,
+        createdAt:post.createdAt,
         filePath:downloadURL,
         uid: user.id,
         id:postSnap.id
@@ -170,6 +224,10 @@ export function* onPostDisLikeStart() {
   yield takeLatest(PostActionTypes.POST_DISLIKE_START, postDislike);
 }
 
+export function* onPostFetchNewestStart() {
+  yield takeLatest(PostActionTypes.FETCH_NEWEST_POSTS_START, postFetchNewest);
+}
+
 
 export function* postSagas() {
   yield all([
@@ -178,6 +236,7 @@ export function* postSagas() {
     call(onPostUpdateStart),
     call(onPostDeleteStart),
     call(onPostLikeStart),
-    call(onPostDisLikeStart)
+    call(onPostDisLikeStart),
+    call(onPostFetchNewestStart)
   ]);
 }

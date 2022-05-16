@@ -146,7 +146,7 @@ export const ActionContainer = styled.div`
 export const UserInfoChild  = styled.div`
     margin-right: 4px; 
     @media only screen and (max-width: 700px){
-        height:22px;
+        height:auto;
     }
 `
 
@@ -222,7 +222,7 @@ export const PostImage = styled.div`
     background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 `
 
-export const UserNameContainer = styled.button`
+export const UserNameContainer = styled.span`
     font-size: 13px;
     color: black;
     border:none;

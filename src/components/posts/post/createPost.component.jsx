@@ -24,7 +24,8 @@ const CreatePost = ({isFixed}) => {
             caption: postCaption,
             downloadURL:'',
             likesCount:0,
-            file:postFile,      
+            file:postFile,     
+            createdAt:Math.round(Date.now() / 1000)
         }
         dispatch(postCreateStart(post, currentUser));
         setPostCaption('')

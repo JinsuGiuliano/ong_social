@@ -46,7 +46,7 @@ const Post = ({data}) => {
                     <UserNameContainer onClick={()=> {dispatch(fetchUserProfileStart(uid)); goToProfile(uid)}} ><strong> { name.toUpperCase() } </strong></UserNameContainer>
                 </UserInfoChild> 
                 <UserInfoChild>
-                    <p style={{fontSize:'12px',color:'gray' }}> { email } </p>
+                    <p style={{fontSize:'12px',color:'gray', margin:'0' }}> { email } </p>
                 </UserInfoChild> 
                
             </InfoTextContainer>     
@@ -76,7 +76,7 @@ const Post = ({data}) => {
                 <div><ShareIcon color='#75ae2b'/></div>
             </PostActionsContainer>
             <UserInfoChild>
-            <p style={{fontSize:'11px',color:'#e1e0e0' }}> post created at { createdAt? new Date(createdAt.seconds*1000).toDateString() : new Date(creation.seconds*1000).toDateString() } </p>
+            <p style={{fontSize:'11px',color:'#e1e0e0' }}> post created at { createdAt? new Date(createdAt*1000).toDateString() : new Date(creation*1000).toDateString() } </p>
         </UserInfoChild> 
         </div>
     </PostContentContainer>
@@ -124,7 +124,7 @@ const Post = ({data}) => {
                 <div><ShareIcon color='#75ae2b'/></div>
             </PostActionsContainer>
             <UserInfoChild>
-            <p style={{fontSize:'11px',color:'#e1e0e0' }}> post created at { createdAt? new Date(createdAt.seconds*1000).toDateString() : new Date(creation.seconds*1000).toDateString() } </p>
+            <p style={{fontSize:'11px',color:'#e1e0e0' }}> post created at { createdAt? new Date(createdAt*1000).toDateString() : new Date(creation*1000).toDateString() } </p>
         </UserInfoChild> 
         </div>
     </PostContentContainer>
