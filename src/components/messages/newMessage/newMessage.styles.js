@@ -9,7 +9,7 @@ export const SendNewMessageContainer = styled.div`
     margin: 50px 0px;
     display:flex;
     flex-direction: column;
-    background-color: #eae9e9d1;
+    background-image: -webkit-linear-gradient(67deg,#ff503c, #ffb13c);
     border-radius: 20px;
     box-shadow: 5px 5px 30px black ;
     @media only screen and (max-width: 700px){
@@ -31,7 +31,7 @@ export const CloseIcon = styled(CloseSVG)`
     height: 100%;
     cursor: pointer;
         & path {
-            fill: black;
+            fill: white;
         }
         &:hover{
             & path {
@@ -45,7 +45,7 @@ export const SendIcon = styled(SendSVG)`
     height: 100%;
     cursor: pointer;
         & path {
-            fill: black;
+            fill: white;
         }
         &:hover{
             & path {

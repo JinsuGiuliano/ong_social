@@ -39,7 +39,7 @@ const Post = ({data}) => {
         <PostContentContainer>
         <PostUserInfoContainer>    
             <UserInfoChild>
-                <PostUserIcon src={ `${photo? photo:'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png'}` } alt=''/>
+                <PostUserIcon src={ `${photo? photo:'http://www.fibeipes.com/static/images/default.jpg'}` } alt=''/>
             </UserInfoChild>   
             <InfoTextContainer>
                 <UserInfoChild > 
@@ -70,8 +70,8 @@ const Post = ({data}) => {
                     </div>
                 
                 <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
-                    <div><ClapIcon color='#4285f4' onClick={()=>likePost()}/></div>
-                    <div><Counter>{likesCount === 0? '': likesCount }</Counter></div>
+                        <ClapIcon color='#4285f4' onClick={()=>likePost()}/>
+                        <Counter>{likesCount === 0? '': likesCount }</Counter>
                 </div>
                 <div><ShareIcon color='#75ae2b'/></div>
             </PostActionsContainer>
@@ -89,7 +89,7 @@ const Post = ({data}) => {
         <PostContentContainer>
         <PostUserInfoContainer>    
             <UserInfoChild>
-                <PostUserIcon src={ `${photo? photo:'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png'}` } alt=''/>
+                <PostUserIcon src={ `${photo? photo:'http://www.fibeipes.com/static/images/default.jpg'}` } alt=''/>
             </UserInfoChild>   
             <InfoTextContainer>
                 <UserInfoChild > 
@@ -118,8 +118,8 @@ const Post = ({data}) => {
                     </div>
                 
                 <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
-                    <div><ClapIcon color='#4285f4'/></div>
-                    <div><span style={{fontSize:'10px',color:'gray', position:'absolute', top:'3'}}>{likesCount === 0? '': likesCount }</span></div>
+                    <ClapIcon color='#4285f4'/>
+                    <Counter>{likesCount === 0? '': likesCount }</Counter>
                 </div>
                 <div><ShareIcon color='#75ae2b'/></div>
             </PostActionsContainer>

@@ -21,26 +21,26 @@ export function* postFetch() {
     try {
       const auth = yield getCurrentUser()
       let allPosts = [];
-      if(auth){ 
-      const uid = auth.uid
-      const userRef = yield collection(firestore,'following', uid, 'userFollowing')
-      const userSnapshot = yield getDocs(userRef);
+    //   if(auth){ 
+    //   const uid = auth.uid
+    //   const userRef = yield collection(firestore,'following', uid, 'userFollowing')
+    //   const userSnapshot = yield getDocs(userRef);
       
-      for( let d in userSnapshot.docs){
-        let userPostsRef = yield collection(firestore,'posts', userSnapshot.docs[d].id, 'userPosts');
-        let userPostsSnap = yield getDocs(userPostsRef);
-        let postUserRef = yield doc(firestore,'users', userSnapshot.docs[d].id);
-        let postUserSnap = yield getDoc(postUserRef);
-        userPostsSnap.docs.map(p => allPosts.push({
-          ...p.data(), 
-          ...postUserSnap.data(),
-          createdAt:p.data().createdAt,
-          id: p.id, 
-          uid: userSnapshot.docs[d].id
-        }))
+    //   for( let d in userSnapshot.docs){
+    //     let userPostsRef = yield collection(firestore,'posts', userSnapshot.docs[d].id, 'userPosts');
+    //     let userPostsSnap = yield getDocs(userPostsRef);
+    //     let postUserRef = yield doc(firestore,'users', userSnapshot.docs[d].id);
+    //     let postUserSnap = yield getDoc(postUserRef);
+    //     userPostsSnap.docs.map(p => allPosts.push({
+    //       ...p.data(), 
+    //       ...postUserSnap.data(),
+    //       createdAt:p.data().createdAt,
+    //       id: p.id, 
+    //       uid: userSnapshot.docs[d].id
+    //     }))
         
-      }
-    }else{
+    //   }
+    // }else{
       const qUsers = yield query(collection(firestore,'users'),  orderBy("createdAt", "desc", limit(15)))
       const userSnapshot = yield getDocs(qUsers);
       const UsersList = []
@@ -54,7 +54,7 @@ export function* postFetch() {
           return(allPosts.push({...p.data(),...postUserSnap.data(), createdAt:p.data().createdAt, id:p.id, uid:postUserSnap.id}))})
       }
       
-    }
+    // }
       yield put(postFetchSuccess(allPosts));
     } catch (error) {
       yield put(postFetchFailure(error));

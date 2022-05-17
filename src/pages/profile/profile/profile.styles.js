@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { ReactComponent as CalendarSVG  } from '../../../assets/icons/calendar.svg'
 import { ReactComponent as MessageSVG  } from '../../../assets/icons/envelope.svg'
+import { ReactComponent as StarSVG  } from '../../../assets/icons/stars.svg'
 
 export const PostContainer = styled.div`
     width: 100%;
@@ -51,6 +52,16 @@ export const ProfileInfoContainer = styled.div`
     justify-content: flex-end;
 `
 
+export const ActionsWithUser = styled.div`
+    width: 100%;
+    height:70px;
+    background-image: -webkit-linear-gradient(67deg,#4285f4, #4842f4 );
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+`
+
 export const JoinContainer = styled.div`
     margin:5px 0;
     display: flex;
@@ -93,14 +104,27 @@ export const SendMessageButton = styled.div`
     flex-direction:row;
     justify-content: space-around;
     align-items: center;
-    width: 100%;
-    height: 25px;
-    border: 1px solid #fff;
     border-radius:15px;
     cursor: pointer;
 `
 
 export const MessageIcon = styled(MessageSVG)`
+    width: 15px;
+    height: 100%;
+    margin: 0 5px 0px 0px; 
+    text-shadow: 1px 1px 8px  #000;
+    cursor: pointer;
+        & path {
+            fill: white;
+        }
+        &:hover{
+            & path {
+               fill: ${({color}) => color };
+            }
+        }
+`
+
+export const StarIcon = styled(StarSVG)`
     width: 15px;
     height: 100%;
     margin: 0 5px 0px 0px; 

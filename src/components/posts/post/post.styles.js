@@ -130,9 +130,7 @@ export const CreatePostFixedContainer = styled.div`
 export const Counter = styled.span`
     font-size:10px;
     color:gray;
-    position:absolute;
     top:3;
-    z-index:0;
 `
 
 export const ActionContainer = styled.div`

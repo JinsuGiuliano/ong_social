@@ -3,12 +3,14 @@ import {  useSelector } from 'react-redux';
 import { PostContainer, TopProfile, ProfileName, ProfileEmail, 
     CalendarIcon, JoinContainer,ProfilePhoto, SendMessageButton, MessageIcon,
     SendText, 
-    UserProfileInfoContainer} from './profile.styles';
+    UserProfileInfoContainer,
+    ActionsWithUser} from './profile.styles';
 
 import { selectIsFetching, selectProfilePageState } from '../../../redux/user/user.selectors';
 import Spinner from '../../../components/utils/with-spinner/with-spinner.component';
 import UserTabs from './tabs/userTabs.components';
 import NewMessageForm from '../../../components/messages/newMessage/newMessage.component';
+import { Outlet } from 'react-router-dom';
 
 const ProfileById =  () => {
 
@@ -42,19 +44,19 @@ const ProfileById =  () => {
                             <JoinContainer>
                                 <div><CalendarIcon color='white'/></div>
                             </JoinContainer>
-                            <SendMessageButton onClick={()=>setNewMessage(!newMessage)}>
-                                <SendText>ENVIAR MENSAJE</SendText>
-                                <MessageIcon/>
-                            </SendMessageButton>
                         </UserProfileInfoContainer>
                     </TopProfile>
+                   
                     </Fragment>
                 }
-                <UserTabs isProfileById {...profile} />
+            
+                <UserTabs isProfileById {...profile} setNewMessage={setNewMessage} newMessage={newMessage}/>
+              
             </PostContainer>
     
             </Fragment>
         }
+        <Outlet/>
         </Fragment>
     )
 }

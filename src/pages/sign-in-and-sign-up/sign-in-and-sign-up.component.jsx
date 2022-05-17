@@ -14,12 +14,12 @@ return(
   <SignInAndSignUpContainer>
     <TabSelectorContainer>
       <div>
-        <CustomButton onClick={()=> {setSignUp(!singUp); setSignIn(!singIn)}}>
+        <CustomButton isPost onClick={()=> {setSignUp(!singUp); setSignIn(!singIn)}}>
               SignUp
         </CustomButton>
       </div>
       <div>
-        <CustomButton onClick={()=> {setSignUp(!singUp); setSignIn(!singIn)}}>
+        <CustomButton isPost onClick={()=> {setSignUp(!singUp); setSignIn(!singIn)}}>
                 SignIn
         </CustomButton>
       </div>

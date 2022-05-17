@@ -33,7 +33,7 @@ const NewMessageForm = ({setNewMessage, newMessage, to}) => {
         return (
             <SendNewMessageContainer>
                 <SendNewMessageTop>
-                    <div><CloseIcon color='black' onClick={() => setNewMessage(!newMessage)}/></div>
+                    <div><p style={{color:'white'}}onClick={() => setNewMessage(!newMessage)}>X</p></div>
                     <MessageInput>
                             <InputInput>
                                 <FormInput   

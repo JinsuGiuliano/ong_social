@@ -38,16 +38,10 @@ const Posts =  () => {
             :
             <PostsListContainer>
                 {
-                    currentUser && posts && 
+                    posts && 
                         posts.map( (p, idx) => (
                             <Post key={p.id + idx} data={p}/> 
                             ))
-                }
-                {
-                    !currentUser && posts &&  
-                        posts.map( (p, idx) => (
-                                <Post key={p.id + idx} data={p}/> 
-                                ))
                 }
             </PostsListContainer>
            
