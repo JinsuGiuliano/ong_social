@@ -15,9 +15,11 @@ import SignInAndSignUpPage from '../../sign-in-and-sign-up/sign-in-and-sign-up.c
 import Spinner from '../../../components/utils/with-spinner/with-spinner.component';
 import { fetchUserPostsAsync } from '../../../redux/user/user.sagas';
 import { fetchUserPostsStart, signOutStart } from '../../../redux/user/user.actions';
+import { useNavigate } from 'react-router-dom';
 
 const Profile =  () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate();
     const [edit, setEdit] = useState(false)
     const currentUser = useSelector(selectCurrentUser)
     const posts = useSelector(selectUserPosts)
@@ -25,6 +27,7 @@ const Profile =  () => {
     
     const signout = () => {
         dispatch(signOutStart())
+            navigate({ pathname: '/' }) 
     }
     
     useEffect(()=>{

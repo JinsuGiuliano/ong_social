@@ -22,6 +22,7 @@ const ProfileBar = ({setShowSignin, showSignin, setShowSignUp,showSignUp }) => {
 
     const signout = () => {
         dispatch(signOutStart())
+        navigate({ pathname: '/' }) 
     }
 
     return(

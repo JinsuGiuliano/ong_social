@@ -1,9 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 
 import FormInput from '../../utils/form-input/form-input.component';
 import CustomButton from '../../utils/custom-button/custom-button.component';
-
+import { withRouter } from '../../utils/Router/withRouter';
 import {
   googleSignInStart,
   emailSignInStart
@@ -14,6 +14,9 @@ import {
   SignInTitle,
   ButtonsBarContainer
 } from './sign-in.styles';
+import { selectCurrentUser } from '../../../redux/user/user.selectors';
+import { createStructuredSelector } from 'reselect';
+
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -23,8 +26,10 @@ class SignIn extends React.Component {
       email: '',
       password: ''
     };
+
   }
 
+ 
   handleSubmit = async event => {
     event.preventDefault();
     const { emailSignInStart } = this.props;
@@ -40,7 +45,10 @@ class SignIn extends React.Component {
   };
 
   render() {
-    const { googleSignInStart } = this.props;
+    const { googleSignInStart, currentUser, router } = this.props;
+    if(currentUser){
+      router.navigate('/');
+    }
     return (
       <SignInContainer>
         <SignInTitle>I already have an account</SignInTitle>
@@ -86,8 +94,11 @@ const mapDispatchToProps = dispatch => ({
   emailSignInStart: (email, password) =>
     dispatch(emailSignInStart({ email, password }))
 });
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
+})
 
-export default connect(
-  null,
+export default withRouter(connect(
+  mapStateToProps,
   mapDispatchToProps
-)(SignIn);
+)(SignIn));
