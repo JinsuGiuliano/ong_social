@@ -33,9 +33,30 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
       userAuth,
       additionalData
     );
-    console.log('userAuth: ', userAuth)
+
+    const saved = [];
+
     const userSnapshot = yield getDoc(userRef);
-    yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data(), photo:userAuth.providerData[0].photoURL?userAuth.providerData[0].photoURL: userSnapshot.data().photo }));
+
+    const savedRef = yield collection(firestore,'saved', userSnapshot.id, 'postsSaved')
+    const savedSnap = yield getDocs(savedRef);
+
+    yield console.log('saved: ', savedSnap.docs)
+   
+    for(let i in savedSnap.docs){
+      let postSavedRef = yield doc(firestore, 'posts', userSnapshot.id, 'userPosts', savedSnap.docs[i].id) 
+      let postSavedSnap = yield getDoc(postSavedRef)
+      let userRef = yield doc(firestore, 'users', userSnapshot.id)
+      let userSnap = yield getDoc(userRef)
+      saved.push({...userSnap.data(),id:postSavedSnap.id, ...postSavedSnap.data(), uid:userSnap.id})
+    }
+    const Following = []
+    const followingUsersRef = yield collection(firestore, "following",  userSnapshot.id, 'userFollowing')
+    const followingUserSnap = yield getDocs(followingUsersRef)
+
+    yield followingUserSnap.docs.forEach(e => Following.push(e.id));
+
+    yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data(), photo:userAuth.providerData[0].photoURL?userAuth.providerData[0].photoURL: userSnapshot.data().photo, saved:saved, following:Following }));
   } catch (error) {
     yield put(signInFailure(error));
   }
@@ -156,45 +177,57 @@ export function* unfollowAsync({ payload: userId  }) {
   }
 }
 
-export function* fetchFollowAsync() {
+// export function* fetchFollowAsync() {
+//   try {
+//     const auth = yield getCurrentUser()
+//     const uid = auth.uid
+
+//     const Following = []
+//     const followingUsersRef = yield collection(firestore, "following",  uid, 'userFollowing')
+//     const followingUserSnap = yield getDocs(followingUsersRef)
+
+//     yield followingUserSnap.docs.forEach(e => Following.push(e.id));
+
+//     yield put(fetchFollowSuccess(Following));
+//   } catch (error) {
+//     yield put(fetchFollowFailure(error));
+//   }
+// }
+
+export function* savePostAsync({ payload:data  }) {
   try {
+    const { uid, id } = data;
     const auth = yield getCurrentUser()
-    const uid = auth.uid
-    yield console.log('UID', uid)
-    const Following = []
-    const followingUsersRef = yield collection(firestore, "following",  uid, 'userFollowing')
-
-    const followingUserSnap = yield getDocs(followingUsersRef)
-
-    yield followingUserSnap.docs.forEach(e => Following.push(e.id));
-
-    yield put(fetchFollowSuccess(Following));
-  } catch (error) {
-    yield put(fetchFollowFailure(error));
-  }
-}
-
-export function* savePostAsync({ payload: userId  }) {
-  try {
-    const auth = yield getCurrentUser()
-    const uid = auth.uid
-    yield console.log('saved: ', userId)
-    const savedRef = yield doc(firestore, "saved", uid, 'postsSaved', userId);
+    const currentUserUID = auth.uid
+    const savedRef = yield doc(firestore, "saved", currentUserUID, 'postsSaved', id);
     yield setDoc(savedRef, {});
-    yield put(postSaveSuccess(userId));
+
+    const PostRef = yield doc(firestore, "posts", uid, 'userPosts', id );
+    yield updateDoc(PostRef, {
+       retweetCount: increment(1)
+     });
+
+
+    yield put(postSaveSuccess(data));
   } catch (error) {
     yield put(postSaveFailure(error));
   }
 }
 
-export function* unSavePostAsync({ payload: userId  }) {
+export function* unSavePostAsync({ payload:data }) {
   try {
+    const {uid, id } = data;
     const auth = yield getCurrentUser()
-    const uid = auth.uid
-    yield console.log('saved: ', userId)
-    const savedRef = yield doc(firestore, "saved", uid, 'postsSaved', userId);
+    const currentUserUID = auth.uid
+    const savedRef = yield doc(firestore, "saved", currentUserUID, 'postsSaved', id);
     yield deleteDoc(savedRef, {});
-    yield put(postUnSaveSuccess(userId));
+
+    const PostRef = yield doc(firestore, "posts", uid, 'userPosts', id );
+    yield updateDoc(PostRef, {
+       retweetCount: increment(-1)
+     });
+     
+    yield put(postUnSaveSuccess(data));
   } catch (error) {
     yield put(postUnSaveFailure(error));
   }
@@ -274,6 +307,8 @@ export function* fetchUserProfileAsync({payload:userId}) {
     let posts = []
     let follwing = []
     let followers = []
+    let saved = []
+
     const userRef = yield doc(firestore,'users', userId)
     const userSnap = yield getDoc(userRef);
 
@@ -289,6 +324,10 @@ export function* fetchUserProfileAsync({payload:userId}) {
     const followersSnap = yield getDocs(followersgRef);
     followersSnap.docs.map( u => followers.push(u.id))
 
+
+    const savedRef = yield collection(firestore,'saved', userId, 'postSaved')
+    const savedSnap = yield getDocs(savedRef);
+    savedSnap.docs.map( u => saved.push(u.id))
 
     yield put(fetchUserProfileSuccess({id:userId, user: userSnap.data(), posts:posts, following:follwing, followers:followers, images:images}));
   } catch (error) {
@@ -353,9 +392,9 @@ export function* onUnFollowAsync() {
   yield takeLatest(UserActionTypes.UNFOLLOW_START, unfollowAsync);
 }
 
-export function* onFetchFollowing() {
-  yield takeLatest(UserActionTypes.FETCH_FOLLOW_START, fetchFollowAsync);
-}
+// export function* onFetchFollowing() {
+//   yield takeLatest(UserActionTypes.FETCH_FOLLOW_START, fetchFollowAsync);
+// }
 
 export function* onSavePostAsync() {
   yield takeLatest(UserActionTypes.POST_SAVE_START, savePostAsync);
@@ -388,7 +427,7 @@ export function* userSagas() {
     call(onFetchUsersAsync),
     call(onFollowAsync),
     call(onUnFollowAsync),
-    call(onFetchFollowing),
+    //call(onFetchFollowing),
     call(onSavePostAsync),
     call(onUnSavePostAsync),
     call(onUpdateUserAsync),

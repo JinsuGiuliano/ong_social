@@ -1,36 +1,52 @@
-import React from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfileStart, postSaveStart, postUnSaveStart } from "../../../redux/user/user.actions";
 import { postLikeStart } from "../../../redux/posts/posts.actions";
-import { selectCurrentUser, selectSavedPosts } from "../../../redux/user/user.selectors";
+import { selectCurrentUser, selectSavedPostsIds } from "../../../redux/user/user.selectors";
 import { PostContainer, PostUserIcon, PostContentContainer, PostImage,
         PostUserInfoContainer, PostText , UserInfoChild, InfoTextContainer,
         PostActionsContainer ,HeartIcon, ClapIcon, ShareIcon, UserNameContainer, Counter } from './post.styles'
 import { useLocation, useNavigate } from "react-router-dom";
+import { doc, onSnapshot, query } from "firebase/firestore";
+import { firestore } from "../../../firebase/firebase.utils";
 
 
 const Post = ({data}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { caption, createdAt, creation, filePath, likesCount, photo, name, email, id, uid } = data
-    const savedPosts = useSelector(selectSavedPosts);
+    const [ post, setPost ] = useState({...data})
+    const { caption, createdAt, creation, filePath, likesCount, photo, name, email, id, uid, retweetCount } = post
+
+    const savedPosts = useSelector(selectSavedPostsIds);
     const currentUser = useSelector(selectCurrentUser);
     const postSaved =  savedPosts? !savedPosts.includes(id) :false ;
 
+    const queryPost = query(doc(firestore, "posts", uid, 'userPosts', id))
+
+
     const goToProfile = (uid) => {
-        console.log('UID: ', uid)
         navigate(`profile/${uid}`,{replace: true});
       }
     
     const savePost = () => {
-        dispatch(postSaveStart(id))
+        dispatch(postSaveStart(data))
     }
     const unSavePost = () => {
-        dispatch(postUnSaveStart(id))
+        dispatch(postUnSaveStart(data))
     }
     const likePost = () => {
         dispatch(postLikeStart(id, uid))
     }
+
+
+    useEffect( () => {
+        const unsubscribe = onSnapshot(queryPost, (querySnapshot) => {
+            const d = querySnapshot.data();
+            console.log('onSnapshot: ', d)
+            setPost({...post, ...d});
+        });
+        return unsubscribe;
+    },[])
 
     return(
     <PostContainer>   
@@ -60,12 +76,19 @@ const Post = ({data}) => {
                     : null
                 }
             <PostActionsContainer>
-                    <div>
+                    <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
                     {
                         postSaved?
+                        <Fragment>
                         <HeartIcon color={'gray' } onClick={()=> savePost()}/>
+                        <Counter>{retweetCount === 0? '': retweetCount }</Counter>
+                        </Fragment>
                         :
+                        <Fragment>
                         <HeartIcon color={'red' } onClick={()=> unSavePost()}/>
+
+                        <Counter>{retweetCount === 0? '': retweetCount }</Counter>
+                        </Fragment>
                     }
                     </div>
                 

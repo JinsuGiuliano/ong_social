@@ -8,7 +8,8 @@ import {
     postDeleteSuccess,  postDeleteFailure,
     postLikeSuccess, postLikeFailure,
     postDisLikeSuccess, postDisLikeFailure,
-    postFetchNewestSuccess, postFetchNewestFailure  
+    postFetchNewestSuccess, postFetchNewestFailure,
+    postRetweetSuccess, postRetweetFailure
 } from './posts.actions'
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
@@ -67,26 +68,26 @@ export function* postFetch() {
     try {
       const auth = yield getCurrentUser()
       let allPosts = [];
-      if(auth){ 
-      const uid = auth.uid
-      const userRef = yield collection(firestore,'posts')
-      const userSnapshot = yield getDocs(userRef);
+    //   if(auth){ 
+    //   const uid = auth.uid
+    //   const userRef = yield collection(firestore,'posts')
+    //   const userSnapshot = yield getDocs(userRef);
       
-      for( let d in userSnapshot.docs){
-        let userPostsRef = yield query(collection(firestore,'posts', userSnapshot.docs[d].id, 'userPosts'), where('createdAt','>',last))
-        let userPostsSnap = yield getDocs(userPostsRef);
-        let postUserRef = yield doc(firestore,'users', userSnapshot.docs[d].id);
-        let postUserSnap = yield getDoc(postUserRef);
-        userPostsSnap.docs.map(p => allPosts.push({
-          ...p.data(), 
-          ...postUserSnap.data(),
-          createdAt:p.data().createdAt,
-          id: p.id, 
-          uid: userSnapshot.docs[d].id
-        }))
+    //   for( let d in userSnapshot.docs){
+    //     let userPostsRef = yield query(collection(firestore,'posts', userSnapshot.docs[d].id, 'userPosts'), where('createdAt','>',last))
+    //     let userPostsSnap = yield getDocs(userPostsRef);
+    //     let postUserRef = yield doc(firestore,'users', userSnapshot.docs[d].id);
+    //     let postUserSnap = yield getDoc(postUserRef);
+    //     userPostsSnap.docs.map(p => allPosts.push({
+    //       ...p.data(), 
+    //       ...postUserSnap.data(),
+    //       createdAt:p.data().createdAt,
+    //       id: p.id, 
+    //       uid: userSnapshot.docs[d].id
+    //     }))
         
-      }
-    }else{
+    //   }
+    // }else{
       const qUsers = yield query(collection(firestore,'users'),  orderBy("createdAt", "desc", limit(15)))
       const userSnapshot = yield getDocs(qUsers);
       const UsersList = []
@@ -111,7 +112,7 @@ export function* postFetch() {
         })
       }
       
-    }
+    // }
       yield put(postFetchNewestSuccess(allPosts));
     } catch (error) {
       yield put(postFetchNewestFailure(error));
@@ -189,13 +190,26 @@ export function* postDislike({payload:post}) {
   try {
     const PostRef = yield doc(firestore, "posts", post.uid, 'userPosts', post.id );
     //const postSnap = yield setDoc(newPostRef, post).then();
-    const postSnap = yield updateDoc(PostRef, {
+    yield updateDoc(PostRef, {
       likesCount: firestore.FieldValue.increment(1)
     });
-    yield console.log('postSnap: ',postSnap)
     yield put(postDisLikeSuccess(post));
   } catch (error) {
     yield put(postDisLikeFailure(error));
+  }
+}
+
+
+export function* postRetweet({payload:{postId, uid}}) {
+  try {
+    const PostRef = yield doc(firestore, "posts", uid, 'userPosts', postId );
+   const doc = yield updateDoc(PostRef, {
+      retweetCount: increment(1)
+    });
+    yield console.log('doc: ',doc)
+    yield put(postRetweetSuccess(postId));
+  } catch (error) {
+    yield put(postRetweetFailure(error));
   }
 }
 

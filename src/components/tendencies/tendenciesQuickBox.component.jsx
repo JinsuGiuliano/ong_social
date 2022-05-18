@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
 import { selectAllUsers, selectCurrentUser, selectFollowingUsers, selectIsFetching } from '../../redux/user/user.selectors';
-import { fetchFollowStart, fetchUserProfileStart, followStart, unfollowStart } from '../../redux/user/user.actions';
+import { fetchUserProfileStart, followStart, unfollowStart } from '../../redux/user/user.actions';
 
 import { UserInfoChild } from '../posts/post/post.styles';
 import CustomButton from '../utils/custom-button/custom-button.component';
@@ -32,9 +32,6 @@ const TendenciesQuickBox = () => {
         dispatch(unfollowStart(userId))
     }
 
-    useEffect(()=>{
-        dispatch(fetchFollowStart());
-    },[currentUser])
     return(
         <BoxContainer>
          <BoxFixedContainer>

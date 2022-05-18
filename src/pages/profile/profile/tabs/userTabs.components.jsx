@@ -52,7 +52,7 @@ const UserTabs = ({ isProfileById, setNewMessage, newMessage}) => {
             </ActionsWithUser>
             <TabSelectorContainer>
             <ButtonContainer>
-            <CustomButton isProfileTab onClick={()=> {setPostTab(true); setFollowersTab(false); setFollowingTab(false); serImagesTab(false)}}>
+            <CustomButton isProfileTab onClick={()=> {setPostTab(true); setFollowersTab(false); setFollowingTab(false); serImagesTab(false) }}>
                     POSTS
             </CustomButton>
             </ButtonContainer>

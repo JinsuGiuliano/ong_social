@@ -1,11 +1,9 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { checkUserSession, fetchFollowStart, fetchUsersStart } from './redux/user/user.actions';
+import { useDispatch } from 'react-redux';
+import { checkUserSession, fetchUsersStart } from './redux/user/user.actions';
 import Home from './pages/home/home.component';
 import ErrorBoundary from './ErrorBoundary'
 import { postFetchStart } from './redux/posts/posts.actions';
-// import { addCollectionAndDocuments } from './firebase/firebase.utils';
-// import SHOP_DATA from './redux/shop/shop.data';
 const App = () => {
 
     const dispatch = useDispatch();
@@ -13,7 +11,6 @@ const App = () => {
         dispatch(checkUserSession());
         dispatch(postFetchStart());
         dispatch(fetchUsersStart());
-        // dispatch(fetchFollowStart());
     },[])
 
     return(

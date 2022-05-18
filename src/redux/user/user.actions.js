@@ -84,6 +84,7 @@ export const fetchUsersFailure = error => ({
 });
 
 
+
 export const fetchUserPostsStart = () => ({
   type: UserActionTypes.FETCH_USER_POSTS_START
 });
@@ -166,9 +167,9 @@ export const fetchFollowFailure = error => ({
 
 
 // Save Post
-export const postSaveStart = postId => ({
+export const postSaveStart = data => ({
   type: UserActionTypes.POST_SAVE_START,
-  payload: postId
+  payload:data
 });
 
 export const postSaveSuccess = postId => ({
@@ -182,9 +183,9 @@ export const postSaveFailure = error => ({
 });
 
 // Unsave Post
-export const postUnSaveStart = postId => ({
+export const postUnSaveStart = data => ({
   type: UserActionTypes.POST_UNSAVE_START,
-  payload: postId
+  payload: data
 });
 
 export const postUnSaveSuccess = postId => ({

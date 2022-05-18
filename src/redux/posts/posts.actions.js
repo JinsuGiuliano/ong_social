@@ -96,6 +96,22 @@ export const postLikeFailure = error => ({
     payload: error
 });
 
+// retweet Post
+export const postRetweetStart = (postId,uid) => ({
+    type: PostActionTypes.POST_RETWEET_START,
+    payload: { postId, uid }
+  });
+  
+export const postRetweetSuccess = postId => ({
+    type: PostActionTypes.POST_RETWEET_SUCCESS,
+    payload: postId
+});
+
+export const postRetweetFailure = error => ({
+    type: PostActionTypes.POST_RETWEET_FAILURE,
+    payload: error
+});
+
 // dislike Post
 export const postDisLikeStart = post => ({
     type: PostActionTypes.POST_DISLIKE_START,

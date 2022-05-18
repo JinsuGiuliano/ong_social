@@ -18,8 +18,14 @@ export const selectFollowingUsers = createSelector(
 );
 
 export const selectSavedPosts = createSelector(
-  [selectUser],
-  user => user.saved
+  [selectCurrentUser],
+  currentUser => currentUser? currentUser.saved : null
+);
+
+
+export const selectSavedPostsIds = createSelector(
+  [selectCurrentUser],
+  currentUser => currentUser? currentUser.saved.map(s => s.id): null
 );
 
 export const selectSavedPostsLength = createSelector(

@@ -63,13 +63,6 @@ export const userReducer = (state = INITIAL_STATE, action) => {
         profile: payload,
         isFetching: false
       }
-    case UserActionTypes.FETCH_FOLLOW_SUCCESS:
-      return{
-        ...state,
-        following: payload,
-        isFetching: false
-      }
-  
     case UserActionTypes.FOLLOW_SUCCESS:
       return{
         ...state,
@@ -78,13 +71,13 @@ export const userReducer = (state = INITIAL_STATE, action) => {
     case UserActionTypes.POST_SAVE_SUCCESS:
       return{
         ...state,
-        saved: [...state.saved, payload],
+        currentUser:{ ...state.currentUser, saved: [...state.currentUser.saved, {...payload, retweetCount: payload.retweetCount + 1}]},
         isFetching: false
       }
     case UserActionTypes.POST_UNSAVE_SUCCESS:
       return{
         ...state,
-        saved: state.saved.filter(e => e !== payload),
+        currentUser:{ ...state.currentUser, saved: state.currentUser.saved.filter(e => e.id !== payload.id)},
         isFetching: false
       }
     case UserActionTypes.UNFOLLOW_SUCCESS:
