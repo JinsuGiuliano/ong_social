@@ -10,9 +10,11 @@ const SavedPosts = () => {
         <PostContainer>
         {
             savedList.length ?
-            savedList.map( (p, idx )=> (
+            savedList.map( (p, idx )=> {
+                console.log('saved post: ', p)
+                return(
                    <Post key={idx} data={p}/> 
-                ))
+                )})
                 :
                 <h3> There are no Saved Posts </h3>
         }

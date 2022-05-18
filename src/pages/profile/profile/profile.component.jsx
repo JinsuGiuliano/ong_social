@@ -71,7 +71,7 @@ const Profile =  () => {
             {
                 posts && 
                 posts.map( (p, idx) => (
-                        <Post key={p.id + `${idx}`} data={{...p, ...currentUser}}/> 
+                        <Post key={idx} data={{ ...p,...currentUser,uid:currentUser.id }}/> 
                         ))
             }
             {

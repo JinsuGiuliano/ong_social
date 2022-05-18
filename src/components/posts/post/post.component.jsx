@@ -42,7 +42,6 @@ const Post = ({data}) => {
     useEffect( () => {
         const unsubscribe = onSnapshot(queryPost, (querySnapshot) => {
             const d = querySnapshot.data();
-            console.log('onSnapshot: ', d)
             setPost({...post, ...d});
         });
         return unsubscribe;

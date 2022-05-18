@@ -84,7 +84,10 @@ const UserTabs = ({ isProfileById, setNewMessage, newMessage}) => {
                 <FollowTab isProfileById={isProfileById} followers={followers}/>
             </WraperFollowers>
             <WraperImages show={imagesTab}>
-                <ImagesTab images={images}/>
+            {
+                images && <ImagesTab images={images}/>                
+            }
+                
             </WraperImages>
         </Fragment>
     )

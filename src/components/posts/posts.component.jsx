@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dot, LoadingWrapper, PostContainer, PostsListContainer, SeeNewest, SeeNewestContainer } from './posts.styles';
 
@@ -9,7 +9,11 @@ import Post from './post/post.component';
 import CreatePost from './post/createPost.component';
 import Spinner from '../utils/with-spinner/with-spinner.component'
 import { postFetchNewestStart } from '../../redux/posts/posts.actions';
+import { collection, doc, limit, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { firestore } from '../../firebase/firebase.utils';
+
 const Posts =  () => {
+    
     const dispatch = useDispatch()
     const currentUser = useSelector(selectCurrentUser)
     const posts = useSelector(selectAllPosts)
@@ -28,6 +32,7 @@ const Posts =  () => {
         dispatch(postFetchNewestStart(posts.slice(-1).createdAt))
     }
 
+
     return(
         <PostContainer>
         {
@@ -41,7 +46,7 @@ const Posts =  () => {
             <PostsListContainer>
                 {
                     posts && 
-                        posts.map( (p, idx) => {
+                    posts.map( (p, idx) => {
                             console.log(p)
                             return(
                                 <Post key={idx} data={p}/> 

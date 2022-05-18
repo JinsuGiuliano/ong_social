@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import Post from "../../../../components/posts/post/post.component";
 const PostTab = ({posts, user}) => {
-
+    console.log('posts',posts)
     return(
 
         <Fragment>
@@ -9,10 +9,9 @@ const PostTab = ({posts, user}) => {
             posts &&
             posts
                 .map( (p, idx) => (
-                    <Post key={p.id + `${idx}`} data={p}/> 
+                    <Post key={idx} data={{...p, uid:user.id}}/> 
                     ))
         }
-
         </Fragment>
     )
 }

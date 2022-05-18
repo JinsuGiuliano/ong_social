@@ -55,7 +55,7 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
     const followingUserSnap = yield getDocs(followingUsersRef)
 
     yield followingUserSnap.docs.forEach(e => Following.push(e.id));
-
+yield console.log('userAuth.providerData[0].photoURL: ', userAuth.providerData[0].photoURL)
     yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data(), photo:userAuth.providerData[0].photoURL?userAuth.providerData[0].photoURL: userSnapshot.data().photo, saved:saved, following:Following }));
   } catch (error) {
     yield put(signInFailure(error));
@@ -216,7 +216,7 @@ export function* savePostAsync({ payload:data  }) {
 
 export function* unSavePostAsync({ payload:data }) {
   try {
-    const {uid, id } = data;
+    const { uid, id } = data;
     const auth = yield getCurrentUser()
     const currentUserUID = auth.uid
     const savedRef = yield doc(firestore, "saved", currentUserUID, 'postsSaved', id);
