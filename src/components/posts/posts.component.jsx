@@ -16,6 +16,7 @@ const Posts =  () => {
     const following = useSelector(selectFollowingUsers)
     const isFetching = useSelector(selectIsFetching)
     const isFetchingNewest = useSelector(selectIsFetchingNewest)
+
     posts.sort((x,y) => {
         let a = x.createdAt
         let b = y.createdAt
@@ -26,6 +27,7 @@ const Posts =  () => {
         console.log(posts.slice(-1)[0].createdAt)
         dispatch(postFetchNewestStart(posts.slice(-1).createdAt))
     }
+
     return(
         <PostContainer>
         {
@@ -39,9 +41,11 @@ const Posts =  () => {
             <PostsListContainer>
                 {
                     posts && 
-                        posts.map( (p, idx) => (
-                            <Post key={p.id + idx} data={p}/> 
-                            ))
+                        posts.map( (p, idx) => {
+                            console.log(p)
+                            return(
+                                <Post key={idx} data={p}/> 
+                            )})
                 }
             </PostsListContainer>
            
