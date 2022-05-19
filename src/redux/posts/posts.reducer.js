@@ -42,7 +42,11 @@ export const postsReducer = (state = INITIAL_STATE, action) => {
         isFetchingNewest: false,
         posts: [...state.posts, ...payload]
       }
-    case PostActionTypes.FETCH_NEWEST_POSTS_FAILURE:
+      case PostActionTypes.FETCH_NEWEST_POSTS_FAILURE:
+        return{
+          ...state,
+          isFetchingNewest: false
+        }
     case PostActionTypes.POST_FETCH_FAILURE:
     case PostActionTypes.POST_CREATE_FAILURE:
     case PostActionTypes.POST_UPDATE_FAILURE:

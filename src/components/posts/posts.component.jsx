@@ -28,7 +28,6 @@ const Posts =  () => {
     } )
     
     const RefreshNewestPosts = () => {
-        console.log(posts.slice(-1)[0].createdAt)
         dispatch(postFetchNewestStart(posts.slice(-1).createdAt))
     }
 

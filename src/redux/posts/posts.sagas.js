@@ -94,7 +94,7 @@ export function* postFetch() {
       userSnapshot.docs.map( u => UsersList.push(u.id))
       
       for(let i in UsersList){
-        const q =  yield query(collection(firestore,'posts', UsersList[i], 'userPosts'), where('createdAt','>',last), orderBy("createdAt", "desc", limit(20)))
+        const q =  yield query(collection(firestore,'posts', UsersList[i], 'userPosts'), where('createdAt','>',`${last}`), orderBy("createdAt", "desc", limit(20)))
         const postsSnapshot = yield getDocs(q);
         let postUserRef = yield doc(firestore,'users', UsersList[i]);
         let postUserSnap = yield getDoc(postUserRef);
