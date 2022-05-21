@@ -15,6 +15,7 @@ const Post = ({data}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [ post, setPost ] = useState({...data})
+    console.log('post: ', post)
     const { caption, createdAt, creation, filePath, likesCount, photo, name, email, id, uid, retweetCount } = post
 
     const savedPosts = useSelector(selectSavedPostsIds);

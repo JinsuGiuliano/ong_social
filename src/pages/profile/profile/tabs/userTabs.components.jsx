@@ -23,6 +23,8 @@ const UserTabs = ({ isProfileById, setNewMessage, newMessage}) => {
     const isFetching = useSelector(selectIsFetching);
     const currentUser = useSelector(selectCurrentUser)
     const currentUserFollowing = useSelector(selectFollowingUsers)
+console.log('profile: ', profile)
+
     const {user, posts, following, followers, images, id} =  profile && profile;
 
     const FollowUser = () =>{
@@ -75,7 +77,7 @@ const UserTabs = ({ isProfileById, setNewMessage, newMessage}) => {
         </TabSelectorContainer>
           
             <WraperPosts show={postTab}>
-                <PostTab posts={posts} user={user}/>
+                <PostTab posts={posts} user={{...user, uid: id}}/>
             </WraperPosts>
             <WraperFollowing show={followingTab}>
                 <FollowTab isProfileById={isProfileById} following={following}/>
