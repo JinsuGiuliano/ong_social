@@ -35,7 +35,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         try{
             await setDoc(userRef,{
                 name:displayName, 
-                photo: 'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png',
+                photo: userAuth.providerData[0].photoURL,
                 email, 
                 createdAt, 
                 ...additionalData
