@@ -15,8 +15,7 @@ const Post = ({data}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [ post, setPost ] = useState({...data})
-    console.log('post: ', post)
-    const { caption, createdAt, creation, filePath, likesCount, photo, name, email, id, uid, retweetCount } = post
+    const { caption, createdAt, creation, filePath, likesCount, photo, name, username, email, id, uid, retweetCount , isNGO} = post
 
     const savedPosts = useSelector(selectSavedPostsIds);
     const currentUser = useSelector(selectCurrentUser);
@@ -55,14 +54,14 @@ const Post = ({data}) => {
         <PostContentContainer>
         <PostUserInfoContainer>    
             <UserInfoChild>
-                <PostUserIcon src={ `${photo? photo:'http://www.fibeipes.com/static/images/default.jpg'}` } alt=''/>
+                <PostUserIcon src={ `${photo? photo :'http://www.fibeipes.com/static/images/default.jpg'}` } alt=''/>
             </UserInfoChild>   
             <InfoTextContainer>
                 <UserInfoChild > 
                     <UserNameContainer onClick={()=> {dispatch(fetchUserProfileStart(uid)); goToProfile(uid)}} ><strong> { name.toUpperCase() } </strong></UserNameContainer>
                 </UserInfoChild> 
                 <UserInfoChild>
-                    <p style={{fontSize:'12px',color:'gray', margin:'0' }}> { email } </p>
+                    <p style={{fontSize:'12px',color:'gray', margin:'0' }}> { `@${username} ${isNGO? '#NGO':''}` } </p>
                 </UserInfoChild> 
                
             </InfoTextContainer>     
@@ -119,7 +118,7 @@ const Post = ({data}) => {
                 <UserNameContainer to={`profile/${uid}`} onClick={()=> {dispatch(fetchUserProfileStart(uid)); goToProfile(uid)}}><strong> { name.toUpperCase() } </strong></UserNameContainer>
                 </UserInfoChild> 
                 <UserInfoChild>
-                    <p style={{fontSize:'12px',color:'gray' }}> { email } </p>
+                    <p style={{fontSize:'12px',color:'gray' }}> { `${username} ${isNGO? '#NGO': ''}` } </p>
                 </UserInfoChild> 
                
             </InfoTextContainer>     

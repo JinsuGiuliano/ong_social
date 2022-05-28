@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { connect, useSelector, useDispatch } from 'react-redux';
 
 import FormInput from '../../utils/form-input/form-input.component';
 import CustomButton from '../../utils/custom-button/custom-button.component';
@@ -8,7 +8,6 @@ import {
   googleSignInStart,
   emailSignInStart
 } from '../../../redux/user/user.actions';
-
 import {
   SignInContainer,
   SignInTitle,
@@ -16,89 +15,37 @@ import {
 } from './sign-in.styles';
 import { selectCurrentUser } from '../../../redux/user/user.selectors';
 import { createStructuredSelector } from 'reselect';
+// import { useMoralis } from "react-moralis";
+import { ConnectButton, Icon } from "web3uikit";
 
-
-class SignIn extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      email: '',
-      password: ''
-    };
-
+const SignIn = ({router}) =>  { 
+  const dispatch = useDispatch();
+  // const {Moralis, isAuthenticated, isAuthenticating, user, account, logout } = useMoralis();
+  const currentUser = useSelector(selectCurrentUser)
+  // const [wallet, setWallet] = useState(currentUser)
+  const googleSignIn =  () => dispatch(googleSignInStart())
+ 
+  if(currentUser){
+    router.navigate('/');
   }
 
- 
-  handleSubmit = async event => {
-    event.preventDefault();
-    const { emailSignInStart } = this.props;
-    const { email, password } = this.state;
-
-    emailSignInStart(email, password);
-  };
-
-  handleChange = event => {
-    const { value, name } = event.target;
-
-    this.setState({ [name]: value });
-  };
-
-  render() {
-    const { googleSignInStart, currentUser, router } = this.props;
-    if(currentUser){
-      router.navigate('/');
-    }
-    return (
+  return(
       <SignInContainer>
-        <SignInTitle>I already have an account</SignInTitle>
-        <span >Sign in with your email and password</span>
-        <form onSubmit={this.handleSubmit}>
-          <FormInput
-            name='email'
-            type='email'
-            handleChange={this.handleChange}
-            value={this.state.email}
-            label='email'
-            isSignin
-            required
-          />
-          <FormInput
-            name='password'
-            type='password'
-            value={this.state.password}
-            handleChange={this.handleChange}
-            label='password'
-            isSignin
-            required
-          />
+        <SignInTitle> I already have an account... </SignInTitle>
           <ButtonsBarContainer>
-            <CustomButton style={{borderRadius:'25px', margin:'5px 0px'}}  type='submit'> Sign in </CustomButton>
             <CustomButton
-             style={{borderRadius:'25px', margin:'5px 0px'}}
+              style={{borderRadius:'25px', margin:'5px 0px'}}
               type='button'
-              onClick={googleSignInStart}
+              onClick={() => googleSignIn()}
               isGoogleSignIn
             >
               Sign in with Google
             </CustomButton>
           </ButtonsBarContainer>
-        </form>
       </SignInContainer>
     );
   }
-}
 
-const mapDispatchToProps = dispatch => ({
-  googleSignInStart: () => dispatch(googleSignInStart()),
-  emailSignInStart: (email, password) =>
-    dispatch(emailSignInStart({ email, password }))
-});
-const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
-})
 
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SignIn));
+
+export default withRouter(SignIn);

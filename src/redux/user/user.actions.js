@@ -4,6 +4,10 @@ export const googleSignInStart = () => ({
   type: UserActionTypes.GOOGLE_SIGN_IN_START
 });
 
+export const walletSignInStart = () => ({
+  type: UserActionTypes.WALLET_SIGN_IN_START
+});
+
 export const signInSuccess = user => ({
   type: UserActionTypes.SIGN_IN_SUCCESS,
   payload: user
@@ -198,9 +202,6 @@ export const postUnSaveFailure = error => ({
   payload: error
 });
 
-
-
-
 export const fetchUserProfileStart = userId => ({
   type: UserActionTypes.FETCH_USER_PROFILE_START,
   payload: userId
@@ -215,3 +216,6 @@ export const fetchUserProfileFailure = error => ({
   type: UserActionTypes.FETCH_USER_PROFILE_FAILURE,
   payload: error
 });
+
+
+

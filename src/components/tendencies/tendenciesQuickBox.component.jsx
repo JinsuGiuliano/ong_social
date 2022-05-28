@@ -47,7 +47,7 @@ const TendenciesQuickBox = () => {
                 {
                     users && 
                     users.map( (user, idx) => {
-                            const { photo, name, email, id } = user;
+                            const { photo, name, email, id , username, isNGO} = user;
                             return(
                                 <FollowContentContainer key={idx} >
                                     <FollowUserInfoContainer>
@@ -58,7 +58,7 @@ const TendenciesQuickBox = () => {
                                     <InfoTextContainer>
                                     <UserInfoChild > 
                                         <UserNameContainer  onClick={()=> {dispatch(fetchUserProfileStart(id)); goToProfile(id)}}><strong> { name.toUpperCase() } </strong></UserNameContainer>
-                                        <p style={{fontSize:'10px',color:'gray',margin:'0px' }}>{ email} </p>
+                                        <p style={{fontSize:'10px',color:'gray',margin:'0px' }}>{ `@${username} ${isNGO?'#NGO':''}`} </p>
                                     </UserInfoChild>
                                     <UserInfoChild > 
                                     {

@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PostContainer, TopProfile, ProfileName, 
     ProfileEmail, CalendarIcon, JoinContainer,
-    ProfilePhoto, ProfileInfoContainer, UserProfileInfoContainer} from './profile.styles';
+    ProfilePhoto, ProfileInfoContainer, UserProfileInfoContainer, ProfileDescription} from './profile.styles';
 
 import { selectAllPosts } from '../../../redux/posts/posts.selectors';
 import { selectCurrentUser, selectIsFetching, selectUserPosts } from '../../../redux/user/user.selectors';
@@ -44,11 +44,10 @@ const Profile =  () => {
         <TopProfile imageUrl={currentUser.photoBg? currentUser.photoBg : ''}>
             <ProfilePhoto imageUrl={currentUser.photo}/>
             <UserProfileInfoContainer>
-                <ProfileName>{currentUser.name.toUpperCase()}</ProfileName>
+                <ProfileName>{`@${currentUser.username.toUpperCase()}`}</ProfileName>
                 <ProfileEmail>{currentUser.email}</ProfileEmail>
                 <JoinContainer>
-                    <div><CalendarIcon color='white'/></div>
-                    <div><ProfileEmail> </ProfileEmail></div>
+                    <div><ProfileDescription>{`" ${ currentUser.description} "`}</ProfileDescription></div>
                 </JoinContainer>
             </UserProfileInfoContainer>
         </TopProfile>

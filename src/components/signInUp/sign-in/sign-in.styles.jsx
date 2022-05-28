@@ -18,13 +18,16 @@ export const SignInContainer = styled.div`
     }
 `;
 
-export const SignInTitle = styled.h2`
+export const SignInTitle = styled.span`
   margin: 5px 0;
+  font-size: 30px;
+  font-weight: 100;
   color:#fff;
 `;
 
 export const ButtonsBarContainer = styled.div`
   display: flex;
   flex-direction:column;
+  padding: 10px 0px;
   justify-content: space-between;
 `;

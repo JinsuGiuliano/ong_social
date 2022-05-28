@@ -4,7 +4,8 @@ import { PostContainer, TopProfile, ProfileName, ProfileEmail,
     CalendarIcon, JoinContainer,ProfilePhoto, SendMessageButton, MessageIcon,
     SendText, 
     UserProfileInfoContainer,
-    ActionsWithUser} from './profile.styles';
+    ActionsWithUser,
+    ProfileDescription} from './profile.styles';
 
 import { selectIsFetching, selectProfilePageState } from '../../../redux/user/user.selectors';
 import Spinner from '../../../components/utils/with-spinner/with-spinner.component';
@@ -39,10 +40,10 @@ const ProfileById =  () => {
                     <TopProfile imageUrl={user.photoBg}>
                         <ProfilePhoto imageUrl={user.photo}/>
                         <UserProfileInfoContainer >
-                            <ProfileName>{user.name.toUpperCase()}</ProfileName>
+                            <ProfileName>{user.username.toUpperCase()}</ProfileName>
                             <ProfileEmail>{user.email}</ProfileEmail>
                             <JoinContainer>
-                                <div><CalendarIcon color='white'/></div>
+                            <div><ProfileDescription>{`" ${ user.description} "`}</ProfileDescription></div>
                             </JoinContainer>
                         </UserProfileInfoContainer>
                     </TopProfile>

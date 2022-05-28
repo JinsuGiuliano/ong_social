@@ -40,8 +40,6 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
 
     const savedRef = yield collection(firestore,'saved', userSnapshot.id, 'postsSaved')
     const savedSnap = yield getDocs(savedRef);
-
-    yield console.log('saved: ', savedSnap.docs)
    
     for(let i in savedSnap.docs){
       let postSavedRef = yield doc(firestore, 'posts', userSnapshot.id, 'userPosts', savedSnap.docs[i].id) 
@@ -55,7 +53,10 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
     const followingUserSnap = yield getDocs(followingUsersRef)
 
     yield followingUserSnap.docs.forEach(e => Following.push(e.id));
-yield console.log('userAuth.providerData[0].photoURL: ', userAuth.providerData[0].photoURL)
+
+    const categories = [];
+
+
     yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data(), photo:userAuth.providerData[0].photoURL?userAuth.providerData[0].photoURL: userSnapshot.data().photo, saved:saved, following:Following }));
   } catch (error) {
     yield put(signInFailure(error));
@@ -90,11 +91,23 @@ export function* signInWithGoogle() {
   try {
     const auth = getAuth()
     const { user } = yield signInWithPopup(auth,provider);
+
     yield getSnapshotFromUserAuth(user);
   } catch (error) {
     yield put(signInFailure(error));
   }
 }
+
+export function* walletSignInStart() {
+  try {
+    const auth = getAuth()
+    const { user } = yield signInWithPopup(auth,provider);
+    yield getSnapshotFromUserAuth(user);
+  } catch (error) {
+    yield put(signInFailure(error));
+  }
+}
+
 
 export function* signInWithEmail({ payload: { email, password } }) {
   try {
@@ -241,16 +254,14 @@ export function* updateUserAsync({ payload: user  }) {
     const userRef = yield doc(firestore, "users", uid );
     let nUser = user;
 
-    if ( user.files === false) {
-      // variable is undefined
-      console.log('user Updated: ',userRef )
-      yield updateDoc(userRef, user);
+    if ( user.files === false || !user.hasOwnProperty('files')) {
+
+      yield updateDoc(userRef, {...user, photo: auth.providerData[0].photoURL});
       yield put(updateUserSuccess(user));
     } 
 
 
     if ( user.files === true) {
-      console.log('userFiles is undefined: ',userRef )
 
       if( typeof user.photo === 'object' ){
         const PhotoRef = yield ref(storage, `${uid}/${user.photo.name}`);
@@ -268,7 +279,6 @@ export function* updateUserAsync({ payload: user  }) {
       }
 
       if(typeof user.photoBg === 'object' ){
-        console.log('hasta aqui hemo llegao ~~~~ BG!')
 
         const PhotoBgRef = yield ref(storage, `${uid}/${user.photoBg.name}`);
         const metadata = yield {
@@ -360,6 +370,10 @@ export function* onGoogleSignInStart() {
   yield takeLatest(UserActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle);
 }
 
+export function* onWalletSignInStart() {
+  yield takeLatest(UserActionTypes.WALLET_SIGN_IN_START, signInWithGoogle);
+}
+
 export function* onEmailSignInStart() {
   yield takeLatest(UserActionTypes.EMAIL_SIGN_IN_START, signInWithEmail);
 }
@@ -416,11 +430,13 @@ export function* onFetchUserPostsAsync() {
   yield takeLatest(UserActionTypes.FETCH_USER_POSTS_START, fetchUserPostsAsync);
 }
 
+
 export function* userSagas() {
   yield all([
     call(onGoogleSignInStart),
     call(onEmailSignInStart),
     call(onCheckUserSession),
+    call(onWalletSignInStart),
     call(onSignOutStart),
     call(onSignUpStart),
     call(onSignUpSuccess),

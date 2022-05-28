@@ -41,7 +41,14 @@ export const ProfileName = styled.span`
 export const ProfileEmail = styled.span`
     margin:5px 0;   
     font-size: 12px;
-    font-weight: normal;
+    font-weight: 400;
+    color:white;
+    text-shadow: 1px 1px 8px  #000;
+`
+export const ProfileDescription = styled.span`
+    margin:5px 0;   
+    font-size: 14px;
+    font-weight: 200;
     color:white;
     text-shadow: 1px 1px 8px  #000;
 `

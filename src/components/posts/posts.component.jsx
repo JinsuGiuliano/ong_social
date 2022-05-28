@@ -9,9 +9,6 @@ import Post from './post/post.component';
 import CreatePost from './post/createPost.component';
 import Spinner from '../utils/with-spinner/with-spinner.component'
 import { postFetchNewestStart } from '../../redux/posts/posts.actions';
-import { collection, doc, limit, onSnapshot, orderBy, query } from 'firebase/firestore';
-import { firestore } from '../../firebase/firebase.utils';
-
 const Posts =  () => {
     
     const dispatch = useDispatch()
@@ -46,7 +43,6 @@ const Posts =  () => {
                 {
                     posts && 
                     posts.map( (p, idx) => {
-                            console.log(p)
                             return(
                                 <Post key={idx} data={p}/> 
                             )})
