@@ -14,13 +14,20 @@ import ChatScreen from '../messages/chat/chatScreen.component';
 import NewUserForm from '../../components/forms/newUserForm.component'
 
 import { useSelector } from 'react-redux';
-import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { selectCurrentUser, selectIsFetching } from '../../redux/user/user.selectors';
+import Loader from '../../components/utils/loader/loader.component';
+import { selectIsFetchingNewest } from '../../redux/posts/posts.selectors';
 
 const Home = () => {
 
     const currentUser = useSelector(selectCurrentUser)
-
+    const isFetchingUser = useSelector(selectIsFetching)
     return(
+        <Fragment>
+        {
+            isFetchingUser ?
+                <Loader/>
+            :
         <HomeMainContainer >
            <MobileMenu/>
             <HomeContainer>
@@ -43,6 +50,9 @@ const Home = () => {
                 <NewUserForm/>
             }
         </HomeMainContainer>
+
+        }
+        </Fragment>
     )
 }
 

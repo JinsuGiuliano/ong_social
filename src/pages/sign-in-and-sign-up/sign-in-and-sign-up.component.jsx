@@ -12,22 +12,7 @@ const [singUp, setSignUp] = useState(false);
 
 return(  
   <SignInAndSignUpContainer>
-    <TabSelectorContainer>
-      <div>
-        <CustomButton isPost onClick={()=> {setSignUp(!singUp); setSignIn(!singIn)}}>
-              SignUp
-        </CustomButton>
-      </div>
-      <div>
-        <CustomButton isPost onClick={()=> {setSignUp(!singUp); setSignIn(!singIn)}}>
-                SignIn
-        </CustomButton>
-      </div>
-    </TabSelectorContainer>
-      <FormWraperSignUp show={singUp}>
-        <SignUp   />
-      </FormWraperSignUp>
-      <FormWraperSignIn  show={singIn}>
+      <FormWraperSignIn  show={true}>
         <SignIn   />
       </FormWraperSignIn>
   </SignInAndSignUpContainer>)
