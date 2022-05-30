@@ -254,14 +254,14 @@ export function* updateUserAsync({ payload: user  }) {
     const userRef = yield doc(firestore, "users", uid );
     let nUser = user;
 
-    if ( user.files === false || !user.hasOwnProperty('files')) {
+    if ( !user.hasOwnProperty('files')) {
 
       yield updateDoc(userRef, {...user, photo: auth.providerData[0].photoURL});
       yield put(updateUserSuccess(user));
     } 
 
 
-    if ( user.files === true) {
+    if ( user.hasOwnProperty('files')) {
 
       if( typeof user.photo === 'object' ){
         const PhotoRef = yield ref(storage, `${uid}/${user.photo.name}`);

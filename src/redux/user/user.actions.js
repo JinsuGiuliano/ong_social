@@ -168,6 +168,10 @@ export const fetchFollowFailure = error => ({
   payload: error
 });
 
+export const postCreateSuccess = post => ({
+  type: UserActionTypes.POST_CREATE_SUCCESS,
+  payload: post
+});
 
 
 // Save Post

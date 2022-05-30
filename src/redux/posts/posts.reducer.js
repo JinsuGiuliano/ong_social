@@ -4,7 +4,8 @@ const INITIAL_STATE = {
   posts: [],
   isFetching: false,
   isFetchingNewest: false,
-  errorMessage: undefined
+  errorMessage: undefined,
+  infoMessage: undefined
 };
 
 // const UpdateItem = (keyValue, newKey, newValue) =>
@@ -25,6 +26,7 @@ export const postsReducer = (state = INITIAL_STATE, action) => {
         isFetching: true
       };
     case PostActionTypes.FETCH_NEWEST_POSTS_START:
+     
         return {
           ...state,
           isFetchingNewest: true
@@ -37,11 +39,22 @@ export const postsReducer = (state = INITIAL_STATE, action) => {
         posts: payload
       };
     case PostActionTypes.FETCH_NEWEST_POSTS_SUCCESS:
-      return {
-        ...state,
-        isFetchingNewest: false,
-        posts: [...state.posts, ...payload]
-      }
+      switch(true){
+        case payload.length > 0:
+          return {
+                  ...state,
+                  isFetchingNewest: false,
+                  posts: [...payload, ...state.posts]
+                }
+        case payload.length === 0:
+          return { 
+                ...state,
+                isFetchingNewest: false,
+                infoMessage: "There're no new posts :("
+              }
+          default: return {...state}
+        }
+
       case PostActionTypes.FETCH_NEWEST_POSTS_FAILURE:
         return{
           ...state,
@@ -59,8 +72,7 @@ export const postsReducer = (state = INITIAL_STATE, action) => {
     case PostActionTypes.POST_CREATE_SUCCESS:
          return {
           ...state,
-          posts: [...state.posts, payload],
-          isFetching: false,
+          isFetching: false
         };
       
     case PostActionTypes.POST_UPDATE_SUCCESS:
@@ -75,6 +87,11 @@ export const postsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         posts: state.posts.map(e => e.id === payload? {...e, likesCount: e.likesCount + 1} : e)
       }
+      case PostActionTypes.RESET_MESSAGE:
+        return{
+          ...state,
+          infoMessage: undefined
+        }
     default:
       return {...state};
   }

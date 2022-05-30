@@ -3,7 +3,7 @@ import { takeLatest, put, all, call } from 'redux-saga/effects';
 import PostActionTypes from './posts.types'
 import { 
     postFetchSuccess, postFetchFailure,
-    postCreateSuccess,  postCreateFailure, 
+    postCreateFailure, postCreateSuccess as postCreateSuccessPost,
     postUpdateSuccess,  postUpdateFailure, 
     postDeleteSuccess,  postDeleteFailure,
     postLikeSuccess, postLikeFailure,
@@ -11,6 +11,8 @@ import {
     postFetchNewestSuccess, postFetchNewestFailure,
     postRetweetSuccess, postRetweetFailure
 } from './posts.actions'
+
+import { postCreateSuccess } from '../user/user.actions';
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 import { getDoc, collection, getDocs, doc, setDoc, addDoc, updateDoc, increment, query, where, orderBy, limit, collectionGroup } from "firebase/firestore";
@@ -20,42 +22,27 @@ import {
 
 export function* postFetch() {
     try {
-      const auth = yield getCurrentUser()
-      let allPosts = [];
-    //   if(auth){ 
-    //   const uid = auth.uid
-    //   const userRef = yield collection(firestore,'following', uid, 'userFollowing')
-    //   const userSnapshot = yield getDocs(userRef);
-      
-    //   for( let d in userSnapshot.docs){
-    //     let userPostsRef = yield collection(firestore,'posts', userSnapshot.docs[d].id, 'userPosts');
-    //     let userPostsSnap = yield getDocs(userPostsRef);
-    //     let postUserRef = yield doc(firestore,'users', userSnapshot.docs[d].id);
-    //     let postUserSnap = yield getDoc(postUserRef);
-    //     userPostsSnap.docs.map(p => allPosts.push({
-    //       ...p.data(), 
-    //       ...postUserSnap.data(),
-    //       createdAt:p.data().createdAt,
-    //       id: p.id, 
-    //       uid: userSnapshot.docs[d].id
-    //     }))
         
-    //   }
-    // }else{
-      const qUsers = yield query(collection(firestore,'users'),  orderBy("createdAt", "desc", limit(15)))
-      const userSnapshot = yield getDocs(qUsers);
-      const UsersList = []
-      userSnapshot.docs.map( u => UsersList.push(u.id))
-      for(let i in UsersList){
-        const q =  yield query(collection(firestore,'posts', UsersList[i], 'userPosts'), orderBy("createdAt", "desc", limit(20)))
+        let allPosts = [];
+
+        const q =  yield query(collectionGroup(firestore,'userPosts'), orderBy("createdAt", "desc", limit(20)))
         const postsSnapshot = yield getDocs(q);
-        let postUserRef = yield doc(firestore,'users', UsersList[i]);
-        let postUserSnap = yield getDoc(postUserRef);
-        postsSnapshot.docs.forEach( p => {
-          return(allPosts.push({...p.data(),...postUserSnap.data(), createdAt:p.data().createdAt, id:p.id, uid:postUserSnap.id}))})
+
+        if(postsSnapshot.docs.length > 0){
+
+          for(var i in postsSnapshot.docs){
+            let p = postsSnapshot.docs[i]; 
+            const qUser = yield doc(firestore,'users', p.data().createdBy)
+            const userSnapshot = yield getDoc(qUser);
+            let user = {...userSnapshot.data(), id:userSnapshot.id }
+
+            allPosts.push({...p.data(),...user, createdAt:p.data().createdAt, id:p.id, uid:user.id}
+          )
+
+        }
+      }else{
+        yield console.log('NO HAY NUEVOS POSTS!')
       }
-      
-    // }
       yield put(postFetchSuccess(allPosts));
     } catch (error) {
       yield put(postFetchFailure(error));
@@ -66,53 +53,29 @@ export function* postFetch() {
 
   export function* postFetchNewest({payload:last}) {
     try {
-      const auth = yield getCurrentUser()
-      let allPosts = [];
-    //   if(auth){ 
-    //   const uid = auth.uid
-    //   const userRef = yield collection(firestore,'posts')
-    //   const userSnapshot = yield getDocs(userRef);
-      
-    //   for( let d in userSnapshot.docs){
-    //     let userPostsRef = yield query(collection(firestore,'posts', userSnapshot.docs[d].id, 'userPosts'), where('createdAt','>',last))
-    //     let userPostsSnap = yield getDocs(userPostsRef);
-    //     let postUserRef = yield doc(firestore,'users', userSnapshot.docs[d].id);
-    //     let postUserSnap = yield getDoc(postUserRef);
-    //     userPostsSnap.docs.map(p => allPosts.push({
-    //       ...p.data(), 
-    //       ...postUserSnap.data(),
-    //       createdAt:p.data().createdAt,
-    //       id: p.id, 
-    //       uid: userSnapshot.docs[d].id
-    //     }))
-        
-    //   }
-    // }else{
-      const qUsers = yield query(collection(firestore,'users'),  orderBy("createdAt", "desc", limit(15)))
-      const userSnapshot = yield getDocs(qUsers);
-      const UsersList = []
-      userSnapshot.docs.map( u => UsersList.push(u.id))
-      
-      for(let i in UsersList){
-        const q =  yield query(collection(firestore,'posts', UsersList[i], 'userPosts'), where('createdAt','>',`${last}`), orderBy("createdAt", "desc", limit(20)))
-        const postsSnapshot = yield getDocs(q);
-        let postUserRef = yield doc(firestore,'users', UsersList[i]);
-        let postUserSnap = yield getDoc(postUserRef);
+     
+        let allPosts = [];
 
-        postsSnapshot.docs.forEach( p => {
-          return(allPosts.push(
-                          {
-                            ...p.data(),
-                            ...postUserSnap.data(), 
-                            createdAt:p.data().createdAt, 
-                            id:p.id, 
-                            uid:postUserSnap.id
-                          })
+        const colGroupRef = collectionGroup(firestore,'userPosts')
+        const q =  yield query(colGroupRef,where("createdAt", ">", last),orderBy("createdAt", "desc"), limit(10))
+        const postsSnapshot = yield getDocs(q);
+
+        if(postsSnapshot.docs.length > 0){ 
+          for(var i in postsSnapshot.docs){
+            let p = postsSnapshot.docs[i]; 
+            const qUser = yield doc(firestore,'users', p.data().createdBy)
+            const userSnapshot = yield getDoc(qUser);
+            let user = {...userSnapshot.data(), id:userSnapshot.id }
+
+            allPosts.push({...p.data(),...user, createdAt:p.data().createdAt, id:p.id, uid:user.id}
           )
-        })
-      }
+
+          }
+        }else{
+          yield console.log('There are no new Posts', allPosts)
+        }
+
       
-    // }
       yield put(postFetchNewestSuccess(allPosts));
     } catch (error) {
       yield put(postFetchNewestFailure(error));
@@ -124,30 +87,45 @@ export function* postCreate({payload:{post, user}}) {
    
     const newPostRef = yield collection(firestore, "posts", user.id, 'userPosts');
     const postSnap = yield addDoc(newPostRef, {...post, file:1});
-    const storage = yield getStorage();
-    const fileRef = yield ref(storage, `files/${postSnap.id}`);
-    
-    const metadata = yield {
-      contentType: post.file.type,
-    };
 
-    yield post.file && uploadBytes(fileRef, post.file, metadata).then((snapshot) => {
-      console.log('Uploaded a blob or file!', snapshot.ref);
-    });
-    const downloadURL = yield getDownloadURL(fileRef)
-
-    yield setDoc(postSnap, {...post, file:1, filePath:downloadURL})
+   if(post.file !== null){ 
+     const storage = yield getStorage();
+     const fileRef = yield ref(storage, `files/${postSnap.id}`);
     
-    yield put(postCreateSuccess(
-      {
-        ...post,
-        ...user,
-        createdAt:post.createdAt,
-        filePath:downloadURL,
-        uid: user.id,
-        id:postSnap.id
-      }
-    ));
+      const metadata = yield {
+        contentType: post.file.type,
+      };
+
+      yield post.file && uploadBytes(fileRef, post.file, metadata).then((snapshot) => {
+        console.log('Uploaded a blob or file!', snapshot.ref);
+      });
+      const downloadURL = yield getDownloadURL(fileRef)
+
+      yield setDoc(postSnap, {...post, file:1, filePath:downloadURL})
+      yield put(postCreateSuccess(
+        {
+          ...post,
+          ...user,
+          createdAt:post.createdAt,
+          filePath:downloadURL,
+          uid: user.id,
+          id:postSnap.id
+        }
+      ));
+     
+    }else{
+      yield setDoc(postSnap, {...post})
+      yield put(postCreateSuccess(
+        {
+          ...post,
+          ...user,
+          createdAt:post.createdAt,
+          uid: user.id,
+          id:postSnap.id
+        }
+      ));
+    }
+    yield put(postCreateSuccessPost())
   } catch (error) {
     yield put(postCreateFailure(error));
   }

@@ -97,6 +97,11 @@ export const userReducer = (state = INITIAL_STATE, action) => {
         isFetching: false,
         posts: payload
       }
+    case UserActionTypes.POST_CREATE_SUCCESS:
+      return{
+        ...state,
+        posts: [...state.posts, payload ]
+      }
     case UserActionTypes.FETCH_USER_POSTS_FAILURE:
     case UserActionTypes.FETCH_USER_PROFILE_FAILURE:
     case UserActionTypes.UPDATE_USER_FAILURE:

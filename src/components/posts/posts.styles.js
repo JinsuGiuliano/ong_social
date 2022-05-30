@@ -12,7 +12,7 @@ export const PostContainer = styled.div`
 `
 export const PostsListContainer = styled.div`
     height: 800px;
-    padding-top:100px;
+    padding:100px 0px;
     overflow-y:auto;
 `
 
@@ -40,7 +40,7 @@ const loadingNewest = props =>{
 }
 
 export const SeeNewest = styled.div`
-    width: 20%;
+    width: auto;
     height:20px;
     background-image: -webkit-linear-gradient(67deg,#4285f4, #4842f4 );
     position:fixed;

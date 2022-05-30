@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, getDoc, doc, setDoc, collection, addDoc } from "firebase/firestore";
+import { getFirestore, getDoc, doc, setDoc, collection, addDoc, getDocs, collectionGroup, query, where, orderBy, limit } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 
@@ -57,6 +57,37 @@ export const getCurrentUser = () => {
 };
 //export const signOuts = () => signOut(auth);
 export const signInWithGoogle = () => signInWithPopup(auth, provider);
+
+// export const postFetchNewest = async(last) => {
+//   try {
+   
+//       let allPosts = [];
+
+//       const colGroupRef = collectionGroup(firestore,'userPosts')
+//       const q =  await query(colGroupRef,where("createdAt", ">", last),orderBy("createdAt", "desc"), limit(10))
+//       const postsSnapshot = await getDocs(q);
+
+//       if(postsSnapshot.docs.length > 0){ 
+//         for(var i in postsSnapshot.docs){
+//           let p = postsSnapshot.docs[i]; 
+//           const qUser = doc(firestore,'users', p.data().createdBy)
+//           const userSnapshot = await getDoc(qUser);
+//           let user = {...userSnapshot.data(), id:userSnapshot.id }
+
+//           allPosts.push({...p.data(),...user, createdAt:p.data().createdAt, id:p.id, uid:user.id}
+//         )
+
+//         }
+//       }else{
+//          console.log('There are no new Posts', allPosts)
+//       }
+
+    
+//     return allPosts;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
 
 export default app;

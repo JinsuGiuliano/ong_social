@@ -127,3 +127,9 @@ export const postDisLikeFailure = error => ({
     type: PostActionTypes.POST_DISLIKE_FAILURE,
     payload: error
 });
+
+
+export const resetMessage = post => ({
+    type: PostActionTypes.RESET_MESSAGE,
+    payload: post
+});
