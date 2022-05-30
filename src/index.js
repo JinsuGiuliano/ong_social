@@ -8,7 +8,6 @@ import App from './App';
 import './index.css';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
-import { MoralisProvider } from "react-moralis";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -18,9 +17,7 @@ root.render(
   <Provider store={store}>
     <PersistGate persistor={persistor}>
       <BrowserRouter>
-        <MoralisProvider serverUrl="https://0gvnrquynji0.usemoralis.com:2053/server" appId="F82fxsa5HvU7sABpJtu4tjLgeG3adNMUMAGkwa78">
           <App />
-        </MoralisProvider>
       </BrowserRouter>
     </PersistGate>
   </Provider>

@@ -22,9 +22,11 @@ const Posts =  () => {
     const isFetchingNewest = useSelector(selectIsFetchingNewest)
 //posts.at(0).createdAt
     const RefreshNewestPosts = async() => {
-       dispatch(postFetchStart())
+       dispatch(postFetchNewestStart(posts.at(-1).createdAt))
     }
       
+   
+
     return(
         <PostContainer>
 

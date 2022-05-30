@@ -25,7 +25,7 @@ export function* postFetch() {
         
         let allPosts = [];
 
-        const q =  yield query(collectionGroup(firestore,'userPosts'), orderBy("createdAt", "desc", limit(20)))
+        const q =  yield query(collectionGroup(firestore,'userPosts'), orderBy("createdAt", "desc"), limit(20))
         const postsSnapshot = yield getDocs(q);
 
         if(postsSnapshot.docs.length > 0){

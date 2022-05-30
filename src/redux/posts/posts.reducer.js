@@ -41,10 +41,10 @@ export const postsReducer = (state = INITIAL_STATE, action) => {
     case PostActionTypes.FETCH_NEWEST_POSTS_SUCCESS:
       switch(true){
         case payload.length > 0:
+          payload.map(p => state.posts.push(p))
           return {
                   ...state,
-                  isFetchingNewest: false,
-                  posts: [...payload, ...state.posts]
+                  isFetchingNewest: false
                 }
         case payload.length === 0:
           return { 

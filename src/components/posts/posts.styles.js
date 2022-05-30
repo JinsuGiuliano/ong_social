@@ -12,7 +12,7 @@ export const PostContainer = styled.div`
 `
 export const PostsListContainer = styled.div`
     height: 800px;
-    padding:100px 0px;
+    padding-top:100px;
     overflow-y:auto;
 `
 

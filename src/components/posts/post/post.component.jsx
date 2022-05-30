@@ -98,7 +98,7 @@ const Post = ({data}) => {
                 <div><ShareIcon color='#75ae2b'/></div>
             </PostActionsContainer>
             <UserInfoChild>
-            <p style={{fontSize:'11px',color:'#e1e0e0' }}> post created at { createdAt? new Date(createdAt*1000).toDateString() : new Date(creation*1000).toDateString() } </p>
+            <p style={{fontSize:'11px',color:'#e1e0e0' }}> post created at { new Date(createdAt*1000).toDateString() } </p>
         </UserInfoChild> 
         </div>
     </PostContentContainer>
