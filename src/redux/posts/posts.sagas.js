@@ -27,11 +27,13 @@ export function* postFetch() {
 
         const q =  yield query(collectionGroup(firestore,'userPosts'), orderBy("createdAt", "desc"), limit(20))
         const postsSnapshot = yield getDocs(q);
+        yield console.log('postsSnapshot: ', postsSnapshot.docs)
 
         if(postsSnapshot.docs.length > 0){
 
           for(var i in postsSnapshot.docs){
             let p = postsSnapshot.docs[i]; 
+            yield console.log('post: ', p)
             const qUser = yield doc(firestore,'users', p.data().createdBy)
             const userSnapshot = yield getDoc(qUser);
             let user = {...userSnapshot.data(), id:userSnapshot.id }
@@ -101,12 +103,13 @@ export function* postCreate({payload:{post, user}}) {
       });
       const downloadURL = yield getDownloadURL(fileRef)
 
-      yield setDoc(postSnap, {...post, file:1, filePath:downloadURL})
+      yield setDoc(postSnap, {...post, createdBy:user.id, file:1, filePath:downloadURL})
       yield put(postCreateSuccess(
         {
           ...post,
           ...user,
           createdAt:post.createdAt,
+          createdBy: user.id,
           filePath:downloadURL,
           uid: user.id,
           id:postSnap.id
