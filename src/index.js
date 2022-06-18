@@ -1,5 +1,5 @@
 import React from 'react';
-import { createRoot } from "react-dom/client";
+import ReactDOM from "react-dom/client";
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -10,10 +10,9 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
 const rootElement = document.getElementById("root");
-const root = createRoot(rootElement);
+const root = ReactDOM.createRoot(rootElement);
 
 root.render(
- 
   <Provider store={store}>
     <PersistGate persistor={persistor}>
       <BrowserRouter>
@@ -21,7 +20,6 @@ root.render(
       </BrowserRouter>
     </PersistGate>
   </Provider>
-
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -11,3 +11,11 @@ export const rootReducer = combineReducers({
   search: searchReducer,
   messages: messagesReducer
 });
+
+
+export const testRootReducer = {
+  user: userReducer,
+  posts: postsReducer,
+  search: searchReducer,
+  messages: messagesReducer
+};
