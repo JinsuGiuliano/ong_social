@@ -40,7 +40,8 @@ const SignIn = ({router}) =>  {
       <SignInContainer>
         <SignInTitle> I already have an account... </SignInTitle>
           <ButtonsBarContainer>
-            <CustomButton
+              <CustomButton
+              className='google-signin'
               style={{borderRadius:'25px', margin:'5px 0px'}}
               type='button'
               onClick={() => googleSignIn()}
