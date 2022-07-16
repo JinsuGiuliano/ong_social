@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   PostContainer,
@@ -17,19 +17,32 @@ import {
 } from "./profile.styles";
 
 import {
+  selectCurrentUser,
   selectIsFetching,
   selectProfilePageState,
 } from "../../../redux/user/user.selectors";
 import Spinner from "../../../components/utils/with-spinner/with-spinner.component";
 import UserTabs from "./tabs/userTabs.components";
 import NewMessageForm from "../../../components/messages/newMessage/newMessage.component";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const ProfileById = () => {
   const [newMessage, setNewMessage] = useState(false);
   const profile = useSelector(selectProfilePageState);
   const isFetching = useSelector(selectIsFetching);
   const { user, id } = profile && profile;
+  const CurrentUser = useSelector(selectCurrentUser);
+  console.log("Profile By Id: ", CurrentUser);
+  const pathID = useLocation().pathname.split("/", 3)[2];
+  console.log("PAthID: ", pathID);
+  const shouldRedirect = pathID === CurrentUser.id;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (shouldRedirect) {
+      navigate("/profile");
+    }
+  });
 
   return (
     <Fragment>
